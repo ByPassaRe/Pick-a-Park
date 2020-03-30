@@ -60,7 +60,14 @@ UserSchema = mongoose.Schema(
 UserSchema.pre('save', async function(next) {
 	if (!this.isModified('password')) {
 		next();
-	}
+  }
+
+  if (this.password.length < 8) {
+    var err = new mongoose.Error.ValidationError(null);
+    err.addError('password', new mongoose.Error.ValidatorError({ message: 'invalid', path: 'password', value: 'value' })); 
+    throw err;
+  }
+
 	this.password = await argon2.hash(this.password);
 });
 
