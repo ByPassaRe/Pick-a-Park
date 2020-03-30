@@ -1,9 +1,8 @@
-module.exports = app => {
-      
-    const parkingSpots = require("../controllers/parkingSpot.js");
-    var router = require("express").Router();
-    router.post("/", parkingSpots.create);
+const parkingSpots = require("../controllers/parkingSpot.js");
+const router = require("express").Router();
 
-  
-    app.use("/", router);
+router.post("/", parkingSpots.create);
+
+module.exports = app => {        
+    app.use("/parkingSpots", router);
 };
