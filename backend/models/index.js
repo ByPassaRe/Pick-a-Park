@@ -5,7 +5,7 @@ const db = {};
 db.mongoose = mongoose;
 db.url = "mongodb://localhost:27017/test";
 
-db.users = require("./user.model.js")(mongoose);
+db.users = require("./user.js")(mongoose);
 
 
 
