@@ -32,14 +32,6 @@ const exampleInvalidParkingSpot = {
     available: false
 };
 
-const exampleTrueAvailableParkingSpot = {
-    location: {
-        latitude: 45.464203,
-        longitude: 9.189982,
-    },
-    available: true
-}
-
 describe('Parking Spot ', () => {
 
     it('is created when valid', async () => {
@@ -68,7 +60,9 @@ describe('Parking Spot ', () => {
     });
 
     it('should set available to false on creation', async () => {
-        const createdParkingSpot = await parkingSpotModel.create(exampleTrueAvailableParkingSpot);
+        const availableTrueParkingSpot = {...exampleValidParkingSpot, available: true};
+        
+        const createdParkingSpot = await parkingSpotModel.create(availableTrueParkingSpot);
         expect(createdParkingSpot.available).toBe(false);
     });
 
