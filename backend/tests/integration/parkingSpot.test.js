@@ -14,6 +14,12 @@ const exampleValidParkingSpot = {
     available: false
 };
 
+const exampleBadCoordinatesParkingSpot = {
+    latitude: 210.5,
+    longitude: 9.189982,
+    available: false
+};
+
 const exampleInvalidParkingSpot = {
     latitude: "Invalid",
     longitude: 9.189982,
@@ -30,6 +36,12 @@ describe('Parking Spot ', () => {
 
     it('rejects on Invalid model', async () => {
         await expect(parkingSpotModel.create(exampleInvalidParkingSpot))
+            .rejects
+            .toThrow(mongoose.Error.ValidationError);
+    });
+
+    it('rejects on Invalid Coordinates', async () => {
+        await expect(parkingSpotModel.create(exampleBadCoordinatesParkingSpot))
             .rejects
             .toThrow(mongoose.Error.ValidationError);
     });
