@@ -32,6 +32,14 @@ const exampleInvalidParkingSpot = {
     available: false
 };
 
+const exampleTrueAvailableParkingSpot = {
+    location: {
+        latitude: 45.464203,
+        longitude: 9.189982,
+    },
+    available: true
+}
+
 describe('Parking Spot ', () => {
 
     it('is created when valid', async () => {
@@ -50,6 +58,11 @@ describe('Parking Spot ', () => {
         await expect(parkingSpotModel.create(exampleBadCoordinatesParkingSpot))
             .rejects
             .toThrow(mongoose.Error.ValidationError);
+    });
+
+    it('should set available to false on creation', async () => {
+        const createdParkingSpot = await parkingSpotModel.create(exampleTrueAvailableParkingSpot);
+        expect(createdParkingSpot.available).toBe(false);
     });
 
 });
