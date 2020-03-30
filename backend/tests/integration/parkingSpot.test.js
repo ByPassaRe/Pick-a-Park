@@ -9,20 +9,26 @@ afterAll(async () => await dbHandler.closeDatabase());
 afterEach(async () => await dbHandler.clearDatabase());
 
 const exampleValidParkingSpot = {
-    latitude: 45.464203,
-    longitude: 9.189982,
+    location: {
+        latitude: 45.464203,
+        longitude: 9.189982,
+    },
     available: false
 };
 
 const exampleBadCoordinatesParkingSpot = {
-    latitude: 210.5,
-    longitude: 9.189982,
+    location: {
+        latitude: 210.5,
+        longitude: 9.189982,
+    },
     available: false
 };
 
 const exampleInvalidParkingSpot = {
-    latitude: "Invalid",
-    longitude: 9.189982,
+    location: {
+        latitude: "Invalid",
+        longitude: 9.189982,
+    },
     available: false
 };
 
