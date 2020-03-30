@@ -54,6 +54,13 @@ describe('Parking Spot ', () => {
             .toThrow(mongoose.Error.ValidationError);
     });
 
+    it('rejects when there are no coordinates', async () => {
+        const parking = {};
+        await expect(parkingSpotModel.create(parking))
+            .rejects
+            .toThrow(mongoose.Error.ValidationError);
+    });
+
     it('rejects on Invalid Coordinates', async () => {
         await expect(parkingSpotModel.create(exampleBadCoordinatesParkingSpot))
             .rejects
