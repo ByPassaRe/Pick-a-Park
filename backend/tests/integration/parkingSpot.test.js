@@ -19,6 +19,7 @@ describe('Parking Spot ', () => {
 
     it('is created when valid', async () => {
         expect(async () => await parkingSpotModel.create(exampleValidParkingSpot))
+            .not
             .toThrow();
     });
 
