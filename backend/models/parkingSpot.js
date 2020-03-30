@@ -1,17 +1,18 @@
-module.exports = mongoose => {
-    const ParkingSpotSchema = mongoose.Schema({
-        location: {
-            latitude: {type:Number, min: -90, max: 90, required: true},
-            longitude: {type:Number, min: -180, max: 180, required: true},
-        },
-        available: {type: Boolean, default: false}
-    });
+const mongoose = require('mongoose');
 
-    ParkingSpotSchema.pre('save', async function() {
-        this.available = false;
-    });
 
-    const ParkingSpot = mongoose.model('ParkingSpot', ParkingSpotSchema);
+const ParkingSpotSchema = new mongoose.Schema({
+    location: {
+        latitude: {type:Number, min: -90, max: 90, required: true},
+        longitude: {type:Number, min: -180, max: 180, required: true},
+    },
+    available: {type: Boolean, default: false}
+});
 
-    return ParkingSpot;
-}
+ParkingSpotSchema.pre('save', async function() {
+    this.available = false;
+});
+
+const ParkingSpot = mongoose.model('ParkingSpot', ParkingSpotSchema);
+
+module.exports = ParkingSpot;
