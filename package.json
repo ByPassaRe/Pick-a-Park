@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/ByPassaRe/Pick-a-Park#readme",
   "dependencies": {
-    "mongoose": "^5.9.6"
+    "mongoose": "^5.9.6",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "jest": "^25.2.4",
