@@ -1,6 +1,7 @@
-module.exports = (app) => {
+const parkingSpotsRoute = require('./parkingSpot');
+const usersRoute = require('./user');
 
-require("./user")(app);
-require("./parkingSpot")(app);
-
+module.exports.attachToApp = (app) => {
+    app.use('/users', usersRoute);
+    app.use('/parkingSpots', parkingSpotsRoute);
 }

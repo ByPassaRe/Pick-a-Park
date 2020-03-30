@@ -5,13 +5,14 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const db = require('./dbHandler');
+const routes = require('./routes');
 
 dbUrl = process.env.DBURI || "mongodb://localhost:27017/test";
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-require('./routes')(app);
+routes.attachToApp(app);
 
 db.connect(dbUrl).then(() => {
     console.log("Connected to the database!");
