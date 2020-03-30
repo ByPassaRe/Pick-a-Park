@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const ParkingSpotSchema = new mongoose.Schema({
     location: {
         latitude: {type:Number, min: -90, max: 90, required: true},
