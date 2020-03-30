@@ -11,8 +11,7 @@ dbUrl = process.env.DBURI || "mongodb://localhost:27017/test";
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-require("./routes/user")(app);
-require("./routes/parkingSpot")(app);
+require('./routes')(app);
 
 db.connect(dbUrl).then(() => {
     console.log("Connected to the database!");
