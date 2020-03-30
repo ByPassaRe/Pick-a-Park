@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
 const dbHandler = require('./utils/dbHandler');
-const parkingSpotModel = require('./../../models/parkingSpot');
+let parkingSpot;
+let db;
 
-beforeAll(async () => await dbHandler.connect());
-afterAll(async () => await dbHandler.closeDatabase());
+beforeAll(async () => {
+    db = await dbHandler.connect();
+    parkingSpot = require('./../../models/parkingSpot')(db);
+});
 
-afterEach(async () => await dbHandler.clearDatabase());
+afterAll(async () => await dbHandler.closeDatabase(db));
+
+afterEach(async () => await dbHandler.clearDatabase(db));
 
 const exampleValidParkingSpot = {
     location: {
@@ -35,26 +40,26 @@ const exampleInvalidParkingSpot = {
 describe('Parking Spot ', () => {
 
     it('is created when valid', async () => {
-        expect(async () => await parkingSpotModel.create(exampleValidParkingSpot))
+        expect(async () => await parkingSpot.create(exampleValidParkingSpot))
             .not
             .toThrow();
     });
 
     it('rejects on Invalid model', async () => {
-        await expect(parkingSpotModel.create(exampleInvalidParkingSpot))
+        await expect(parkingSpot.create(exampleInvalidParkingSpot))
             .rejects
             .toThrow(mongoose.Error.ValidationError);
     });
 
     it('rejects when there are no coordinates', async () => {
-        const parking = {};
-        await expect(parkingSpotModel.create(parking))
+        const parkingWithoutLocation = {};
+        await expect(parkingSpot.create(parkingWithoutLocation))
             .rejects
             .toThrow(mongoose.Error.ValidationError);
     });
 
     it('rejects on Invalid Coordinates', async () => {
-        await expect(parkingSpotModel.create(exampleBadCoordinatesParkingSpot))
+        await expect(parkingSpot.create(exampleBadCoordinatesParkingSpot))
             .rejects
             .toThrow(mongoose.Error.ValidationError);
     });
@@ -62,7 +67,7 @@ describe('Parking Spot ', () => {
     it('should set available to false on creation', async () => {
         const availableTrueParkingSpot = {...exampleValidParkingSpot, available: true};
         
-        const createdParkingSpot = await parkingSpotModel.create(availableTrueParkingSpot);
+        const createdParkingSpot = await parkingSpot.create(availableTrueParkingSpot);
         expect(createdParkingSpot.available).toBe(false);
     });
 

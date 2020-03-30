@@ -15,16 +15,16 @@ module.exports.connect = async () => {
         reconnectInterval: 1000
     };
 
-    await mongoose.connect(uri, mongooseOpts);
+    return await mongoose.connect(uri, mongooseOpts);
 }
 
-module.exports.closeDatabase = async () => {
+module.exports.closeDatabase = async (mongoose) => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
     await mongod.stop();
 }
 
-module.exports.clearDatabase = async () => {
+module.exports.clearDatabase = async (mongoose) => {
     const collections = mongoose.connection.collections;
 
     for (const key in collections) {
