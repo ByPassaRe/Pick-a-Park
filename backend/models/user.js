@@ -1,15 +1,16 @@
+const mongoose = require('mongoose');
+
+//Immutable array
 const rolesArray = [
   "DRIVER", 
   "MUNICIPALITY_EMPLOYEE", 
   "MUNICIPALITY_POLICE", 
   "PARKING_COMPANY"
 ];
-
 Object.freeze(rolesArray);
 
 
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
+UserSchema = mongoose.Schema(
       {
         username: {
           type: String,
@@ -52,9 +53,9 @@ module.exports = mongoose => {
         
       },
       { timestamps: true }
-    );
+);
     
-    const User = mongoose.model("user", schema);
-    return User;
-  };
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;
   
