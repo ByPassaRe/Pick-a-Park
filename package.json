@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ByPassaRe/Pick-a-Park/issues"
   },
-  "homepage": "https://github.com/ByPassaRe/Pick-a-Park#readme"
+  "homepage": "https://github.com/ByPassaRe/Pick-a-Park#readme",
+  "dependencies": {
+    "mongoose": "^5.9.6"
+  }
 }
