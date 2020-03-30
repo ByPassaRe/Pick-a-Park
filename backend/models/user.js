@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const argon2 = require('argon2');
 
 //Immutable array
 const rolesArray = [
@@ -55,6 +56,16 @@ UserSchema = mongoose.Schema(
       { timestamps: true }
 );
     
+
+UserSchema.pre('save', async function(next) {
+	if (!this.isModified('password')) {
+		next();
+	}
+	this.password = await argon2.hash(this.password);
+});
+
+
+
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
