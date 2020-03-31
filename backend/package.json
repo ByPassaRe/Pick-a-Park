@@ -2,12 +2,12 @@
   "name": "pick-a-park",
   "version": "0.0.1",
   "description": "Smart parking app for University of Camerino",
-  "main": "backend/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node backend",
     "test": "npm run test:unit && npm run test:integration",
-    "test:unit":"jest --runInBand ./backend/tests/unit",
-    "test:integration": "jest --runInBand ./backend/tests/integration"
+    "test:unit": "jest --runInBand ./tests/unit",
+    "test:integration": "jest --runInBand ./tests/integration"
   },
   "repository": {
     "type": "git",

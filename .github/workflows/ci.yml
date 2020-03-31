@@ -3,11 +3,7 @@
 
 name: Node.js CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -24,9 +20,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run test:unit
-    - run: npm run test:integration
+    - run: npm ci --prefix backend
+    - run: npm run build --if-present --prefix backend
+    - run: npm run test:unit --prefix backend
+    - run: npm run test:integration --prefix backend
       env:
         CI: true
