@@ -1,9 +1,8 @@
 import React from 'react';
-import UserCreationForm from "./pages/UserCreationForm";
 
 function App() {
   return (
-    <UserCreationForm />
+    <p>Hello world!</p>
   );
 }
 
