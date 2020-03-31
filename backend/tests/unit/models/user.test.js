@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const dbHandler = require('../../utils/testDbHandler');
-const userModel = require('../../../models/user');
+const dbHandler = require('./../../utils/testDbHandler');
+const userModel = require('./../../../src/models/user');
 
 beforeAll(async () => await dbHandler.connect());
 afterAll(async () => await dbHandler.closeDatabase());
