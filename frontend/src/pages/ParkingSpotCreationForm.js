@@ -9,8 +9,16 @@ function ParkingSpotCreationForm() {
   const checkLongitudeRange = partialRight(checkRange, [-180, 180]);
   const isLocationValidPosition = location => checkLatitudeRange(location.latitude) && checkLongitudeRange(location.longitude);
 
+  const handleCorrectData = () => {
+    alert('Valid coordinates')
+  };
+
+  const handleBadData = () => {
+    alert('Invalid coordinates')
+  }
+
   const handleSubmit = (event) => 
-    isLocationValidPosition(location) ? alert('Valid coordinates') : alert('Invalid coordinates');
+    isLocationValidPosition(location) ?  handleCorrectData() : handleBadData();
 
   return (
     <div>
