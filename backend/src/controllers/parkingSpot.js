@@ -1,6 +1,7 @@
 const ParkingSpot = require("../models/parkingSpot");
 
 exports.create = (req, res) => {
+  
   const parkingSpot = new ParkingSpot({
     location: req.body.location
   });
