@@ -4,7 +4,7 @@
   "description": "Smart parking app for University of Camerino",
   "main": "src/index.js",
   "scripts": {
-    "start": "node backend",
+    "start": "node src",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "jest --runInBand ./tests/unit",
     "test:integration": "jest --runInBand ./tests/integration"
