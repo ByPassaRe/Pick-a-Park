@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {partialRight} from 'ramda'
+import {partialRight} from 'ramda';
 
 function ParkingSpotCreationForm() {
   const [location, setLocation] = useState({});
@@ -7,10 +7,10 @@ function ParkingSpotCreationForm() {
   const checkRange = (value, min, max) => (value >= min && value <= max);
   const checkLatitudeRange = partialRight(checkRange, [-90, 90]);
   const checkLongitudeRange = partialRight(checkRange, [-180, 180]);
-  const isLocatioValidPosition = location => checkLatitudeRange(location.latitude) && checkLongitudeRange(location.longitude);
+  const isLocationValidPosition = location => checkLatitudeRange(location.latitude) && checkLongitudeRange(location.longitude);
 
   const handleSubmit = (event) => 
-    isLocatioValidPosition(location) ? alert('Valid coordinates') : alert('Invalid coordinates');
+    isLocationValidPosition(location) ? alert('Valid coordinates') : alert('Invalid coordinates');
 
   return (
     <div>
