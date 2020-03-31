@@ -27,6 +27,19 @@ describe('Parking Spot Route', () => {
         expect(response.status).toBe(400);
     });
 
+    it('should return 400 on an invalid parkingSpot', async () => {
+        const invalidJson = JSON.stringify({...exampleValidParkingSpot, location:"Ibiza"});
+        
+        const response = await request
+            .post('/parkingSpots')
+            .send(invalidJson)
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json');
+
+        
+        expect(response.status).toBe(400);
+    });
+
     it('should return 200 on valid parkingSpot creation', async () => {
 
         const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
