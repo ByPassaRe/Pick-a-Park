@@ -1,37 +1,56 @@
-const mongoose = require('mongoose');
+const supertest = require('supertest');
 
-const dbHandler = require('./utils/dbHandler');
-const parkingSpotModel = require('./../../models/parkingSpot');
+const app = require('../../src/app');
+const dbHandler = require('./../utils/testDbHandler');
+
+const request = supertest(app);
 
 beforeAll(async () => await dbHandler.connect());
-afterAll(async () => await dbHandler.closeDatabase());
 
-afterEach(async () => await dbHandler.clearDatabase());
+afterAll(async () => {
+    await dbHandler.clearDatabase();
+    await dbHandler.closeDatabase();
+});
 
 const exampleValidParkingSpot = {
-    latitude: 45.464203,
-    longitude: 9.189982,
+    location: {
+        latitude: 45.464203,
+        longitude: 9.189982,
+    },
     available: false
 };
 
-const exampleInvalidParkingSpot = {
-    latitude: "Invalid",
-    longitude: 9.189982,
-    available: false
-};
+describe('Parking Spot Route', () => {
+    it('should return 400 on empty parkingSpot', async () => {
+        const response = await request.post('/parkingSpots');
 
-describe('Parking Spot ', () => {
-
-    it('is created when valid', async () => {
-        expect(async () => await parkingSpotModel.create(exampleValidParkingSpot))
-            .not
-            .toThrow();
+        expect(response.status).toBe(400);
     });
 
-    it('rejects on Invalid model', async () => {
-        await expect(parkingSpotModel.create(exampleInvalidParkingSpot))
-            .rejects
-            .toThrow(mongoose.Error.ValidationError);
+    it('should return 400 on an invalid parkingSpot', async () => {
+        const invalidJson = JSON.stringify({...exampleValidParkingSpot, location:"Ibiza"});
+        
+        const response = await request
+            .post('/parkingSpots')
+            .send(invalidJson)
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json');
+
+        
+        expect(response.status).toBe(400);
     });
 
+    it('should return 200 on valid parkingSpot creation', async () => {
+
+        const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
+
+        const response = await request
+            .post('/parkingSpots')
+            .send(validParkingSpotJson)
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json');
+
+        expect(response.status).toBe(200);
+    });
+    
 });
