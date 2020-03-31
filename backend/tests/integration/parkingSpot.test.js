@@ -12,11 +12,32 @@ afterAll(async () => {
     await dbHandler.closeDatabase();
 });
 
+const exampleValidParkingSpot = {
+    location: {
+        latitude: 45.464203,
+        longitude: 9.189982,
+    },
+    available: false
+};
+
 describe('Parking Spot Route', () => {
     it('should return 500 on empty parkingSpot', async () => {
         const response = await request.post('/parkingSpots');
 
         expect(response.status).toBe(500);
+    });
+
+    it('should return 200 on valid parkingSpot creation', async () => {
+
+        const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
+
+        const response = await request
+            .post('/parkingSpots')
+            .send(validParkingSpotJson)
+            .set('Content-Type', 'application/json')
+            .set('Accept', 'application/json');
+
+        expect(response.status).toBe(200);
     });
     
 });
