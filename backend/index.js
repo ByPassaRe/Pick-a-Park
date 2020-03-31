@@ -1,16 +1,10 @@
-const express = require('express');
-const bodyParser = require("body-parser");
-const PORT = process.env.PORT || 5000;
-
-const app = express();
-
+const app = require('./app');
 const db = require('./dbHandler');
 const routes = require('./routes');
 
-dbUrl = process.env.DBURI || "mongodb://localhost:27017/test";
+const PORT = process.env.PORT || 5000;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+dbUrl = process.env.DBURI || "mongodb://localhost:27017/test";
 
 routes.attachToApp(app);
 
