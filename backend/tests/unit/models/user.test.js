@@ -49,18 +49,6 @@ describe('User - presence of required fields', () => {
         .rejects
         .toThrow(mongoose.Error.ValidationError);
     });
-    
-    
-    /*
-
-    it('should set available to false on creation', async () => {
-        const availableTrueParkingSpot = {...exampleValidParkingSpot, available: true};
-        
-        const createdParkingSpot = await parkingSpotModel.create(availableTrueParkingSpot);
-        expect(createdParkingSpot.available).toBe(false);
-    });
-    */
-
 });
 
 describe('User - Check Username', () => {
