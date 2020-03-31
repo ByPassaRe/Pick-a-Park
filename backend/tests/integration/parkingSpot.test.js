@@ -21,10 +21,10 @@ const exampleValidParkingSpot = {
 };
 
 describe('Parking Spot Route', () => {
-    it('should return 500 on empty parkingSpot', async () => {
+    it('should return 400 on empty parkingSpot', async () => {
         const response = await request.post('/parkingSpots');
 
-        expect(response.status).toBe(500);
+        expect(response.status).toBe(400);
     });
 
     it('should return 200 on valid parkingSpot creation', async () => {
