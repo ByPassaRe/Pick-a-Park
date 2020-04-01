@@ -7,8 +7,9 @@ const request = supertest(app);
 
 beforeAll(async () => await dbHandler.connect());
 
+afterEach(async () => await dbHandler.clearDatabase());
+
 afterAll(async () => {
-    await dbHandler.clearDatabase();
     await dbHandler.closeDatabase();
 });
 
@@ -19,6 +20,8 @@ const exampleValidParkingSpot = {
     },
     available: false
 };
+
+const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
 
 describe('Parking Spot Route', () => {
     describe('POST /parkingSpots', () => {
@@ -43,8 +46,6 @@ describe('Parking Spot Route', () => {
     
         it('should return 200 on valid parkingSpot creation', async () => {
     
-            const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
-    
             const response = await request
                 .post('/parkingSpots')
                 .send(validParkingSpotJson)
@@ -59,6 +60,25 @@ describe('Parking Spot Route', () => {
         it('Should return 200 on get parkingSpots', async () => {
             const res = await request.get('/parkingSpots');
             expect(res.status).toBe(200);
+        });
+        
+        it('Should respond with a parkingSpots field at /', async () => {
+            const res = await request.get('/parkingSpots');
+            expect(res.body.parkingSpots).toBeDefined();
+        });
+
+        it('Should respond with all the parkingSpots in the db at /', async () => {
+            const totalParkingSpots = 3;
+            for(let i = 0; i < totalParkingSpots; i++) {
+                await request
+                    .post('/parkingSpots')
+                    .send(validParkingSpotJson)
+                    .set('Content-Type', 'application/json')
+                    .set('Accept', 'application/json');
+            };
+
+            const res = await request.get('/parkingSpots');
+            expect(res.body.parkingSpots).toHaveLength(totalParkingSpots);
         });
     });
 });

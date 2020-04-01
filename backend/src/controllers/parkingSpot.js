@@ -19,3 +19,8 @@ exports.create = (req, res) => {
       }
     });
 };
+
+exports.read = async (req, res) => {
+  const parkingSpots = await ParkingSpot.find({});
+  res.send({parkingSpots});
+};
