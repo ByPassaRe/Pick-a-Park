@@ -1,20 +1,23 @@
 import "mapbox-gl/dist/mapbox-gl.css"
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css"
 import React, { Component } from 'react'
-import ReactMapGL, {GeolocateControl} from "react-map-gl";
+import ReactMapGL, {GeolocateControl,Marker} from "react-map-gl";
 import Geocoder from 'react-map-gl-geocoder';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
-
-
 const access_token = "pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg";
 
 const geolocateStyle = {
-  float: 'left',
-  margin: '50px',
-  padding: '10px'
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  margin: '10px',
+  padding: '10px',
+  
 };
 const geocoderStyle ={
-  float:'left',
+  position: 'absolute',
+  top: 36,
+  right: 0,
   margin: '100px',
   padding: '10px'
 };
@@ -30,7 +33,20 @@ class Map extends Component {
     searchResultLayer: null
   }
   mapRef= React.createRef()
+  handleViewportChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport }
+    })
+  }
+  handleGeocoderViewportChange = viewport => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };
 
+    return this.handleViewportChange({
+      ...viewport,
+      ...geocoderDefaultOverrides
+    });
+  };
+ 
   handleOnResult = event => {
     this.setState({
       searchResultLayer: new GeoJsonLayer({
@@ -44,20 +60,21 @@ class Map extends Component {
     })
   }
   render() {
-    const {viewport,searchResultLayer} = this.state;
-    console.log(viewport);
+    const {viewport, searchResultLayer} = this.state;
     return (
+      <div style={{ height: '100vh'}}>
+      <h1 style={{textAlign: 'center', fontSize: '25px', fontWeight: 'bolder' }}>Inserisci una destinatione italiana</h1>
       <ReactMapGL 
       ref={this.mapRef}
       {...viewport}
-      mapboxApiAccessToken="pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg"
+      mapboxApiAccessToken={access_token}
       //mapStyle="mapbox://styles/mapbox/outdoors-v11"
-      mapStyle="mapbox://styles/mapbox/navigation-preview-day-v2"
+      mapStyle={'mapbox://styles/mapbox/streets-v11'}
       //mapStyle="mapbox://styles/mapbox/light-v10"
       //mapStyle="mapbox://styles/mapbox/dark-v10"
-      width="100vw"
-      height="100vh"
-      onViewportChange={viewport => this.setState({viewport})}>
+      width="90vw"
+      height="60vh"
+      onViewportChange={this.handleViewportChange}>
       <GeolocateControl
          style={geolocateStyle}
          positionOptions={{enableHighAccuracy: true}}
@@ -68,13 +85,16 @@ class Map extends Component {
         mapRef={this.mapRef}
         style={geocoderStyle}
         handleOnResult = {this.handleOnResult}
-        onViewportChange={viewport => this.setState({viewport})}
-        mapboxApiAccessToken={access_token}
+        onViewportChange={this.handleGeocoderViewportChange}
+        mapboxApiAccessToken={access_token}  
+        //filtro destinazione 
+        filter={result => result.place_name.toLowerCase().includes("italia")} 
       /> 
-      
-      </ReactMapGL>
+     </ReactMapGL>
+     
+     
+    </div>
     );
   }
 }
 export default Map;
-
