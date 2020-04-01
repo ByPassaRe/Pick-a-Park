@@ -22,7 +22,13 @@ exports.create = (req, res) => {
 
 exports.read = async (req, res) => {
   if(req.params.id) {
-    const target = await ParkingSpot.findById(req.params.id);
+    let target;
+
+    try {
+      target = await ParkingSpot.findById(req.params.id);
+    } catch (err) {
+      return res.sendStatus(400);
+    } 
     if(!target) {
       return res.sendStatus(404);
     }

@@ -98,5 +98,10 @@ describe('Parking Spot Route', () => {
             const res = await request.get(`/parkingSpots/507f1f77bcf86cd799439011`);
             expect(res.status).toBe(404);
         });
+
+        it('should return 400 if the target id at /:id is an invalid id', async () => {
+            const res = await request.get(`/parkingSpots/INVALID`);
+            expect(res.status).toBe(400);
+        });
     });
 });
