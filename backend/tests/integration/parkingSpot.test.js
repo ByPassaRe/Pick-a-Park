@@ -21,36 +21,44 @@ const exampleValidParkingSpot = {
 };
 
 describe('Parking Spot Route', () => {
-    it('should return 400 on empty parkingSpot', async () => {
-        const response = await request.post('/parkingSpots');
-
-        expect(response.status).toBe(400);
-    });
-
-    it('should return 400 on an invalid parkingSpot', async () => {
-        const invalidJson = JSON.stringify({...exampleValidParkingSpot, location:"Ibiza"});
-        
-        const response = await request
-            .post('/parkingSpots')
-            .send(invalidJson)
-            .set('Content-Type', 'application/json')
-            .set('Accept', 'application/json');
-
-        
-        expect(response.status).toBe(400);
-    });
-
-    it('should return 200 on valid parkingSpot creation', async () => {
-
-        const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
-
-        const response = await request
-            .post('/parkingSpots')
-            .send(validParkingSpotJson)
-            .set('Content-Type', 'application/json')
-            .set('Accept', 'application/json');
-
-        expect(response.status).toBe(200);
+    describe('POST /parkingSpots', () => {
+        it('should return 400 on empty parkingSpot', async () => {
+            const response = await request.post('/parkingSpots');
+    
+            expect(response.status).toBe(400);
+        });
+    
+        it('should return 400 on an invalid parkingSpot', async () => {
+            const invalidJson = JSON.stringify({...exampleValidParkingSpot, location:"Ibiza"});
+            
+            const response = await request
+                .post('/parkingSpots')
+                .send(invalidJson)
+                .set('Content-Type', 'application/json')
+                .set('Accept', 'application/json');
+    
+            
+            expect(response.status).toBe(400);
+        });
+    
+        it('should return 200 on valid parkingSpot creation', async () => {
+    
+            const validParkingSpotJson = JSON.stringify(exampleValidParkingSpot);
+    
+            const response = await request
+                .post('/parkingSpots')
+                .send(validParkingSpotJson)
+                .set('Content-Type', 'application/json')
+                .set('Accept', 'application/json');
+    
+            expect(response.status).toBe(200);
+        });
     });
     
+    describe('GET /parkingSpots', () => {
+        it('Should return 200 on get parkingSpots', async () => {
+            const res = await request.get('/parkingSpots');
+            expect(res.status).toBe(200);
+        });
+    });
 });
