@@ -23,6 +23,9 @@ exports.create = (req, res) => {
 exports.read = async (req, res) => {
   if(req.params.id) {
     const target = await ParkingSpot.findById(req.params.id);
+    if(!target) {
+      return res.sendStatus(404);
+    }
     res.send(target);
   } else {
     const parkingSpots = await ParkingSpot.find({});

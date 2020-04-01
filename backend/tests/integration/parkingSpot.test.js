@@ -92,8 +92,11 @@ describe('Parking Spot Route', () => {
             const res = await request.get(`/parkingSpots/${parkingSpotId}`);
             expect(res.status).toBe(200);
             expect(res.body).toMatchObject(exampleValidParkingSpot);
+        });
 
-
+        it('should return 404 if no parkingSpot has target id at /:id', async () => {
+            const res = await request.get(`/parkingSpots/507f1f77bcf86cd799439011`);
+            expect(res.status).toBe(404);
         });
     });
 });
