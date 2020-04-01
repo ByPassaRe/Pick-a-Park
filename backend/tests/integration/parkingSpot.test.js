@@ -80,5 +80,20 @@ describe('Parking Spot Route', () => {
             const res = await request.get('/parkingSpots');
             expect(res.body.parkingSpots).toHaveLength(totalParkingSpots);
         });
+
+        it('Should return the specific parkingspot using the id at /:id', async () => {
+            const preRes = await request
+                .post('/parkingSpots')
+                .send(validParkingSpotJson)
+                .set('Content-Type', 'application/json')
+                .set('Accept', 'application/json');
+            const parkingSpotId = preRes.body._id;
+
+            const res = await request.get(`/parkingSpots/${parkingSpotId}`);
+            expect(res.status).toBe(200);
+            expect(res.body).toMatchObject(exampleValidParkingSpot);
+
+
+        });
     });
 });

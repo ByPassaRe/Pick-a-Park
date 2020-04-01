@@ -21,6 +21,11 @@ exports.create = (req, res) => {
 };
 
 exports.read = async (req, res) => {
-  const parkingSpots = await ParkingSpot.find({});
-  res.send({parkingSpots});
+  if(req.params.id) {
+    const target = await ParkingSpot.findById(req.params.id);
+    res.send(target);
+  } else {
+    const parkingSpots = await ParkingSpot.find({});
+    res.send({parkingSpots});
+  }
 };
