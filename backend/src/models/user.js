@@ -55,7 +55,22 @@ UserSchema = mongoose.Schema(
       },
       { timestamps: true }
 );
-    
+
+UserSchema.statics.findOneByCredentials = async function(candidateUsername, candidatePassword) {
+
+  const _user = await this.findOne({ username: candidateUsername });
+  
+  if(!_user)
+    console.log("Utente non trovato");
+
+  const isMatch = await argon2.verify(_user.password, candidatePassword);
+
+  if(isMatch)
+    console.log("LOGIN EFFETTUATO");
+  else 
+    console.log("PASSWORD DOES NOT MATCH");
+
+};
 
 UserSchema.pre('save', async function(next) {
 	if (!this.isModified('password')) {
