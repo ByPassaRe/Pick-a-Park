@@ -10,15 +10,17 @@ function ParkingSpotListView() {
     useEffect(() => {
         (async function fetchParkingSpots () {
             setStatusMessage('Loading...');
+            
             try {
                 const response = await axios.get('http://localhost:5000/parkingSpots');
                 setParkingSpots(response.data.parkingSpots);
             } catch (err) {
                 setStatusMessage('Error retrieving data.');
             };
+            
         })();
 
-    }, [parkingSpots]);
+    }, []);
 
     const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot}/>
 
