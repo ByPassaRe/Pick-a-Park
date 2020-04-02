@@ -19,3 +19,22 @@ exports.create = (req, res) => {
       }
     });
 };
+
+exports.read = async (req, res) => {
+  if(req.params.id) {
+    let target;
+
+    try {
+      target = await ParkingSpot.findById(req.params.id);
+    } catch (err) {
+      return res.sendStatus(400);
+    } 
+    if(!target) {
+      return res.sendStatus(404);
+    }
+    res.send(target);
+  } else {
+    const parkingSpots = await ParkingSpot.find({});
+    res.send({parkingSpots});
+  }
+};
