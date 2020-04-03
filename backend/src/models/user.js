@@ -56,18 +56,9 @@ UserSchema = mongoose.Schema(
       { timestamps: true }
 );
 
-UserSchema.statics.findOneByCredentials = async function(candidateUsername, candidatePassword) {
-  //Get the user
-  const _user = await this.findOne({ username: candidateUsername });
-  //Check if the user exists
-  if(!_user)
-    return undefined;  
-  //Return the user only if the user is found and password match
-  if(await argon2.verify(_user.password, candidatePassword))
-    return _user;
-  else
-    return undefined;
-};
+UserSchema.methods.verifyPassword = async function(userSubmittedPassword){
+  return await argon2.verify(this.password, userSubmittedPassword);
+}
 
 UserSchema.pre('save', async function(next) {
 	if (!this.isModified('password')) {
