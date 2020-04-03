@@ -1,13 +1,23 @@
 import React from 'react';
 
+import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
-
+import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
 function App() {
   return (
     /*
     <p>Hello world!</p>
     */
-   <LoginForm />
+   
+   <React.Fragment>
+     <UserCreationForm />
+     <p>
+       ---------------------------
+     </p>
+     <LoginForm/>
+   </React.Fragment>
+   
+    //<ParkingSpotCreationForm/>
   );
 }
 

@@ -11,7 +11,7 @@ exports.login = async function(req, res) {
             if(!user)
                 //Username does not exists
                 res.status(400).send({message: "Wrong Username/Password"});
-            else{
+            else {
                 //Verify the password
                 await user.verifyPassword(password).then( match => {
                     //Password correct
@@ -37,7 +37,7 @@ exports.login = async function(req, res) {
                 })
             }
         })
-        .catch((err) => {
-            res.status(500).send({message: "Error connection db"});
+        .catch(() => {
+            res.status(500).send({message: "Unexpected error"});
         })
 };
