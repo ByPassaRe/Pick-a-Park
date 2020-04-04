@@ -2,42 +2,32 @@ const User = require("../models/user");
 const configJSON = require('../config/jsonSecret');
 const jwt = require("jsonwebtoken");
 
+
+
+const tokenGenerator = (user) => {
+    return jwt.sign(
+        { username: user.username, role: user.role },
+        configJSON.secret, 
+        { expiresIn: configJSON.expiresIn }
+    );
+}
+
 exports.login = async function(req, res) {
-    
+    if(!req.body.username || !req.body.password)
+        return res.status(400).json({message: "Input values are missing"});
+
     const {username , password} = req.body;
 
-    await User.findOne({username: username})
-        .then( async (user) => {
-            if(!user)
-                //Username does not exists
-                res.status(400).send({message: "Wrong Username/Password"});
-            else {
-                //Verify the password
-                await user.verifyPassword(password).then( match => {
-                    //Password correct
-                    if(match){
-                         // if user is found and password is right create a token
-                         const token = jwt.sign(
-                            { username: user.username, role: user.role },
-                            configJSON.secret, 
-                            { expiresIn: configJSON.expiresIn }
-                        );
-                        // return the information including token as JSON
-                        res.json({
-                            success: true,
-                            token: token,
-                            message: "Authentication successful"
-                        });
-                    }
-                    else {
-                        //Wrong password
-                        res.status(400).send({message: "Wrong Username/Password"});
-                    }
-                    
-                })
-            }
-        })
-        .catch(() => {
-            res.status(500).send({message: "Unexpected error"});
-        })
+    const user = await User.findOne({username: username}).exec();
+    //If user does not exists
+    if(!user) return res.status(400).json({message: "Wrong Username/Password"});
+    
+    try {
+        if(await user.verifyPassword(password))
+            return res.json({ success: true, token: tokenGenerator(user), message: "Authentication successful" });
+        else
+            return res.status(400).json({message: "Wrong Username/Password"});
+    } catch (error) {
+        return res.status(500).json({message: "Unexpected error"});
+    }
 };
