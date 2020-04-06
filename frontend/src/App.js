@@ -1,9 +1,11 @@
 import "mapbox-gl/dist/mapbox-gl.css";
+import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css' // Updating node module will keep css up to date.
 import React, { Component } from 'react';
 import ReactMapboxGl, {Layer, Feature} from "react-mapbox-gl";
 import mapboxgl, {GeolocateControl, Directions} from 'mapbox-gl';
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
- 
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
+
 
 
 mapboxgl.accessToken= "pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg";
@@ -39,6 +41,8 @@ const onMapLoad = (map) =>{
   map.addControl(new mapboxgl.FullscreenControl(),'top-left');
   map.addControl(new mapboxgl.NavigationControl(),'top-left');
   map.addControl(new MapboxGeocoder({accessToken:mapboxgl.accessToken, mapboxgl: mapboxgl }), 'top-right');
+  map.addControl(new MapboxDirections({accessToken: mapboxgl.accessToken, unit:'metric', profile:'mapbox/driving' }), 'top-right');
+
  };
 class MapPage extends Component {  
   
