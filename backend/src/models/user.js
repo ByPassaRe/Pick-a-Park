@@ -55,7 +55,10 @@ UserSchema = mongoose.Schema(
       },
       { timestamps: true }
 );
-    
+
+UserSchema.methods.verifyPassword = async function(userSubmittedPassword){
+  return await argon2.verify(this.password, userSubmittedPassword);
+}
 
 UserSchema.pre('save', async function(next) {
 	if (!this.isModified('password')) {
