@@ -1,16 +1,21 @@
-import "mapbox-gl/dist/mapbox-gl.css"
-import React, { Component } from 'react'
+import "mapbox-gl/dist/mapbox-gl.css";
+import React, { Component } from 'react';
 import ReactMapboxGl, {Layer, Feature} from "react-mapbox-gl";
-import {GeolocateControl} from 'mapbox-gl';
+import mapboxgl, {GeolocateControl, Directions} from 'mapbox-gl';
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+ 
 
+
+mapboxgl.accessToken= "pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg";
 const Map = ReactMapboxGl({
+  container:'map',
   accessToken: "pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg",
   minZoom:4,
   maxZoom:15,
   interactive: true,
-  refreshExpiredTiles: true
+  bearingSnap: 3
 });
-const jumpToOptions ={
+const flyToOptions ={
   center: [0,0],
   zoom:9,
   speed:0.8,
@@ -20,7 +25,7 @@ const jumpToOptions ={
 const mapStyle = {
   flex: 1,
   height: '90vh',
-  width: '60vw'
+  width: '80vw'
 };
 const onMapLoad = (map) =>{
   map.addControl(
@@ -29,9 +34,12 @@ const onMapLoad = (map) =>{
         enableHighAccurancy: true
       },
       trackUserLocation: true
-    })
-  );
-};
+    }),
+  'top-left');
+  map.addControl(new mapboxgl.FullscreenControl(),'top-left');
+  map.addControl(new mapboxgl.NavigationControl(),'top-left');
+  map.addControl(new MapboxGeocoder({accessToken:mapboxgl.accessToken, mapboxgl: mapboxgl }), 'top-right');
+ };
 class MapPage extends Component {  
   
   render() {
@@ -39,10 +47,9 @@ class MapPage extends Component {
   <Map 
   style="mapbox://styles/mapbox/streets-v11"
   containerStyle={mapStyle}
-  jumpToOptions={jumpToOptions}
+  flyToOption={flyToOptions} 
   onStyleLoad={onMapLoad}
   >
-
   </Map>
 
 
