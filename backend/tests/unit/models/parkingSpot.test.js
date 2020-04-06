@@ -66,4 +66,10 @@ describe('Parking Spot ', () => {
         expect(createdParkingSpot.available).toBe(false);
     });
 
+    it('should return all the created parking spots', async () => {
+        await parkingSpotModel.create([exampleValidParkingSpot, exampleValidParkingSpot]);
+        const allParkingSpots = await parkingSpotModel.find({});
+        expect(allParkingSpots.length).toBe(2);
+    });
+
 });

@@ -27,7 +27,7 @@ function ParkingSpotCreationForm() {
     isLocationValidPosition(location) ?  handleCorrectData() : handleBadData();
 
   return (
-    <div>
+    <>
       Latitude:
       <input type="text"  name="latitude" onChange={(e) => setLocation({...location, latitude: e.target.value})} />
       <br />
@@ -37,7 +37,7 @@ function ParkingSpotCreationForm() {
       <br />
 
       <button onClick={handleSubmit}>Create Parking Spot</button>
-    </div>
+    </>
   );
 }
 
