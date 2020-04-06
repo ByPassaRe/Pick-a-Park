@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { useHistory } from "react-router";
+
 
 function LoginForm() {
+  let history = useHistory();
   const [credential, setCredential] = useState({username: "", password: ""});
   // eslint-disable-next-line
   const usernameRegex = /^[a-z0-9_-]{3,30}$/;
@@ -23,6 +26,8 @@ function LoginForm() {
       if(response.status === 200){
         //All right!
         alert(response.data.message)
+        history.push("/users");
+
       }
       else {
         //Error password/username
@@ -30,7 +35,7 @@ function LoginForm() {
       }
   
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error)
     }
   };
 
@@ -50,7 +55,7 @@ function LoginForm() {
 
 
   return (
-    <div>
+      <div>
       Username:
       <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
       <br />
@@ -61,6 +66,7 @@ function LoginForm() {
 
       <button onClick ={handleSubmit}>Sign In</button>
     </div>
+   
   );
 }
 
