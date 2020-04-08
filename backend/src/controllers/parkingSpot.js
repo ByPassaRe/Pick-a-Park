@@ -42,6 +42,11 @@ exports.read = async (req, res) => {
 };
 
 exports.getNearest = async (req, res) => {
+
+  if(!req.query.latitude || !req.query.longitude) {
+    return res.send(400);
+  }
+
   const coords = {
     latitude: Number(req.query.latitude),
     longitude: Number(req.query.longitude)
