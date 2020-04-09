@@ -23,13 +23,13 @@ function ParkingSpotListView() {
 
     }, []);
 
-    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot}/>
+    const renderParkingSpotWithSetPrice = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} priceSetter parkingSpot={parkingSpot}/>
 
     return (
         <>
         <h2>Parking Spots prices:</h2>
         { parkingSpots ? 
-            parkingSpots.map( renderParkingSpot ) : 
+            parkingSpots.map( renderParkingSpotWithSetPrice ) : 
             <p>{statusMessage}</p> }
         </>
     );
