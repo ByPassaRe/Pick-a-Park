@@ -37,9 +37,8 @@ const PriceSetter = (props) => {
 
     return (
     <>
-        <p>Price: {props.parkingSpot.price}</p>
+        <p>Price: {price}</p>
         Set new price: <input type="number" min="0" step="any" value={newPrice} onChange={handleChange}/> <button onClick={handleSend}>Update</button>
-        <p>null</p>
     </>
     )
 }
