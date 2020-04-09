@@ -38,3 +38,25 @@ exports.read = async (req, res) => {
     res.send({parkingSpots});
   }
 };
+
+exports.patch = async (req, res) => {
+  if(!req.body.price) {
+    return res.send('Only price changes are supported').status(400);
+  }
+
+  try {
+    const parkingSpot = await ParkingSpot.findById(req.params.id);
+    if(!parkingSpot) {
+      return res.sendStatus(404);
+    }
+
+    parkingSpot.price = req.body.price;
+
+    await parkingSpot.save();
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    return res.sendStatus(400);
+  }
+};
