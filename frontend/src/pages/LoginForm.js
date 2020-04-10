@@ -26,6 +26,7 @@ function LoginForm() {
       if(response.status === 200){
         //All right!
         alert(response.data.message)
+        localStorage.setItem('jwt',response.data.token);
         history.push("/users");
 
       }
