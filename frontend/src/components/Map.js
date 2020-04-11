@@ -33,12 +33,8 @@ class Map extends React.Component {
         const map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/streets-v11',
-            minZoom: 2,
-            maxZoom: 15,
             center: [-79.4512, 43.6568],
-            zoom: 13,
-            bearingSnap: 3,
-            interactive: true
+            zoom: 13
         });
 
         const directions = new MapboxDirections({
