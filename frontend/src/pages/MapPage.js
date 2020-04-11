@@ -75,7 +75,8 @@ const onMapLoad = (map) => {
     //se l'evento si è verificato esco 
     // if eventFired then exit
     if(eventFired === true){
-      return
+      eventFired = false;
+      return;
     }
     var lonDest= directions.getDestination().geometry.coordinates[0];
     var latDest= directions.getDestination().geometry.coordinates[1];
