@@ -4,6 +4,7 @@ import React from 'react';
 import ReactMapboxGl from "react-mapbox-gl";
 import mapboxgl, { GeolocateControl } from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+import axios from 'axios';
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg";
 
@@ -42,11 +43,25 @@ var geocoder = new MapboxGeocoder(
   {accessToken:mapboxgl.accessToken, mapboxgl: mapboxgl }
 );
 */
-function findParkingSpot(lonDest,latDest){
-  var lonPark = 23;
-  var latPark = 40.7;
-  return [lonPark,latPark];
+
+const findParkingSpot = async (lonDest,latDest) => {
+
+  try {
+    const result = await axios.get('http://localhost:5000/parkingSpots/nearest', {
+      params: {
+        latitude: latDest,
+        longitude: lonDest
+      }
+    });
+
+    const parkingSpotLocation = result.data.parkingSpot.location;
+    return [parkingSpotLocation.longitude, parkingSpotLocation.latitude];
+
+  } catch (err) {
+    alert("error retrieving parking spot");
+  }
 }
+
 const onMapLoad = (map) => {
   map.addControl(
     new GeolocateControl({
@@ -68,16 +83,16 @@ const onMapLoad = (map) => {
   } else {
     alert("Impossibile calcolare la tua posizione");
   }
-  var eventFired = false;
-  directions.on('route', function () {
+  let eventFired = false;
+  directions.on('route', async () => {
     if(eventFired === true){
       eventFired = false;
       return;
     }
     var lonDest= directions.getDestination().geometry.coordinates[0];
     var latDest= directions.getDestination().geometry.coordinates[1];
-     console.log(findParkingSpot(lonDest,latDest));
-    directions.setDestination(findParkingSpot(lonDest,latDest));
+
+    directions.setDestination(await findParkingSpot(lonDest,latDest));
     eventFired = true;
 
   })
