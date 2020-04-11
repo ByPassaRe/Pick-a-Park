@@ -61,6 +61,8 @@ exports.patch = async (req, res) => {
   } catch (err) {
     return res.sendStatus(400);
   }
+}
+
 exports.getNearest = async (req, res) => {
 
   if(!req.query.latitude || !req.query.longitude) {

@@ -6,6 +6,7 @@ import mapboxgl, { GeolocateControl } from 'mapbox-gl';
 import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
 import ParkingSpotListView from './pages/ParkingSpotListView';
+import LogoutButton from './pages/LogoutButton';
 import ParkingSpotsSetPriceView from './pages/ParkingSpotsSetPriceView';
 import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -139,6 +140,7 @@ class MapPage extends Component {
 
         <Route path="/auth" component={LoginForm} />
         <Route path="/users" component={UserCreationForm} />
+        <Route component={LogoutButton} />
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
         <Route path="/parkingSpotListView" component={ParkingSpotListView} />
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
@@ -149,4 +151,3 @@ class MapPage extends Component {
   }
 }
 export default MapPage;
-
