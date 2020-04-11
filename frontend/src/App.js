@@ -3,6 +3,9 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import React, { Component } from 'react';
 import ReactMapboxGl from "react-mapbox-gl";
 import mapboxgl, { GeolocateControl } from 'mapbox-gl';
+import UserCreationForm from './pages/UserCreationForm';
+import LoginForm from './pages/LoginForm';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 //import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 
@@ -101,13 +104,32 @@ const onMapLoad = (map) => {
 class MapPage extends Component {
   render() {
     return (
+      <Router>
+      <div>
       <Map
-        style="mapbox://styles/mapbox/streets-v11"
+        // eslint-disable-next-line
+        style={"mapbox://styles/mapbox/streets-v11"}
         containerStyle={mapStyle}
         onStyleLoad={onMapLoad}
       >
 
       </Map>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/auth">Login</Link>
+            </li>
+            <li>
+              <Link to="/users">Create User</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Route path="/auth" component={LoginForm} />
+        <Route path="/users" component={UserCreationForm} />
+      </div>
+    </Router>
+      
     )
   }
 }
