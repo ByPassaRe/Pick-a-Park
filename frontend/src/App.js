@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import ReactMapboxGl from "react-mapbox-gl";
 import mapboxgl, { GeolocateControl } from 'mapbox-gl';
 //import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
+import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 
 mapboxgl.accessToken = "pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0MXowZDd6M2xwNm5xbmZrZ2oxIn0.HAkjmhv5QblYNTnR_ZKiQg";
 
@@ -43,7 +43,11 @@ var geocoder = new MapboxGeocoder(
   {accessToken:mapboxgl.accessToken, mapboxgl: mapboxgl }
 );
 */
-
+function findParkingSpot(lonDest,latDest){
+  var lonPark = 23;
+  var latPark = 40.7;
+  return [lonPark,latPark];
+}
 const onMapLoad = (map) => {
   map.addControl(
     new GeolocateControl({
@@ -53,18 +57,15 @@ const onMapLoad = (map) => {
       trackUserLocation: true
     }),
     'top-left');
-  map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
+  //map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
   map.addControl(new mapboxgl.NavigationControl(), 'top-left');
   //map.addControl(geocoder, 'top-right');
   map.addControl(directions, 'top-right');
-  //var lonDest= directions.getDestination().geometry.coordinates[0];
-  //var latDest= directions.getDestination().geometry.coordinates[1];
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(position => {
       var lon = position.coords.longitude;
       var lat = position.coords.latitude;
       directions.setOrigin([lon, lat]);
-      alert('la tua posizione è: ' + '['+directions.getOrigin().geometry.coordinates+']');
       document.getElementById('load').innerHTML =
         'la posizione di partenza è:' +
         JSON.stringify(directions.getOrigin().geometry.coordinates);
@@ -73,31 +74,30 @@ const onMapLoad = (map) => {
   } else {
     alert("Impossibile calcolare la tua posizione");
   }
-/** 
+  var eventFired = false;
   directions.on('route', function () {
+    //se l'evento si è verificato esco 
+    // if eventFired then exit
+    if(eventFired === true){
+      return
+    }
     var lonDest= directions.getDestination().geometry.coordinates[0];
     var latDest= directions.getDestination().geometry.coordinates[1];
+
     document.getElementById('prova').innerHTML =
       'la destinazione inserita:' +
       JSON.stringify([lonDest,latDest]);
-//alert(directions.getDestination().geometry.coordinates);
-  })*/
+      
+     console.log(findParkingSpot(lonDest,latDest));
+    directions.setDestination(findParkingSpot(lonDest,latDest));
+    eventFired = true;
 
-  map.on('click',function () {
-    var lonDest= directions.getDestination().geometry.coordinates[0];
-    var latDest= directions.getDestination().geometry.coordinates[1];
-    if (directions.setDestination(lonDest,latDest)) {
-      alert('la destinazione inserita è: ' + '['+directions.getDestination().geometry.coordinates+']');
-      var lonPark = 23;
-      var latPark = 40.7;
-      directions.setDestination([lonPark, latPark]);
-      alert('la destinazione inserita è: ' + '['+directions.getDestination().geometry.coordinates+']');
-      document.getElementById('info').innerHTML =
-        'la destinazione del parcheggio:' +
-        JSON.stringify(directions.getDestination().geometry.coordinates);
-    }
-  })
+  }
+  )
+
+  
 };
+
 class MapPage extends Component {
   render() {
     return (
@@ -106,6 +106,7 @@ class MapPage extends Component {
         containerStyle={mapStyle}
         onStyleLoad={onMapLoad}
       >
+
       </Map>
     )
   }
