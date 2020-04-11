@@ -6,11 +6,17 @@ import { geolocated } from "react-geolocated";
 class MapPage extends React.Component {
 
     render() {
-        return (
-            <Map latitude={43.17392} longitude={13.78686}/>
-        )
+        return !this.props.isGeolocationAvailable ? (
+            <div>Your browser does not support Geolocation</div>
+        ) : !this.props.isGeolocationEnabled ? (
+            <div>Geolocation is not enabled</div>
+        ) : this.props.coords ? (
+            <Map latitude={this.props.coords.latitude} longitude={this.props.coords.longitude}/>
+        ) : (
+            <div>Getting the location data&hellip; </div>
+        );
     }
 
 }
 
-export default MapPage;
+export default geolocated()(MapPage);
