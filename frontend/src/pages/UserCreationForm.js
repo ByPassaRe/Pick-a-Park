@@ -65,7 +65,7 @@ function UserCreationForm() {
       <input type="text" name="email" onChange={(e) => setUser({...user, email: e.target.value})}/>
       <br />
 
-      <button onClick ={handleSubmit}>Sign In</button>
+      <button onClick ={handleSubmit}>Sign Up</button>
     </div>
   );
 }
