@@ -30,10 +30,13 @@ const findParkingSpot = async (lonDest,latDest) => {
 class Map extends React.Component {
     
     componentDidMount() {
+
+        const intiialCoords = [this.props.longitude, this.props.latitude];
+
         const map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [this.props.longitude, this.props.latitude],
+            center: intiialCoords,
             zoom: 13
         });
 
@@ -52,16 +55,7 @@ class Map extends React.Component {
         map.addControl(directions, 'top-right');
 
         map.on('load', function () {
-            if ("geolocation" in navigator) {
-              navigator.geolocation.getCurrentPosition(position => {
-                const lon = position.coords.longitude;
-                const lat = position.coords.latitude;
-                directions.setOrigin([lon, lat]);
-              });
-          
-            } else {
-              alert("Impossibile calcolare la tua posizione");
-            }  
+          directions.setOrigin(intiialCoords);
         });
 
         directions.on('route', async () => {
