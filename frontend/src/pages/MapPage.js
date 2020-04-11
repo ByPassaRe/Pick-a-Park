@@ -56,9 +56,7 @@ const onMapLoad = (map) => {
       trackUserLocation: true
     }),
     'top-left');
-  //map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
   map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-  //map.addControl(geocoder, 'top-right');
   map.addControl(directions, 'top-right');
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -72,8 +70,6 @@ const onMapLoad = (map) => {
   }
   var eventFired = false;
   directions.on('route', function () {
-    //se l'evento si è verificato esco 
-    // if eventFired then exit
     if(eventFired === true){
       eventFired = false;
       return;
