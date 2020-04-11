@@ -41,18 +41,12 @@ class Map extends React.Component {
             accessToken: mapboxgl.accessToken,
             unit: 'metric',
             profile: 'mapbox/driving',
-            container: 'directions',
-            interactive: false,
             controls: {
               inputs: true,
               instructions: false,
-              profileSwitcher: false
+              profileSwitcher: false,
             },
-            geocoder: {
-              language: 'it'
-            },
-            placeholderOrigin: 'La tua posizione',
-            placeholderDestination: 'Inserisci destinazione'
+            placeholderOrigin: 'Loading your position....',
         });
       
         map.addControl(directions, 'top-right');
