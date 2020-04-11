@@ -73,9 +73,6 @@ const onMapLoad = (map) => {
       var lon = position.coords.longitude;
       var lat = position.coords.latitude;
       directions.setOrigin([lon, lat]);
-      document.getElementById('load').innerHTML =
-        'la posizione di partenza è:' +
-        JSON.stringify(directions.getOrigin().geometry.coordinates);
     });
 
   } else {
@@ -90,11 +87,6 @@ const onMapLoad = (map) => {
     }
     var lonDest= directions.getDestination().geometry.coordinates[0];
     var latDest= directions.getDestination().geometry.coordinates[1];
-
-    document.getElementById('prova').innerHTML =
-      'la destinazione inserita:' +
-      JSON.stringify([lonDest,latDest]);
-      
      console.log(findParkingSpot(lonDest,latDest));
     directions.setDestination(findParkingSpot(lonDest,latDest));
     eventFired = true;
