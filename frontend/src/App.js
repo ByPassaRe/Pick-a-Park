@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Map />
+        <Map latitude={43.17392} longitude={13.78686}/>
         <LogoutButton />
         <nav>
           <ul>

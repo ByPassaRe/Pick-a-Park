@@ -33,7 +33,7 @@ class Map extends React.Component {
         const map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-79.4512, 43.6568],
+            center: [this.props.longitude, this.props.latitude],
             zoom: 13
         });
 
