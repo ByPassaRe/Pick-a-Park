@@ -97,19 +97,16 @@ const onMapLoad = (map) => {
   
 };
 
-class MapPage extends Component {
+class App extends Component {
   render() {
     return (
       <Router>
-      <div>
       <Map
         // eslint-disable-next-line
         style={"mapbox://styles/mapbox/streets-v11"}
         containerStyle={mapStyle}
         onStyleLoad={onMapLoad}
-      >
-
-      </Map>
+      />
         <nav>
           <ul>
             <li>
@@ -136,10 +133,9 @@ class MapPage extends Component {
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
         <Route path="/parkingSpotListView" component={ParkingSpotListView} />
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
-      </div>
     </Router>
       
     )
   }
 }
-export default MapPage;
+export default App;
