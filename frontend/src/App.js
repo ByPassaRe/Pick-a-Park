@@ -6,15 +6,19 @@ import LogoutButton from './pages/LogoutButton';
 import ParkingSpotsSetPriceView from './pages/ParkingSpotsSetPriceView';
 import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Map from './components/Map';
+import MapPage from './pages/MapPage';
+
+
 class App extends Component {
   render() {
     return (
       <Router>
-        <Map latitude={43.17392} longitude={13.78686}/>
         <LogoutButton />
         <nav>
           <ul>
+            <li>
+              <Link to="/map">Map</Link>
+            </li>
             <li>
               <Link to="/auth">Login</Link>
             </li>
@@ -33,6 +37,7 @@ class App extends Component {
           </ul>
         </nav>
 
+        <Route path="/map" component={MapPage} />
         <Route path="/auth" component={LoginForm} />
         <Route path="/users" component={UserCreationForm} />
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
