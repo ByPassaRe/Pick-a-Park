@@ -12,6 +12,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <LogoutButton />
         <nav>
           <ul>
             <li>
@@ -38,7 +39,6 @@ class App extends Component {
         <Route path="/map" component={MapPage} />
         <Route path="/auth" component={LoginForm} />
         <Route path="/users" component={UserCreationForm} />
-        <Route component={LogoutButton} />
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
         <Route path="/parkingSpotListView" component={ParkingSpotListView} />
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
