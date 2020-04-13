@@ -8,6 +8,7 @@ import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MapPage from './pages/MapPage';
 
+
 class App extends Component {
   render() {
     return (
