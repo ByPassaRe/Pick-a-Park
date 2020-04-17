@@ -30,13 +30,9 @@ function LoginForm() {
         history.push("/users");
 
       }
-      else {
-        //Error password/username
-        alert(response.data.message)
-      }
   
     } catch (error) {
-      alert(error)
+      alert(error.response.data.message)
     }
   };
 
