@@ -10,7 +10,7 @@ function ChangePasswordForm() {
     try {
       //I try to change the password
       //the checking of the actual password is moved to the server
-      const response = await axios.post('http://localhost:5000/changePassword', { 
+      const response = await axios.post('http://localhost:5000/users/changePassword', { 
         actualPassword: data.actualPassword,
         newPassword: data.newPassword,
         confirmNewPassword: data.confirmNewPassword

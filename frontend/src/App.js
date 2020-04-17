@@ -36,7 +36,7 @@ class App extends Component {
               <Link to="/parkingSpotsSetPriceView">Set parking spot prices</Link>
             </li>
             <li>
-              <Link to="/changePassword">Change Password</Link>
+              <Link to="/users/changePassword">Change Password</Link>
             </li>
           </ul>
         </nav>
@@ -47,7 +47,7 @@ class App extends Component {
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
         <Route path="/parkingSpotListView" component={ParkingSpotListView} />
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
-        <Route path="/changePassword" component={ChangePasswordForm} />
+        <Route path="/users/changePassword" component={ChangePasswordForm} />
     </Router>
       
     )
