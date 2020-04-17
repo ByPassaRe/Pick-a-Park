@@ -5,6 +5,7 @@ import ParkingSpotListView from './pages/ParkingSpotListView';
 import LogoutButton from './pages/LogoutButton';
 import ParkingSpotsSetPriceView from './pages/ParkingSpotsSetPriceView';
 import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
+import IssueCreationForm from './pages/IssueCreationForm';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MapPage from './pages/MapPage';
 
@@ -34,6 +35,9 @@ class App extends Component {
             <li>
               <Link to="/parkingSpotsSetPriceView">Set parking spot prices</Link>
             </li>
+            <li>
+              <Link to="/issues">Issue Form</Link>
+            </li>
           </ul>
         </nav>
 
@@ -43,6 +47,8 @@ class App extends Component {
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
         <Route path="/parkingSpotListView" component={ParkingSpotListView} />
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
+        <Route path="/issues" component={IssueCreationForm} />
+
     </Router>
       
     )
