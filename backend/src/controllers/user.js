@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const tokenUtils = require("../util/token");
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -26,27 +26,37 @@ exports.create = (req, res) => {
 };
 
 
-exports.changePassword =  (req, res) => {
-  console.log(req.body);
-  /*
-  if(!req.body.username || !req.body.password)
+exports.changePassword =  async (req, res) => {
+
+  if(!req.body.token || !req.body.actualPassword || !req.body.newPassword)
       return res.status(400).json({message: "Input values are missing"});
 
-  const {username , oldPassword, newPassword} = req.body;
-  const user = await User.findOne({username: username}).exec();
+  const {token, actualPassword , newPassword} = req.body;
+  let decodedToken;
 
-  if(user){
-      if(await user.verifyPassword(oldPassword)){
-          //newPassword deve essere hashata.
-          User.findByIdAndUpdate({_id: user._id},{password: newPassword})
-              .exec()
-              .then((updateUser)=>{
-                  console.log(updateUser);
-              }).catch((err)=>{
-                  console.log(err);
-              });
-          
-      }
+  
+  try {
+    decodedToken = tokenUtils.tokenVerification(token);
+
+  } catch (error) {
+    return res.status(400).json({message: "Token is invalid"});
   }
-  */
+
+  const user = await User.findOne({username: decodedToken.username}).exec();
+  if(user){
+      if(await user.verifyPassword(actualPassword)){
+         await user.updatePassword(newPassword)
+          .then(() => {
+            return res.status(200).json({message: "User updated"});
+          })
+          .catch(() => {
+            return res.status(401).json({message: "Unexpected error during password updating"});
+          })
+      }
+      else {
+        return res.status(401).json({message: "Actual password is invalid"});
+      }
+  } else {
+    return res.status(404).json({message: "User is invalid"});
+  }
 };

@@ -10,14 +10,15 @@ function ChangePasswordForm() {
     try {
       //I try to change the password
       //the checking of the actual password is moved to the server
-      const response = await axios.post('http://localhost:5000/users/changePassword', { 
+      const response = await axios.post('http://localhost:5000/users/change-password', { 
+        token: localStorage.getItem("jwt"),
         actualPassword: data.actualPassword,
-        newPassword: data.newPassword,
-        confirmNewPassword: data.confirmNewPassword
+        newPassword: data.newPassword
       });
-      response.status === 200 ? alert('Password changed!') : alert("Wrong actual password!");
+      if(response.status === 200)
+        alert('Password changed!')
     } catch (err) {
-      alert(err);
+      alert(err.response.data.message);
     }
   };
 
