@@ -24,3 +24,29 @@ exports.create = (req, res) => {
       }
     });
 };
+
+
+exports.changePassword =  (req, res) => {
+  console.log(req.body);
+  /*
+  if(!req.body.username || !req.body.password)
+      return res.status(400).json({message: "Input values are missing"});
+
+  const {username , oldPassword, newPassword} = req.body;
+  const user = await User.findOne({username: username}).exec();
+
+  if(user){
+      if(await user.verifyPassword(oldPassword)){
+          //newPassword deve essere hashata.
+          User.findByIdAndUpdate({_id: user._id},{password: newPassword})
+              .exec()
+              .then((updateUser)=>{
+                  console.log(updateUser);
+              }).catch((err)=>{
+                  console.log(err);
+              });
+          
+      }
+  }
+  */
+};
