@@ -7,6 +7,10 @@ const OutsetDiv = styled.div`
     margin: 20px;
 `;
 
+const ActivatedStatus = styled.p`
+    color: ${props => props.activated ? "green" : "red"};
+`;
+
 const PriceSetter = (props) => {
     const [price, setPrice] = useState(props.parkingSpot.price);
     const [newPrice, setNewPrice] = useState(props.parkingSpot.price);
@@ -57,7 +61,7 @@ const Activator = (props) => {
 
     return (
         <>
-            <p>Activated: {activated.toString()}</p>
+            <ActivatedStatus activated={activated}>Activated: {activated.toString()}</ActivatedStatus>
             {activated ? null: <button onClick={handleActivate}>Make Available</button>}
         </>
     );
