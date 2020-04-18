@@ -2,24 +2,32 @@ const supertest = require('supertest');
 
 const app = require('../../src/app');
 const dbHandler = require('./../utils/testDbHandler');
-
+const role = require("../../src/util/role");
 const request = supertest(app);
-var token;
+var token = {};
 
-beforeAll(async () => {
-    await dbHandler.connect();
-    const username = "simona";
-    const password = "massoPoker";
-    const dummyUser = {"username": username,"password": password, "email": "simona@blackjack.com"}
+
+const createDummyUser = async (username, password, email, role) => {
+   const dummyUser =  {"username": username,"password": password, "email": email, "role": role};
     //Create user
     await request
-      .post('/users/')
-      .send(dummyUser);
-    //Login user
+        .post('/users/')
+        .send(dummyUser);
+     //Login user
     const response = await request
         .post('/auth/')
         .send({"username": username,"password": password});
-    token = response.body.token;
+    
+    return response.body.token;
+}
+
+
+beforeAll(async () => {
+    await dbHandler.connect();
+    token.driver = await createDummyUser("aldo","aldoaldo","aldo@aldo.it",role.DRIVER);
+    token.parkingcompany = await createDummyUser("bort","bortbort","bort@bort.it",role.PARKING_COMPANY);
+    token.municipalityemployee = await createDummyUser("safi","safisafi","safi@safi.it",role.MUNICIPALITY_EMPLOYEE);
+    token.municipalitypolice = await createDummyUser("enrico","enricopoesse","enrico@poesse.it",role.MUNICIPALITY_POLICE);
 });
 
 
@@ -44,7 +52,7 @@ describe('Parking Spot Route', () => {
         it('should return 400 on empty parkingSpot', async () => {
             const response = await request
             .post('/parkingSpots')
-            .set('Authorization', 'Bearer ' + token);
+            .set('Authorization', 'Bearer ' + token.municipalityemployee);
     
             expect(response.status).toBe(400);
         });
@@ -55,7 +63,7 @@ describe('Parking Spot Route', () => {
             const response = await request
                 .post('/parkingSpots')
                 .send(invalidJson)
-                .set('Authorization', 'Bearer ' + token)
+                .set('Authorization', 'Bearer ' + token.municipalityemployee)
                 .set('Content-Type', 'application/json')
                 .set('Accept', 'application/json');
     
@@ -68,7 +76,7 @@ describe('Parking Spot Route', () => {
             const response = await request
                 .post('/parkingSpots')
                 .send(validParkingSpotJson)
-                .set('Authorization', 'Bearer ' + token)
+                .set('Authorization', 'Bearer ' + token.municipalityemployee)
                 .set('Content-Type', 'application/json')
                 .set('Accept', 'application/json');
     
@@ -79,12 +87,12 @@ describe('Parking Spot Route', () => {
     describe('GET /parkingSpots', () => {
         it('Should return 200 on get parkingSpots', async () => {
             const res = await request
-            .get('/parkingSpots').set('Authorization', 'Bearer ' + token);
+            .get('/parkingSpots').set('Authorization', 'Bearer ' + token.driver);
             expect(res.status).toBe(200);
         });
         
         it('Should respond with a parkingSpots field at /', async () => {
-            const res = await request.get('/parkingSpots').set('Authorization', 'Bearer ' + token);
+            const res = await request.get('/parkingSpots').set('Authorization', 'Bearer ' + token.driver);
             expect(res.body.parkingSpots).toBeDefined();
         });
 
@@ -94,12 +102,12 @@ describe('Parking Spot Route', () => {
                 await request
                     .post('/parkingSpots')
                     .send(validParkingSpotJson)
-                    .set('Authorization', 'Bearer ' + token)
+                    .set('Authorization', 'Bearer ' + token.municipalityemployee)
                     .set('Content-Type', 'application/json')
                     .set('Accept', 'application/json');
             };
 
-            const res = await request.get('/parkingSpots').set('Authorization', 'Bearer ' + token);
+            const res = await request.get('/parkingSpots').set('Authorization', 'Bearer ' + token.municipalityemployee);
             expect(res.body.parkingSpots).toHaveLength(totalParkingSpots);
         });
 
@@ -107,12 +115,12 @@ describe('Parking Spot Route', () => {
             const preRes = await request
                 .post('/parkingSpots')
                 .send(validParkingSpotJson)
-                .set('Authorization', 'Bearer ' + token)
+                .set('Authorization', 'Bearer ' + token.municipalityemployee)
                 .set('Content-Type', 'application/json')
                 .set('Accept', 'application/json');
             const parkingSpotId = preRes.body._id;
 
-            const res = await request.get(`/parkingSpots/${parkingSpotId}`).set('Authorization', 'Bearer ' + token);
+            const res = await request.get(`/parkingSpots/${parkingSpotId}`).set('Authorization', 'Bearer ' + token.parkingcompany);
             expect(res.status).toBe(200);
             expect(res.body).toMatchObject(exampleValidParkingSpot);
         });
@@ -120,12 +128,12 @@ describe('Parking Spot Route', () => {
         it('should return 404 if no parkingSpot has target id at /:id', async () => {
             const res = await request
             .get(`/parkingSpots/507f1f77bcf86cd799439011`)
-            .set('Authorization', 'Bearer ' + token);
+            .set('Authorization', 'Bearer ' + token.parkingcompany);
             expect(res.status).toBe(404);
         });
 
         it('should return 400 if the target id at /:id is an invalid id', async () => {
-            const res = await request.get(`/parkingSpots/INVALID`).set('Authorization', 'Bearer ' + token);
+            const res = await request.get(`/parkingSpots/INVALID`).set('Authorization', 'Bearer ' + token.parkingcompany);
             expect(res.status).toBe(400);
         });
     });
