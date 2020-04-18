@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
-import ParkingSpotListView from './pages/ParkingSpotListView';
+import ParkingSpotMunicipalityView from './pages/ParkingSpotMunicipalityView';
 import LogoutButton from './pages/LogoutButton';
 import ParkingSpotsSetPriceView from './pages/ParkingSpotsSetPriceView';
 import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
@@ -30,7 +30,7 @@ class App extends Component {
               <Link to="/parkingSpotCreation">Parking Spot Creation</Link>
             </li>
             <li>
-              <Link to="/parkingSpotListView">Parking Spots List</Link>
+              <Link to="/parkingSpotMunicipalityView">Parking Spots Municipality View</Link>
             </li>
             <li>
               <Link to="/parkingSpotsSetPriceView">Set parking spot prices</Link>
@@ -45,7 +45,7 @@ class App extends Component {
         <Route path="/auth" component={LoginForm} />
         <Route path="/users" component={UserCreationForm} />
         <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
-        <Route path="/parkingSpotListView" component={ParkingSpotListView} />
+        <Route path="/parkingSpotMunicipalityView" component={ParkingSpotMunicipalityView} />
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
         <Route path="/changePassword" component={ChangePasswordForm} />
     </Router>

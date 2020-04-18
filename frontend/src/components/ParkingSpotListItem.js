@@ -7,6 +7,10 @@ const OutsetDiv = styled.div`
     margin: 20px;
 `;
 
+const ActivatedStatus = styled.p`
+    color: ${props => props.activated ? "green" : "red"};
+`;
+
 const PriceSetter = (props) => {
     const [price, setPrice] = useState(props.parkingSpot.price);
     const [newPrice, setNewPrice] = useState(props.parkingSpot.price);
@@ -43,12 +47,33 @@ const PriceSetter = (props) => {
     )
 }
 
+const Activator = (props) => {
+    const [activated, setActivated] = useState(props.parkingSpot.activated);
+    
+    const handleActivate = async () => {
+        try {
+            await axios.patch(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}/activate`);
+            setActivated(true);
+        } catch (err) {
+            alert(err)
+        }
+    };
+
+    return (
+        <>
+            <ActivatedStatus activated={activated}>Activated: {activated.toString()}</ActivatedStatus>
+            {activated ? null: <button onClick={handleActivate}>Make Available</button>}
+        </>
+    );
+}
+
 const ParkingSpotListItem = (props) => {
     return (
         <OutsetDiv>
             <p>Id: {props.parkingSpot._id}</p>
             <p>Latitude: {props.parkingSpot.location.latitude}</p>
             <p>Longitude: {props.parkingSpot.location.longitude}</p>
+            {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
             {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
         </OutsetDiv>
     );

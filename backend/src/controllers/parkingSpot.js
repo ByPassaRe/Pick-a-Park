@@ -74,7 +74,7 @@ exports.getNearest = async (req, res) => {
     longitude: Number(req.query.longitude)
   }
 
-  const parkingSpots = await ParkingSpot.find({available: true});
+  const parkingSpots = await ParkingSpot.find({available: true, activated: true});
 
   if(parkingSpots.length === 0) {
     return res.sendStatus(404);
@@ -89,4 +89,26 @@ exports.getNearest = async (req, res) => {
 
   res.send(nearestParkingSpot);
 
+};
+
+exports.activate = async (req, res) => {
+  try {
+    await ParkingSpot.findByIdAndUpdate(req.params.id, {activated: true, available: true});
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    return res.status(400);
+  }
+};
+
+exports.deactivate = async (req, res) => {
+  try {
+    await ParkingSpot.findByIdAndUpdate(req.params.id, {activated: false});
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    return res.status(400);
+  }
 };
