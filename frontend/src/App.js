@@ -11,10 +11,15 @@ import ChangePasswordForm from './pages/ChangePasswordForm';
 
 
 class App extends Component {
+
   render() {
+    const loggedUser = localStorage.jwt;
+
     return (
       <Router>
-        <LogoutButton />
+        
+        {(loggedUser) && <LogoutButton />}
+        
         <nav>
           <ul>
             <li>
