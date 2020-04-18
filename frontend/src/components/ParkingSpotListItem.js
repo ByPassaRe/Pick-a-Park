@@ -43,12 +43,23 @@ const PriceSetter = (props) => {
     )
 }
 
+const Activator = (props) => {
+
+    return (
+        <>
+            <p>Status: Deactivated</p>
+            <button>Toggle Activation</button>
+        </>
+    )
+}
+
 const ParkingSpotListItem = (props) => {
     return (
         <OutsetDiv>
             <p>Id: {props.parkingSpot._id}</p>
             <p>Latitude: {props.parkingSpot.location.latitude}</p>
             <p>Longitude: {props.parkingSpot.location.longitude}</p>
+            {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
             {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
         </OutsetDiv>
     );

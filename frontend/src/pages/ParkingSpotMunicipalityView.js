@@ -22,7 +22,7 @@ function ParkingSpotListView() {
 
     }, []);
 
-    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot}/>
+    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot} activator/>
 
     return (
         <>
