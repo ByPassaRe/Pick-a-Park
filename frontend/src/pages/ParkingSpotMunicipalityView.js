@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import ParkingSpotListItem from './../components/ParkingSpotListItem';
+import ParkingSpotListItem from '../components/ParkingSpotListItem';
 
 function ParkingSpotListView() {
     const [statusMessage, setStatusMessage] = useState(null);
