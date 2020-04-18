@@ -44,13 +44,23 @@ const PriceSetter = (props) => {
 }
 
 const Activator = (props) => {
+    const [available, setAvailable] = useState(props.parkingSpot.available);
+    
+    const handleActivate = async () => {
+        try {
+            await axios.patch(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}/available`);
+            setAvailable(true);
+        } catch (err) {
+            alert(err)
+        }
+    };
 
     return (
         <>
-            <p>Status: Deactivated</p>
-            <button>Toggle Activation</button>
+            <p>Activated: {available.toString()}</p>
+            {available ? null: <button onClick={handleActivate}>Make Available</button>}
         </>
-    )
+    );
 }
 
 const ParkingSpotListItem = (props) => {

@@ -90,3 +90,14 @@ exports.getNearest = async (req, res) => {
   res.send(nearestParkingSpot);
 
 };
+
+exports.activate = async (req, res) => {
+  try {
+    await ParkingSpot.findByIdAndUpdate(req.params.id, {available: true}, {new: true});
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    return res.status(400);
+  }
+};
