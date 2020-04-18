@@ -5,8 +5,7 @@ const IssueSchema = new mongoose.Schema({
     
 });
 
-IssueSchema.pre('save', async function() {
-});
+
 
 const Issue = mongoose.model('Issue', IssueSchema);
 
