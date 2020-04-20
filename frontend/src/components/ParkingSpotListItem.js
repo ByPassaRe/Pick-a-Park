@@ -67,6 +67,24 @@ const Activator = (props) => {
     );
 }
 
+const Deleter = (props) => {
+    
+    const submit = async () => {
+        try {
+            await axios.delete(`http://localhost:5000/parkingSpots/${props.id}`)
+        } catch (err) {
+            alert('Error while processing delete request');
+            return;
+        }
+
+        props.deleteHandler(props.id);
+    }
+
+    return (
+        <button onClick={submit}>Delete</button>
+    );
+};
+
 const ParkingSpotListItem = (props) => {
     return (
         <OutsetDiv>
@@ -75,6 +93,7 @@ const ParkingSpotListItem = (props) => {
             <p>Longitude: {props.parkingSpot.location.longitude}</p>
             {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
             {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
+            {props.deleter ? <Deleter deleteHandler={props.deleteHandler} id={props.parkingSpot._id}>Can be Deleted</Deleter> : null}
         </OutsetDiv>
     );
 }

@@ -22,7 +22,11 @@ function ParkingSpotListView() {
 
     }, []);
 
-    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot} activator/>
+    const onDelete = (id) => {
+        console.log(`Deleted ${id}`);
+    };
+
+    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot} activator deleter deleteHandler={onDelete}/>
 
     return (
         <>
