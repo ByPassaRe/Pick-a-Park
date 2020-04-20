@@ -8,5 +8,6 @@ router.get("/nearest", parkingSpots.getNearest);
 router.get("/:id", parkingSpots.read);
 router.patch('/:id/activate', parkingSpots.activate);
 router.patch('/:id/disable', parkingSpots.deactivate);
+router.delete('/:id', parkingSpots.delete);
 
 module.exports = router;

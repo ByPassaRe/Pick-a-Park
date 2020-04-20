@@ -63,6 +63,18 @@ exports.patch = async (req, res) => {
   }
 }
 
+exports.delete = async (req, res) => {
+  try {
+    const deletedParkingSpot = await ParkingSpot.findByIdAndDelete(req.params.id);
+    if(!deletedParkingSpot) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(400);
+  }
+};
+
 exports.getNearest = async (req, res) => {
 
   if(!req.query.latitude || !req.query.longitude) {
