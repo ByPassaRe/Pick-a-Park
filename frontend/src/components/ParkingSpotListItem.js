@@ -69,6 +69,8 @@ const Activator = (props) => {
 
 const Deleter = (props) => {
     
+    const [confirmation, setConfirmation] = useState(false);
+
     const submit = async () => {
         try {
             await axios.delete(`http://localhost:5000/parkingSpots/${props.id}`)
@@ -81,7 +83,17 @@ const Deleter = (props) => {
     }
 
     return (
-        <button onClick={submit}>Delete</button>
+        <>
+        {
+            !confirmation ? <button onClick={() => setConfirmation(true)}>Delete</button> : (
+                <>
+                <p>Are you sure ?</p>
+                <button onClick={submit}>Yes</button>
+                <button onClick={() => setConfirmation(false)}>No</button>
+                </>
+            )
+        }
+        </>
     );
 };
 
