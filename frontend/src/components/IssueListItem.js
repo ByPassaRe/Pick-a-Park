@@ -12,7 +12,8 @@ const IssueListItem = (props) => {
         <OutsetDiv>
             <p>Id: {props.issue._id}</p>
             <p>Text: {props.issue.text}</p>
-           
+            <p>Park: {props.issue.parkingSpot}</p>
+
         </OutsetDiv>
     );
 }
