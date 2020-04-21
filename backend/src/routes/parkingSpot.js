@@ -13,7 +13,7 @@ router.get("/",
     parkingSpots.read);
 
 router.patch("/:id",
-    authorize(role.MUNICIPALITY_EMPLOYEE,role.PARKING_COMPANY),
+    authorize([role.MUNICIPALITY_EMPLOYEE,role.PARKING_COMPANY]),
     parkingSpots.patch);
 
 router.get("/nearest",
