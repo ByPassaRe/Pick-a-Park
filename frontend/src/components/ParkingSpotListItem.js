@@ -15,6 +15,12 @@ const PriceSetter = (props) => {
         try {
             await axios.patch(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}`, {
                 price: newPrice
+            },
+            {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': localStorage.getItem("jwt")
+                }
             });
         } catch (err) {
             alert(err);
