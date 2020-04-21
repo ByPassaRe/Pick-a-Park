@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router";
+import { jwtDecode } from 'jwt-js-decode';
 
 
 function LoginForm() {
@@ -27,8 +28,11 @@ function LoginForm() {
         //All right!
         alert(response.data.message)
         localStorage.setItem('jwt',response.data.token);
-        history.push("/users");
-
+        let jwtDecoded = jwtDecode(localStorage.jwt);
+        localStorage.setItem('role',jwtDecoded.payload.role);
+        localStorage.setItem('username',jwtDecoded.payload.username);
+        history.push("/profile");
+        
       }
   
     } catch (error) {
@@ -50,20 +54,20 @@ function LoginForm() {
   }
 
 
-
   return (
       <div>
-      Username:
-      <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
-      <br />
+        <h3>Login</h3>
+        Username:
+        <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
+        <br />
 
-      Password:
-      <input type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
-      <br />
+        Password:
+        <input type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
+        <br />
 
-      <button onClick ={handleSubmit}>Sign In</button>
-    </div>
-   
+        <button onClick ={handleSubmit}>Sign In</button>
+      </div>
+    
   );
 }
 
