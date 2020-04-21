@@ -12,7 +12,8 @@ module.exports =  (roles = []) => {
         if(!req.headers.authorization)
             return res.status(401).json({ message: 'Unauthorized (auth missing)' });
         
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization;
+
         jwt.verify(token, jsonSecret.secret, (err, user) => {
             if (err)
                 return res.status(401).json({ message: 'Unauthorized (jwt error)' });
