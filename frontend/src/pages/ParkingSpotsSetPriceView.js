@@ -13,7 +13,13 @@ function ParkingSpotListView() {
             setStatusMessage('Loading...');
             
             try {
-                const response = await axios.get('http://localhost:5000/parkingSpots');
+                const response = await axios.get('http://localhost:5000/parkingSpots',
+                {
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': localStorage.getItem("jwt")
+                    }
+                });
                 setParkingSpots(response.data.parkingSpots);
             } catch (err) {
                 setStatusMessage('Error retrieving data.');

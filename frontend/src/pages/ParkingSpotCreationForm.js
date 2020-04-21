@@ -12,7 +12,14 @@ function ParkingSpotCreationForm() {
 
   const handleCorrectData = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/parkingSpots', { location });
+      const response = await axios.post('http://localhost:5000/parkingSpots', 
+        { location }
+        ,{
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem("jwt")
+          }
+        });
       response.status === 200 ? alert('Parking Spot Created succesfully') : alert(response);
     } catch (err) {
       alert(err);

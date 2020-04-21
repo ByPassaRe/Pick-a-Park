@@ -8,12 +8,14 @@ function ChangePasswordForm() {
   
   const handleCorrectData = async () => {
     try {
-      //I try to change the password
-      //the checking of the actual password is moved to the server
       const response = await axios.post('http://localhost:5000/users/change-password', { 
-        token: localStorage.getItem("jwt"),
         actualPassword: data.actualPassword,
         newPassword: data.newPassword
+      },{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem("jwt")
+        }
       });
       if(response.status === 200)
         alert('Password changed!')
@@ -39,7 +41,7 @@ function ChangePasswordForm() {
 
   return (
     <div>
-
+      <h2>Change Password</h2>
       Actual Password:
       <input type="password" name="actualPassword" onChange={(e) => setData({...data, actualPassword: e.target.value})}/>
       <br />
