@@ -7,13 +7,13 @@ const OutsetDiv = styled.div`
 `;
    
 
+
 const IssueListItem = (props) => {
     return (
         <OutsetDiv>
             <p>Id: {props.issue._id}</p>
             <p>Text: {props.issue.text}</p>
-            <p>Park: {props.issue.parkingSpot}</p>
-
+            <p>Parking Spot: {props.issue.parkingSpot}</p>
         </OutsetDiv>
     );
 }

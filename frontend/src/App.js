@@ -41,7 +41,7 @@ class App extends Component {
             </li>
             <li>
               <Link to="/issueListView">Issue List View</Link>
-            </li>
+            </li>       
           </ul>
         </nav>
 
@@ -53,6 +53,7 @@ class App extends Component {
         <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
         <Route path="/issueCreation" component={IssueCreationForm} />
         <Route path="/issueListView" component={IssueListView} />
+
 
 
 
