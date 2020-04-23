@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import MapPage from './MapPage';
 import ParkingSpotCreationForm from './ParkingSpotCreationForm';
 import ChangePasswordForm from './ChangePasswordForm';
-import ParkingSpotListView from './ParkingSpotListView';
 import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
+import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
 
 
 function ProfilePage() {
@@ -27,7 +27,7 @@ function ProfilePage() {
             (
                 <>
                     <ParkingSpotCreationForm/>
-                    <ParkingSpotListView/>
+                    <ParkingSpotMunicipalityView/>
                 </>
             )
             :(user.role === "MUNICIPAITY_POLICE")?

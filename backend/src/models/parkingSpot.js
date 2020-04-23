@@ -6,6 +6,7 @@ const ParkingSpotSchema = new mongoose.Schema({
         longitude: {type:Number, min: -180, max: 180, required: true},
     },
     price: {type: Number, default: 0, min: 0},
+    activated: {type: Boolean, default: false},
     available: {type: Boolean, default: false}
 });
 

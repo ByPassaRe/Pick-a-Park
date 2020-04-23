@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import ParkingSpotListItem from './../components/ParkingSpotListItem';
 
-function ParkingSpotListView() {
+function ParkingSpotsSetPriceView() {
     const [statusMessage, setStatusMessage] = useState(null);
     const [parkingSpots, setParkingSpots] = useState(null);
 
@@ -29,7 +29,8 @@ function ParkingSpotListView() {
 
     }, []);
 
-    const renderParkingSpotWithSetPrice = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} priceSetter parkingSpot={parkingSpot}/>
+    const renderParkingSpotWithSetPrice = (parkingSpot) => 
+        <ParkingSpotListItem key={parkingSpot._id} priceSetter parkingSpot={parkingSpot}/>
 
     return (
         <>
@@ -41,4 +42,4 @@ function ParkingSpotListView() {
     );
 }
 
-export default ParkingSpotListView;
+export default ParkingSpotsSetPriceView;

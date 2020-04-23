@@ -5,11 +5,11 @@ const role = require("../util/role");
 
 
 router.post("/",
-    authorize(role.MUNICIPALITY_EMPLOYEE),
+    authorize([role.MUNICIPALITY_EMPLOYEE]),
     parkingSpots.create);
 
 router.get("/",
-    authorize(), 
+    authorize([]), 
     parkingSpots.read);
 
 router.patch("/:id",
@@ -17,11 +17,22 @@ router.patch("/:id",
     parkingSpots.patch);
 
 router.get("/nearest",
-    authorize(role.DRIVER),
+    authorize([role.DRIVER]),
     parkingSpots.getNearest);
 
 router.get("/:id",
-    authorize(), 
+    authorize([]), 
     parkingSpots.read);
+
+router.patch('/:id/activate', 
+    authorize([role.MUNICIPALITY_EMPLOYEE]),
+    parkingSpots.activate);
+
+router.patch('/:id/disable', 
+    authorize([role.MUNICIPALITY_EMPLOYEE]),
+    parkingSpots.deactivate);
+    
     
 module.exports = router;
+
+  

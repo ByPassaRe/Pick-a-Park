@@ -27,7 +27,6 @@ class App extends Component {
               <PrivateRoute path="/profile">
                 <ProfilePage/>
               </PrivateRoute>
-      
               <Route>
                 <div>404 Not Found</div>
               </Route>
