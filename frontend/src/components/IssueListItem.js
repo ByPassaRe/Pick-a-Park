@@ -10,13 +10,16 @@ const OutsetDiv = styled.div`
 const IssueResolution = (props) => {
     const handleSend = async () => {
         try {
-            const response= await axios.delete(`http://localhost:5000/issues/${props.id}`);
+            const response= await axios.post(`http://localhost:5000/issues/${props.id}`);
             console.log(response.data);
         } catch (err) {
             alert(err);
         }
-        alert("Issue Deleted");
+        alert("Issue"+props.id+"updated");
         props.deleteIssue(props.id);
+
+        //richiamo la funzione e gestisco i cambiamenti 
+        // qualora il solved sia a true rendo disattivo il bottone 
     }
     return (
         <>
@@ -32,7 +35,7 @@ const IssueListItem = (props) => {
             <p>Id: {props.issue._id}</p>
             <p>Description: {props.issue.text}</p>
             <p>Parking Spot: {props.issue.parkingSpot}</p>
-            <IssueResolution id={props.issue._id} deleteIssue={props.deleteIssue} />
+            <IssueResolution id={props.issue._id}   selectSolvedIssue={props.selectSolvedIssue} deleteIssue={props.deleteIssue} />
 
         </OutsetDiv>
     );
