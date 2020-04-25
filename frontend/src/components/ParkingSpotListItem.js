@@ -67,6 +67,36 @@ const Activator = (props) => {
     );
 }
 
+const Deleter = (props) => {
+    
+    const [confirmation, setConfirmation] = useState(false);
+
+    const submit = async () => {
+        try {
+            await axios.delete(`http://localhost:5000/parkingSpots/${props.id}`)
+        } catch (err) {
+            alert('Error while processing delete request');
+            return;
+        }
+
+        props.deleteHandler(props.id);
+    }
+
+    return (
+        <>
+        {
+            !confirmation ? <button onClick={() => setConfirmation(true)}>Delete</button> : (
+                <>
+                <p>Are you sure ?</p>
+                <button onClick={submit}>Yes</button>
+                <button onClick={() => setConfirmation(false)}>No</button>
+                </>
+            )
+        }
+        </>
+    );
+};
+
 const ParkingSpotListItem = (props) => {
     return (
         <OutsetDiv>
@@ -75,6 +105,7 @@ const ParkingSpotListItem = (props) => {
             <p>Longitude: {props.parkingSpot.location.longitude}</p>
             {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
             {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
+            {props.deleter ? <Deleter deleteHandler={props.deleteHandler} id={props.parkingSpot._id}>Can be Deleted</Deleter> : null}
         </OutsetDiv>
     );
 }
