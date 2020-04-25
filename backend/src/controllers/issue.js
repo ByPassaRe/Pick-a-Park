@@ -39,9 +39,9 @@ exports.read = async (req, res) => {
   }
 };
 exports.delete = async (req, res) => {
-  console.log(req.body);
+  console.log(req.params);
   try {
-    const issue = await Issue.findOneAndDelete(req.body.id);
+    const issue = await Issue.findByIdAndDelete(req.params.id);
     console.log(issue);
     if (!issue) {
       return res.send('There is a problem deleting the issue').status(500);

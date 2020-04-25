@@ -10,7 +10,7 @@ const OutsetDiv = styled.div`
 const IssueResolution = (props) => {
     const handleSend = async () => {
         try {
-            const response= await axios.delete(`http://localhost:5000/issues`);
+            const response= await axios.delete(`http://localhost:5000/issues/${props.id}`);
             console.log(response.data);
         } catch (err) {
             alert(err);
