@@ -18,7 +18,14 @@ function IssueListView(){
             };
         })();
     }, []);
-    const renderIssue = (issue) => <IssueListItem key={issue._id} issue = {issue}/>
+   
+    function deleteIssue(id){
+        function notContainId(issue){
+            return (issue._id !== id);
+        }
+        setIssues(issues.filter(notContainId))
+    }
+    const renderIssue = (issue) => <IssueListItem key={issue._id} deleteIssue={deleteIssue} issue = {issue}/>
     return(
         <>
         <h2>Issues:</h2>

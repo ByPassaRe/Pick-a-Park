@@ -1,50 +1,81 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import axios from 'axios';
+const OutsetDiv = styled.div`
+    border-style: outset;
+    margin: 50px;
+`;
 function IssueCreationForm() {
   const [issue, setIssue] = useState({});
-  var arr = [0, 1, 2, 3, 4];
+  const [slot, setSlot] = useState([]);
 
 
   useEffect(() => {
     async function fetchData() {
       const park = await axios.get('http://localhost:5000/parkingSpots');
-      console.log(park.data.parkingSpots.map(function (item) { return item._id; }));
+      //console.log(park.data.parkingSpots.map(function (item) { return item._id; }));
+      const idArray = park.data.parkingSpots.map(function (item) { return item._id; });
+      setSlot(idArray);
     }
-    fetchData();
 
+    fetchData();
   }, []);
 
   const handleCorrectData = async () => {
 
     try {
-      const response = await axios.post('http://localhost:5000/issues', { text: issue.text, parkingSpot: issue.parkingSpot })
+      const response = await axios.post('http://localhost:5000/issues', {
+        text: issue.text,
+        parkingSpot: issue.parkingSpot
+      })
       response.status === 200 ? alert('Issue Created succesfully') : alert(response);
     } catch (err) {
       alert(err);
     }
   };
-
-
-  const handleSubmit = () => {
+/** 
+  const handleBadData = (err) => {
+    alert(err); 
+  }
+   const handleSubmit = () => {
+    if(!issue.text)
+      handleBadData('Insert a description of the issue');
+    else
     handleCorrectData();
   }
+  */
+ const handleBadData = () => {
+  alert('Insert a description of the issue');
+}
+
+const handleSubmit = () => 
+ (issue.text) ?  handleCorrectData() : handleBadData();
+
 
   return (
+    
     <div>
-      Text:
-      <input type="text" name="text" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
+      <h2>Create an issue:</h2>
+      <OutsetDiv>
+        <br/>
+      Description:
+      <input type="text" name="text" placeholder= "insert the issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
       <br />
       Parking Spot:
-        <select id="dropdown" onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
-        {arr.map(item => (
-
-          <option value={item.index} key={item} >
-            {item}</option>
-        ))}
+      <select id="dropdown" name="parkingSlot" onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })} >
+      <option default>None</option>
+        {slot.map(item =>
+          <option value={item} key={item} >
+            {item}
+          </option>
+        )}
       </select>
-
+      <br/>
       <button onClick={handleSubmit}>Create Issue</button>
+      <br />
+      </OutsetDiv>
     </div>
+    
   );
 
 }
