@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
 import LogoutButton from './pages/LogoutButton';
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProfilePage from './pages/ProfilePage';
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
