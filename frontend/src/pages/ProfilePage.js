@@ -35,7 +35,7 @@ function ProfilePage() {
                 <div>TODO</div>
             ):
             (
-                <Redirect to={{ pathname: "/"}} />
+                <Redirect to={{ pathname: "/login"}} />
             )
         }
 

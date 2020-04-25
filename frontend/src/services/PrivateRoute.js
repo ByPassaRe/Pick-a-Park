@@ -9,7 +9,7 @@ function PrivateRoute({ children ,...rest }) {
             localStorageService.getAccessToken() ? 
             ( children ) 
             : 
-            ( <Redirect to={{ pathname: "/"}} /> )
+            ( <Redirect to={{ pathname: "/login"}} /> )
         }
         />
     );

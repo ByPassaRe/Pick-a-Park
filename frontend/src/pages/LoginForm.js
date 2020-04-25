@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-js-decode';
 import localStorageService from "../services/LocalStorage";
 
 
-function LoginForm() {
+function LoginForm(prop) {
   let history = useHistory();
   const [credential, setCredential] = useState({username: "", password: ""});
   // eslint-disable-next-line
@@ -32,10 +32,10 @@ function LoginForm() {
         let jwtDecoded = jwtDecode(response.data.token);
         localStorage.setItem('role',jwtDecoded.payload.role);
         localStorage.setItem('username',jwtDecoded.payload.username);
-        history.push("/profile");
+        prop.login();
+        history.push("/");
         
       }
-  
     } catch (error) {
       alert(error.response.data.message)
     }

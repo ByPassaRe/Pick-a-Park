@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router";
 import localStorageService from "../services/LocalStorage";
 
-function LogoutButton() {
+function LogoutButton(prop) {
 
   let history = useHistory();
 
@@ -10,7 +10,8 @@ function LogoutButton() {
     if(localStorageService.getAccessToken()){
       localStorageService.clearToken();
       alert("You are logged off!");
-      history.push("/");
+      prop.logout();
+      history.push("/login");
     }
     else
       alert("You are not logged!");
