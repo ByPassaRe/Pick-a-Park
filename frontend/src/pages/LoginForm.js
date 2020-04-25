@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router";
 import { jwtDecode } from 'jwt-js-decode';
+import localStorageService from "../services/LocalStorage";
 
 
 function LoginForm() {
@@ -27,8 +28,8 @@ function LoginForm() {
       if(response.status === 200){
         //All right!
         alert(response.data.message)
-        localStorage.setItem('jwt',response.data.token);
-        let jwtDecoded = jwtDecode(localStorage.jwt);
+        localStorageService.setToken(response.data.token);
+        let jwtDecoded = jwtDecode(response.data.token);
         localStorage.setItem('role',jwtDecoded.payload.role);
         localStorage.setItem('username',jwtDecoded.payload.username);
         history.push("/profile");

@@ -1,21 +1,16 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
 function ChangePasswordForm() {
   const [data, setData] = useState({});
  
- 
+
   
   const handleCorrectData = async () => {
     try {
       const response = await axios.post('http://localhost:5000/users/change-password', { 
         actualPassword: data.actualPassword,
         newPassword: data.newPassword
-      },{
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem("jwt")
-        }
       });
       if(response.status === 200)
         alert('Password changed!')

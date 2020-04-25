@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {partialRight} from 'ramda';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
 function ParkingSpotCreationForm() {
   const [location, setLocation] = useState({});
@@ -12,14 +12,7 @@ function ParkingSpotCreationForm() {
 
   const handleCorrectData = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/parkingSpots', 
-        { location }
-        ,{
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': localStorage.getItem("jwt")
-          }
-        });
+      const response = await axios.post('http://localhost:5000/parkingSpots', { location });
       response.status === 200 ? alert('Parking Spot Created succesfully') : alert(response);
     } catch (err) {
       alert(err);

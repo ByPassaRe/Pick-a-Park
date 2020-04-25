@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
 import ParkingSpotListItem from '../components/ParkingSpotListItem';
 
@@ -12,13 +12,7 @@ function ParkingSpotMunicipalityView() {
             setStatusMessage('Loading...');
             
             try {
-                const response = await axios.get('http://localhost:5000/parkingSpots',
-                {
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': localStorage.getItem("jwt")
-                    }
-                });
+                const response = await axios.get('http://localhost:5000/parkingSpots');
                 setParkingSpots(response.data.parkingSpots);
             } catch (err) {
                 setStatusMessage('Error retrieving data.');
