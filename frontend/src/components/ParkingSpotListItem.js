@@ -49,12 +49,13 @@ const PriceSetter = (props) => {
 
 const Activator = (props) => {
     const [activated, setActivated] = useState(props.parkingSpot.activated);
-    
+
     const handleActivate = async () => {
         try {
             await axios.patch(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}/activate`);
             setActivated(true);
         } catch (err) {
+            console.log(err.response)
             alert(err)
         }
     };

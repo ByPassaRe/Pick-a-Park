@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router";
+import { jwtDecode } from 'jwt-js-decode';
+import localStorageService from "../services/LocalStorage";
 
 
-function LoginForm() {
+function LoginForm(prop) {
   let history = useHistory();
   const [credential, setCredential] = useState({username: "", password: ""});
   // eslint-disable-next-line
@@ -26,11 +28,14 @@ function LoginForm() {
       if(response.status === 200){
         //All right!
         alert(response.data.message)
-        localStorage.setItem('jwt',response.data.token);
-        history.push("/users");
-
+        localStorageService.setToken(response.data.token);
+        let jwtDecoded = jwtDecode(response.data.token);
+        localStorage.setItem('role',jwtDecoded.payload.role);
+        localStorage.setItem('username',jwtDecoded.payload.username);
+        prop.login();
+        history.push("/");
+        
       }
-  
     } catch (error) {
       alert(error.response.data.message)
     }
@@ -50,20 +55,20 @@ function LoginForm() {
   }
 
 
-
   return (
       <div>
-      Username:
-      <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
-      <br />
+        <h3>Login</h3>
+        Username:
+        <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
+        <br />
 
-      Password:
-      <input type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
-      <br />
+        Password:
+        <input type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
+        <br />
 
-      <button onClick ={handleSubmit}>Sign In</button>
-    </div>
-   
+        <button onClick ={handleSubmit}>Sign In</button>
+      </div>
+    
   );
 }
 

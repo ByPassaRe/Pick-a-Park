@@ -28,16 +28,14 @@ exports.create = (req, res) => {
 
 exports.changePassword =  async (req, res) => {
 
-  if(!req.body.token || !req.body.actualPassword || !req.body.newPassword)
+  if(!req.body.actualPassword || !req.body.newPassword)
       return res.status(400).json({message: "Input values are missing"});
 
-  const {token, actualPassword , newPassword} = req.body;
+  const {actualPassword , newPassword} = req.body;
   let decodedToken;
-
   
   try {
-    decodedToken = tokenUtils.tokenVerification(token);
-
+    decodedToken = tokenUtils.tokenVerification(req.headers.authorization);
   } catch (error) {
     return res.status(400).json({message: "Token is invalid"});
   }

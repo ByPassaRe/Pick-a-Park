@@ -1,56 +1,75 @@
 import React, { Component } from 'react';
 import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
-import ParkingSpotMunicipalityView from './pages/ParkingSpotMunicipalityView';
 import LogoutButton from './pages/LogoutButton';
-import ParkingSpotsSetPriceView from './pages/ParkingSpotsSetPriceView';
-import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import MapPage from './pages/MapPage';
-import ChangePasswordForm from './pages/ChangePasswordForm';
-
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ProfilePage from './pages/ProfilePage';
+import { PrivateRoute } from './services/PrivateRoute';
+import localStorageService from "./services/LocalStorage";
 
 class App extends Component {
-  render() {
-    return (
-      <Router>
-        <LogoutButton />
-        <nav>
-          <ul>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-            <li>
-              <Link to="/auth">Login</Link>
-            </li>
-            <li>
-              <Link to="/users">Create User</Link>
-            </li>
-            <li>
-              <Link to="/parkingSpotCreation">Parking Spot Creation</Link>
-            </li>
-            <li>
-              <Link to="/parkingSpotMunicipalityView">Parking Spots Municipality View</Link>
-            </li>
-            <li>
-              <Link to="/parkingSpotsSetPriceView">Set parking spot prices</Link>
-            </li>
-            <li>
-              <Link to="/changePassword">Change Password</Link>
-            </li>
-          </ul>
-        </nav>
 
-        <Route path="/map" component={MapPage} />
-        <Route path="/auth" component={LoginForm} />
-        <Route path="/users" component={UserCreationForm} />
-        <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
-        <Route path="/parkingSpotMunicipalityView" component={ParkingSpotMunicipalityView} />
-        <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
-        <Route path="/changePassword" component={ChangePasswordForm} />
-    </Router>
-      
-    )
+  constructor(props) {
+    super(props);
+    this.state = { isLogged: false };
+    this.logout = this.logout.bind(this);
+    this.login = this.login.bind(this);
+  }
+
+  componentDidMount() {
+    if(localStorageService.getAccessToken())
+      this.setState({ isLogged: true });
+    else
+      this.setState({ isLogged: false }); 
+  }
+
+ 
+  logout() {
+    this.setState({ isLogged: false }); 
+  }
+
+  login() {
+    this.setState({ isLogged: true }); 
+  }
+
+  
+
+
+  render(){
+
+    const { isLogged } = this.state;
+
+    return(
+
+        <BrowserRouter>
+            <nav>
+                {(isLogged)? 
+                  (<LogoutButton logout={this.logout}/>) 
+                  :
+                  (<span>This is Pick-A-Park</span>)
+                }
+            </nav>
+
+            <Switch>
+              <Route exact path={"/login"}>
+                <div>
+                  <LoginForm login={this.login}/>
+                  <hr/>
+                  <UserCreationForm/>
+                </div>
+                
+              </Route>
+
+              <PrivateRoute path="/">
+                <ProfilePage/>
+              </PrivateRoute>
+              <Route>
+                <div>404 Not Found</div>
+              </Route>
+            </Switch>
+        </BrowserRouter>
+        
+    );
   }
 }
 export default App;
