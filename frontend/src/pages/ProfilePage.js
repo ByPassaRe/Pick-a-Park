@@ -30,7 +30,7 @@ function ProfilePage() {
                     <ParkingSpotMunicipalityView/>
                 </>
             )
-            :(user.role === "MUNICIPAITY_POLICE")?
+            :(user.role === "MUNICIPALITY_POLICE")?
             (
                 <div>TODO</div>
             ):
