@@ -1,13 +1,14 @@
 import React from 'react';
 import { useHistory } from "react-router";
+import localStorageService from "../services/LocalStorage";
 
 function LogoutButton() {
 
   let history = useHistory();
 
   const handleSubmit = () => {
-    if(localStorage.getItem('jwt')){
-      localStorage.removeItem('jwt');
+    if(localStorageService.getAccessToken()){
+      localStorageService.clearToken();
       alert("You are logged off!");
       history.push("/");
     }
@@ -17,7 +18,7 @@ function LogoutButton() {
 
 
 
-  return (localStorage.jwt === undefined)? 
+  return (localStorageService.getAccessToken() === undefined)? 
   ( <span>You are not logged in.</span>)
   :
   (
