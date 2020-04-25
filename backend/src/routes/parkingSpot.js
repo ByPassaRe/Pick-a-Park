@@ -3,7 +3,6 @@ const router = require("express").Router();
 const authorize = require("../util/authorize");
 const role = require("../util/role");
 
-
 router.post("/",
     authorize([role.MUNICIPALITY_EMPLOYEE]),
     parkingSpots.create);
@@ -31,7 +30,8 @@ router.patch('/:id/activate',
 router.patch('/:id/disable', 
     authorize([role.MUNICIPALITY_EMPLOYEE]),
     parkingSpots.deactivate);
-    
+
+router.delete('/:id', authorize([role.MUNICIPALITY_EMPLOYEE]), parkingSpots.delete);
     
 module.exports = router;
 
