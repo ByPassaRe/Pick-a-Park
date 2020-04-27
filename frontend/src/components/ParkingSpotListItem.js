@@ -100,11 +100,31 @@ const Deleter = (props) => {
 
 const ParkingSpotListItem = (props) => {
     const [editView, setEditView] = useState(false);
+    const [parkingSpotData, setParkingSpotData] = useState(props.parkingSpot);
+    const [newParkingSpotData, setNewParkingSpotData] = useState(props.parkingSpot);
 
+    const handleChange = (e) => {
+        if(e.target.name === "latitude" || e.target.name === "longitude") {
+            const newLocation = {...newParkingSpotData.location}
+            newLocation[e.target.name] = Number(e.target.value) || newParkingSpotData.location[e.target.name]; // In case of invalid value
+            setNewParkingSpotData({...newParkingSpotData, location: newLocation});
+        }
+    }
+
+    const handleChangeSubmit = async () => {
+
+    };
+ 
     return (
         <OutsetDiv>
             <p>Id: {props.parkingSpot._id}</p>
-            {editView ? <p>Edit mode</p> : (
+            {editView ? (
+                <>
+                    <p>Latitude: <input name="latitude" type="number" min="0" step="any" value={newParkingSpotData.location.latitude} onChange={handleChange}/></p>
+                    <p>Longitude: <input name="longitude" type="number" min="0" step="any" value={newParkingSpotData.location.longitude} onChange={handleChange}/></p>
+                    <button onClick={() => console.log('clicke')}>Apply changes</button>
+                </>
+            ) : (
                 <>
                     <p>Latitude: {props.parkingSpot.location.latitude}</p>
                     <p>Longitude: {props.parkingSpot.location.longitude}</p>
@@ -113,7 +133,7 @@ const ParkingSpotListItem = (props) => {
             {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
             {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
             {props.deleter ? <Deleter deleteHandler={props.deleteHandler} id={props.parkingSpot._id}>Can be Deleted</Deleter> : null}
-            {props.modifier ? <button onClick={() => setEditView(true)}>Modify</button>: null}
+            {props.modifier ? <button onClick={() => setEditView(!editView)}>Toggle edit mode</button>: null}
         </OutsetDiv>
     );
 }
