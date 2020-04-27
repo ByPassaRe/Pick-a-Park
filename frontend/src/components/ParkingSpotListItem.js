@@ -99,14 +99,21 @@ const Deleter = (props) => {
 };
 
 const ParkingSpotListItem = (props) => {
+    const [editView, setEditView] = useState(false);
+
     return (
         <OutsetDiv>
             <p>Id: {props.parkingSpot._id}</p>
-            <p>Latitude: {props.parkingSpot.location.latitude}</p>
-            <p>Longitude: {props.parkingSpot.location.longitude}</p>
+            {editView ? <p>Edit mode</p> : (
+                <>
+                    <p>Latitude: {props.parkingSpot.location.latitude}</p>
+                    <p>Longitude: {props.parkingSpot.location.longitude}</p>
+                </>)
+            }
             {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
             {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
             {props.deleter ? <Deleter deleteHandler={props.deleteHandler} id={props.parkingSpot._id}>Can be Deleted</Deleter> : null}
+            {props.modifier ? <button onClick={() => setEditView(true)}>Modify</button>: null}
         </OutsetDiv>
     );
 }

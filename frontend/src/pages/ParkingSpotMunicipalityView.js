@@ -26,7 +26,7 @@ function ParkingSpotMunicipalityView() {
         setParkingSpots(parkingSpots.filter(parkingSpot => parkingSpot._id !== id));
     };
 
-    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot} activator deleter deleteHandler={onDelete}/>
+    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot} modifier activator deleter deleteHandler={onDelete}/>
 
     return (
         <>
