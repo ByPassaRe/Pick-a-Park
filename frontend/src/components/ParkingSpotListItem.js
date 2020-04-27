@@ -113,13 +113,12 @@ const ParkingSpotListItem = (props) => {
 
     const handleChangeSubmit = async () => {
         try {
-            await axios.put(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}`, newParkingSpotData);
+            await axios.put(`http://localhost:5000/parkingSpots/${parkingSpotData._id}`, newParkingSpotData);
             setParkingSpotData(newParkingSpotData);
             setEditView(false);
         } catch (err) {
             alert("Error while processing request");
         }
-
     };
  
     return (
@@ -133,8 +132,8 @@ const ParkingSpotListItem = (props) => {
                 </>
             ) : (
                 <>
-                    <p>Latitude: {props.parkingSpot.location.latitude}</p>
-                    <p>Longitude: {props.parkingSpot.location.longitude}</p>
+                    <p>Latitude: {parkingSpotData.location.latitude}</p>
+                    <p>Longitude: {parkingSpotData.location.longitude}</p>
                 </>)
             }
             {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
