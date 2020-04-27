@@ -102,6 +102,7 @@ const ParkingSpotListItem = (props) => {
     const [editView, setEditView] = useState(false);
     const [parkingSpotData, setParkingSpotData] = useState(props.parkingSpot);
     const [newParkingSpotData, setNewParkingSpotData] = useState(props.parkingSpot);
+    const [confirmation, setConfirmation] = useState(false);
 
     const handleChange = (e) => {
         if(e.target.name === "latitude" || e.target.name === "longitude") {
@@ -128,7 +129,15 @@ const ParkingSpotListItem = (props) => {
                 <>
                     <p>Latitude: <input name="latitude" type="number" min="0" step="any" value={newParkingSpotData.location.latitude} onChange={handleChange}/></p>
                     <p>Longitude: <input name="longitude" type="number" min="0" step="any" value={newParkingSpotData.location.longitude} onChange={handleChange}/></p>
-                    <button onClick={handleChangeSubmit}>Apply changes</button>
+                    {
+                        !confirmation ? <button onClick={() => setConfirmation(true)}>Apply changes</button> : (
+                            <>
+                            <p>Are you sure ?</p>
+                            <button onClick={handleChangeSubmit}>Yes</button>
+                            <button onClick={() => setConfirmation(false)}>No</button>
+                            </>
+                        )
+                    }
                 </>
             ) : (
                 <>
