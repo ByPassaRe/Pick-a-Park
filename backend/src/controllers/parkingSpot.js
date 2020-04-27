@@ -63,6 +63,11 @@ exports.patch = async (req, res) => {
   }
 }
 
+exports.put = async (req, res) => {
+  console.log(req);
+  res.sendStatus(200);
+}
+
 exports.delete = async (req, res) => {
   try {
     const deletedParkingSpot = await ParkingSpot.findByIdAndDelete(req.params.id);
