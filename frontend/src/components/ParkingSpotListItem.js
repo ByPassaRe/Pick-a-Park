@@ -112,6 +112,13 @@ const ParkingSpotListItem = (props) => {
     }
 
     const handleChangeSubmit = async () => {
+        try {
+            await axios.put(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}`, newParkingSpotData);
+            setParkingSpotData(newParkingSpotData);
+            setEditView(false);
+        } catch (err) {
+            alert("Error while processing request");
+        }
 
     };
  
@@ -122,7 +129,7 @@ const ParkingSpotListItem = (props) => {
                 <>
                     <p>Latitude: <input name="latitude" type="number" min="0" step="any" value={newParkingSpotData.location.latitude} onChange={handleChange}/></p>
                     <p>Longitude: <input name="longitude" type="number" min="0" step="any" value={newParkingSpotData.location.longitude} onChange={handleChange}/></p>
-                    <button onClick={() => console.log('clicke')}>Apply changes</button>
+                    <button onClick={handleChangeSubmit}>Apply changes</button>
                 </>
             ) : (
                 <>
