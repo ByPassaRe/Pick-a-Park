@@ -6,6 +6,7 @@ import ParkingSpotCreationForm from './ParkingSpotCreationForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
 import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
+import WallerPage from './WalletPage';
 
 
 function ProfilePage() {
@@ -17,7 +18,10 @@ function ProfilePage() {
         {
             (user.role === "DRIVER")? 
             (
-                <MapPage/> 
+                <>
+                    <WallerPage/>
+                    <MapPage/> 
+                </>
             )
             :(user.role === "PARKING_COMPANY")?
             (
