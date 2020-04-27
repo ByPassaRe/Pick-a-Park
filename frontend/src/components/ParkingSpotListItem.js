@@ -106,7 +106,7 @@ const ParkingSpotListItem = (props) => {
     const handleChange = (e) => {
         if(e.target.name === "latitude" || e.target.name === "longitude") {
             const newLocation = {...newParkingSpotData.location}
-            newLocation[e.target.name] = Number(e.target.value);
+            newLocation[e.target.name] = e.target.value;
             setNewParkingSpotData({...newParkingSpotData, location: newLocation});
         }
     }
@@ -117,7 +117,7 @@ const ParkingSpotListItem = (props) => {
             setParkingSpotData(newParkingSpotData);
             setEditView(false);
         } catch (err) {
-            alert("Error while processing request");
+            alert("Invalid input data");
         }
     };
  
