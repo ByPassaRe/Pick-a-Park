@@ -64,8 +64,15 @@ exports.patch = async (req, res) => {
 }
 
 exports.put = async (req, res) => {
-  console.log(req);
-  res.sendStatus(200);
+  try {
+    const parkingSpot = await ParkingSpot.findByIdAndUpdate(req.params.id, req.body);
+    if(!parkingSpot) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(400);
+  }
 }
 
 exports.delete = async (req, res) => {
