@@ -106,7 +106,7 @@ const ParkingSpotListItem = (props) => {
     const handleChange = (e) => {
         if(e.target.name === "latitude" || e.target.name === "longitude") {
             const newLocation = {...newParkingSpotData.location}
-            newLocation[e.target.name] = Number(e.target.value) || newParkingSpotData.location[e.target.name]; // In case of invalid value
+            newLocation[e.target.name] = Number(e.target.value);
             setNewParkingSpotData({...newParkingSpotData, location: newLocation});
         }
     }
