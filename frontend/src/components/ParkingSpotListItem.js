@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import axios from './../services/axiosService';
+//import axios from 'axios';
 
 const OutsetDiv = styled.div`
     border-style: outset;

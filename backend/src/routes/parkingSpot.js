@@ -15,7 +15,7 @@ router.patch("/:id",
     authorize([role.MUNICIPALITY_EMPLOYEE,role.PARKING_COMPANY]),
     parkingSpots.patch);
 
-router.put("/:id", parkingSpots.put);
+router.put("/:id", authorize([role.MUNICIPALITY_EMPLOYEE]), parkingSpots.put);
 
 router.get("/nearest",
     authorize([role.DRIVER]),
