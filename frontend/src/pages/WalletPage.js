@@ -27,6 +27,10 @@ function WallerPage() {
         const [amountToAdd, setAmountToAdd] = useState(0);
 
         const handleSend = async () => {
+            //If you click "Update" with 0€, It is to avoid an useless call to API
+            if(amountToAdd === 0)
+                return 
+            
             try {
                 //CHIAMATA API Per cambiare il prezzo sul db
                 /*await axios.patch(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}`, {
@@ -48,7 +52,7 @@ function WallerPage() {
         const handleChange = (e) => {
             if(e.target.value < 0) {
                 alert("You can't delete cash!")
-                setAmountToAdd(0);
+                setAmountToAdd(0); 
                 return;
             }
             setAmountToAdd(e.target.value);
