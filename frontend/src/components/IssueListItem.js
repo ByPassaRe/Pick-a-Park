@@ -16,14 +16,14 @@ const IssueResolution = (props) => {
             alert(err);
         }
         alert("Issue"+props.id+"updated");
-        props.deleteIssue(props.id);
+      props.deleteIssue(props.id);
 
         //richiamo la funzione e gestisco i cambiamenti 
         // qualora il solved sia a true rendo disattivo il bottone 
     }
     return (
         <>
-            <button onClick={handleSend}>Solved</button>
+           {(props.solved === false) ?<button onClick={handleSend }><font color= "red">Solve</font></button>: <p><font color= "green">Solved!</font></p>}
         </>
     )
 }
@@ -35,7 +35,7 @@ const IssueListItem = (props) => {
             <p>Id: {props.issue._id}</p>
             <p>Description: {props.issue.text}</p>
             <p>Parking Spot: {props.issue.parkingSpot}</p>
-            <IssueResolution id={props.issue._id}   selectSolvedIssue={props.selectSolvedIssue} deleteIssue={props.deleteIssue} />
+            <IssueResolution id={props.issue._id} solved={props.issue.solved} updateIssueState={props.updateIssueState} deleteIssue={props.deleteIssue} />
 
         </OutsetDiv>
     );
