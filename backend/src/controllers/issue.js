@@ -41,14 +41,15 @@ exports.read = async (req, res) => {
 exports.update = async (req, res) => {
   console.log(req.params);
   try {
-    const issue = await Issue.findByIdAndUpdate(req.params.id,  { $set: { solved: true }});
-
+    //If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
+    const issue = await Issue.findByIdAndUpdate(req.params.id,  { $set: {solved : true}},  { new: true });
     console.log(issue);
     if (!issue) {
-      return res.send('There is a problem deleting the issue').status(500);
+      return res.send('There is a problem updating the issue').status(500);
     }
-    return res.send('Issue has been deleted').status(200);
+    return res.send('Issue has been updated').status(200);
   } catch (err) {
     return res.sendStatus(400);
   }
+
 };
