@@ -72,3 +72,28 @@ exports.getBalance = async (req, res) => {
   
   return res.status(200).json({balance: user.balance});
 };
+
+exports.chargeBalance = async (req, res) => {
+  
+  if(!req.body.amount)
+    return res.status(400).json({message: "Input values are missing"});
+
+  let decodedToken;
+  
+  try {
+    decodedToken = tokenUtils.tokenVerification(req.headers.authorization);
+  } catch (error) {
+    return res.status(400).json({message: "Token is invalid"});
+  }
+
+  const user = await User.findOneAndUpdate(
+    {username: decodedToken.username},
+    {
+      $inc: {
+        balance: req.body.amount
+      }
+    }
+  ).exec();
+
+  return res.status(200).json({balance: user.balance});
+};

@@ -15,4 +15,8 @@ router.get("/balance",
     authorize([role.DRIVER]),
     users.getBalance);
 
+router.patch("/chargeBalance",
+    authorize([role.DRIVER]),
+    users.chargeBalance);
+
 module.exports = router;
