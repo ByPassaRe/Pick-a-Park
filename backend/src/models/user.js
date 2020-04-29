@@ -50,8 +50,12 @@ UserSchema = mongoose.Schema(
               },
               message: props => `${props.value} is not a valid role!`
             },
+        },
+        amount: {
+          type: Number,
+          require: true,
+          default: 0
         }
-        
       },
       { timestamps: true }
 );
