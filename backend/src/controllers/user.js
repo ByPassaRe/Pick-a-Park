@@ -58,3 +58,17 @@ exports.changePassword =  async (req, res) => {
     return res.status(404).json({message: "User is invalid"});
   }
 };
+
+
+exports.getBalance = async (req, res) => {
+  let decodedToken;
+  
+  try {
+    decodedToken = tokenUtils.tokenVerification(req.headers.authorization);
+  } catch (error) {
+    return res.status(400).json({message: "Token is invalid"});
+  }
+  const user = await User.findOne({username: decodedToken.username}).exec();
+  
+  return res.status(200).json({balance: user.balance});
+};
