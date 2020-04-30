@@ -41,11 +41,13 @@ exports.read = async (req, res) => {
 exports.update = async (req, res) => {
   console.log(req.params);
   try {
-    //If you set new: true, findOneAndUpdate() will instead give you the object after update was applied.
-    const issue = await Issue.findByIdAndUpdate(req.params.id,  { $set: {solved : true}},  { new: true });
+    const query = req.params.id;
+    const updateValue =  { $set: {solved : true}};
+    const option = {new: true};
+   const issue = await Issue.findByIdAndUpdate(query,updateValue,option);
     console.log(issue);
     if (!issue) {
-      return res.send('There is a problem updating the issue').status(500);
+      return res.send('There is a problem updating the issue ').status(500);
     }
     return res.send('Issue has been updated').status(200);
   } catch (err) {
