@@ -7,6 +7,7 @@ import ChangePasswordForm from './ChangePasswordForm';
 import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
 import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
 import BugReportForm from './BugReportForm';
+import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 
 
 
@@ -27,7 +28,11 @@ function ProfilePage() {
                     )
                     : (user.role === "PARKING_COMPANY") ?
                         (
+                            <>
+                            <BugReportParkingCompanyView/>
+                            <hr/>
                             <ParkingSpotsSetPriceView />
+                            </>
                         )
                         : (user.role === "MUNICIPALITY_EMPLOYEE") ?
                             (

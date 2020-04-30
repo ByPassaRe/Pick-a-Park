@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
 function BugReportForm() {
-  const [bug, setBug] = useState({});
+  const [bugReport, setbugReport] = useState({});
 
   const handleCorrectData = async () => {
 
     try {
       const response = await axios.post('http://localhost:5000/bugReports', {
-        text: bug.text
+        text: bugReport.text
       })
-      response.status === 200 ? alert('BugReport Created succesfully') : alert(response);
+      response.status === 200 ? alert('BugReport succesfully Sent') : alert(response);
     } catch (err) {
         alert(err.response.data.message);
     }
@@ -21,7 +21,7 @@ function BugReportForm() {
 }
 
 const handleSubmit = () => 
- (bug.text) ?  handleCorrectData() : handleBadData();
+ (bugReport.text) ?  handleCorrectData() : handleBadData();
 
 
   return (
@@ -30,7 +30,7 @@ const handleSubmit = () =>
       <h2>Create a Bug Report</h2>
         <br/>
       Description of the Bug:
-      <input type="text" name="text" placeholder= "explain the problem" onChange={(e) => setBug({ ...bug, text: e.target.value })} />
+      <input type="text" name="text" placeholder= "explain the problem" onChange={(e) => setbugReport({ ...bugReport, text: e.target.value })} />
       <br />
       <button onClick={handleSubmit}>Create Bug</button>
       <br />
