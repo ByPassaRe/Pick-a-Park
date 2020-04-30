@@ -6,48 +6,58 @@ import ParkingSpotCreationForm from './ParkingSpotCreationForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
 import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
+import BugReportForm from './BugReportForm';
+
 
 
 function ProfilePage() {
     const App = ({ user }) => (
-    <div>
-        Hi {user.username} you are a {user.role}
-        <ChangePasswordForm/>
-        <hr/>
-        {
-            (user.role === "DRIVER")? 
-            (
-                <MapPage/> 
-            )
-            :(user.role === "PARKING_COMPANY")?
-            (
-                <ParkingSpotsSetPriceView/>
-            )
-            :(user.role === "MUNICIPALITY_EMPLOYEE")?
-            (
-                <>
-                    <ParkingSpotCreationForm/>
-                    <ParkingSpotMunicipalityView/>
-                </>
-            )
-            :(user.role === "MUNICIPALITY_POLICE")?
-            (
-                <div>TODO</div>
-            ):
-            (
-                <Redirect to={{ pathname: "/login"}} />
-            )
-        }
+        <div>
+            Hi {user.username} you are a {user.role}
+            <ChangePasswordForm />
+            <hr />
+            {
+                (user.role === "DRIVER") ?
+                    (
+                        <>
+                            <BugReportForm />
+                            <hr/>
+                            <MapPage />
+                        </>
+                    )
+                    : (user.role === "PARKING_COMPANY") ?
+                        (
+                            <ParkingSpotsSetPriceView />
+                        )
+                        : (user.role === "MUNICIPALITY_EMPLOYEE") ?
+                            (
+                                <>
+                                    <BugReportForm />
+                                    <hr/>
+                                    <ParkingSpotCreationForm />
+                                    <hr/>
+                                    <ParkingSpotMunicipalityView />
 
-    </div>
+                                </>
+                            )
+                            : (user.role === "MUNICIPALITY_POLICE") ?
+                                (
+                                    <div>TODO</div>
+                                ) :
+                                (
+                                    <Redirect to={{ pathname: "/login" }} />
+                                )
+            }
+
+        </div>
     );
-      
-    return(
+
+    return (
         <div>
             <App user={jwtDecode(localStorage.jwt).payload} />
         </div>
     )
-      
+
 }
 
 
