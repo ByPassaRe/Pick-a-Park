@@ -1,20 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
-function WallerPage() {
+function WalletPage() {
     const [statusMessage, setStatusMessage] = useState(null);
     const [walletAmount, setWalletAmount] = useState(null);
 
     useEffect(() => {
         (async function fetchWallet () {
             setStatusMessage('Loading...');
+
             try {
-                const response = {
-                    data: {
-                        wallet: 10
-                    }
-                };
-                setWalletAmount(response.data.wallet);
+                const response = await axios.get("http://localhost:5000/users/balance");
+                setWalletAmount(response.data.balance);
             } catch (err) {
                 setStatusMessage('Error retrieving data.');
             };
@@ -32,15 +29,14 @@ function WallerPage() {
                 return 
             
             try {
-                //CHIAMATA API Per cambiare il prezzo sul db
-                /*await axios.patch(`http://localhost:5000/parkingSpots/${props.parkingSpot._id}`, {
-                    price: newPrice
-                });*/
+                await axios.patch(`http://localhost:5000/users/chargeBalance`, {
+                    amount: amountToAdd
+                });
+                alert("New amount set succesfully");
             } catch (err) {
                 alert(err);
             }
 
-            alert("New amount set succesfully");
             /*
                 Why +num1 + +num2?
                 Because num1,num2 are strings and I need to convert them to number
@@ -65,13 +61,13 @@ function WallerPage() {
                 <button onClick={handleSend}>Update</button>
             </>
         )
-}
+    }
 
   return (
         <>
         <h2>Wallet</h2>
         {
-            walletAmount? 
+            walletAmount ? 
                 <div>
                     <p>You have {walletAmount} €</p> 
                     <AmountAdder/>
@@ -84,4 +80,4 @@ function WallerPage() {
   );
 }
 
-export default WallerPage;
+export default WalletPage;
