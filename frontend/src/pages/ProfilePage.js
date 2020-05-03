@@ -6,49 +6,54 @@ import ParkingSpotCreationForm from './ParkingSpotCreationForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
 import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
-import WallerPage from './WalletPage';
+import WalletPage from './WalletPage';
 
 
 function ProfilePage() {
-    const App = ({ user }) => (
-    <div>
-        Hi {user.username} you are a {user.role}
-        <ChangePasswordForm/>
-        <hr/>
-        {
-            (user.role === "DRIVER")? 
-            (
+    const {username, role} = jwtDecode(localStorage.jwt).payload;
+
+
+    let componentProfile = null;
+
+    switch (role) {
+        case "DRIVER":
+            componentProfile = 
                 <>
-                    <WallerPage/>
+                    <WalletPage/>
                     <MapPage/> 
                 </>
-            )
-            :(user.role === "PARKING_COMPANY")?
-            (
-                <ParkingSpotsSetPriceView/>
-            )
-            :(user.role === "MUNICIPALITY_EMPLOYEE")?
-            (
+            break;
+        case "PARKING_COMPANY":
+            componentProfile = 
+                <>
+                    <ParkingSpotsSetPriceView/>
+                </>
+            break;
+        case "MUNICIPALITY_EMPLOYEE":
+            componentProfile = 
                 <>
                     <ParkingSpotCreationForm/>
                     <ParkingSpotMunicipalityView/>
                 </>
-            )
-            :(user.role === "MUNICIPALITY_POLICE")?
-            (
-                <div>TODO</div>
-            ):
-            (
-                <Redirect to={{ pathname: "/login"}} />
-            )
-        }
-
-    </div>
-    );
-      
+            break;
+        case "MUNICIPALITY_POLICE":
+            componentProfile = 
+                <>
+                    Add something
+                </>
+            break;
+                
+        default:
+            componentProfile = <Redirect to={{ pathname: "/login"}} />
+            break;
+    }
+        
     return(
         <div>
-            <App user={jwtDecode(localStorage.jwt).payload} />
+            Hi {username} you are a {role}
+            <ChangePasswordForm/>
+            <hr/>
+            {componentProfile}
         </div>
     )
       
