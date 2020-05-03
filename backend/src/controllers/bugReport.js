@@ -15,5 +15,5 @@ exports.create = async (req, res) => {
 
 exports.get = async (req, res) => {
     const bugReports = await BugReport.find({});
-    return res.send(bugReports);
+    return res.send({bugReports});
 };
