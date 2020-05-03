@@ -1,4 +1,6 @@
 const User = require("../models/user");
+
+const Transaction = require("../models/transaction");
 const tokenUtils = require("../util/token");
 
 // Create and Save a new User
@@ -86,6 +88,7 @@ exports.chargeBalance = async (req, res) => {
     return res.status(400).json({message: "Token is invalid"});
   }
 
+  
   const user = await User.findOneAndUpdate(
     {username: decodedToken.username},
     {
@@ -94,6 +97,20 @@ exports.chargeBalance = async (req, res) => {
       }
     }
   ).exec();
+
+  const transaction = new Transaction({
+    userId: user._id,
+    amount: req.body.amount
+  });
+
+  transaction
+    .save()
+    .then(res => {
+      console.log("Transaction executed: "+res.amount)
+    })
+    .catch((error)=>{
+      console.log("Transaction failed: "+error)
+    });
 
   return res.status(200).json({balance: user.balance});
 };
