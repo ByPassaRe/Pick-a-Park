@@ -1,6 +1,6 @@
 const ParkingSpot = require("../models/parkingSpot");
 
-const { getDistance } = require('geolib');
+const { getDistance, isValidCoordinate } = require('geolib');
 
 exports.create = (req, res) => {
   
@@ -63,6 +63,36 @@ exports.patch = async (req, res) => {
   }
 }
 
+exports.put = async (req, res) => {
+  try {
+    // Need to check coordinates otherwise findByIdAndUpdate accepts all values
+    // An alternative could be to use findOneAndUpdate with runValidators 
+    // like here https://stackoverflow.com/questions/31794558/mongoose-findbyidandupdate-not-running-validations-on-subdocuments
+    if(!isValidCoordinate(req.body.location)) {
+      return res.sendStatus(400);
+    }
+    const parkingSpot = await ParkingSpot.findByIdAndUpdate(req.params.id, req.body);
+    if(!parkingSpot) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(400);
+  }
+}
+
+exports.delete = async (req, res) => {
+  try {
+    const deletedParkingSpot = await ParkingSpot.findByIdAndDelete(req.params.id);
+    if(!deletedParkingSpot) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
+  } catch (err) {
+    return res.sendStatus(400);
+  }
+};
+
 exports.getNearest = async (req, res) => {
 
   if(!req.query.latitude || !req.query.longitude) {
@@ -74,7 +104,7 @@ exports.getNearest = async (req, res) => {
     longitude: Number(req.query.longitude)
   }
 
-  const parkingSpots = await ParkingSpot.find({available: true});
+  const parkingSpots = await ParkingSpot.find({available: true, activated: true});
 
   if(parkingSpots.length === 0) {
     return res.sendStatus(404);
@@ -89,4 +119,26 @@ exports.getNearest = async (req, res) => {
 
   res.send(nearestParkingSpot);
 
+};
+
+exports.activate = async (req, res) => {
+  try {
+    await ParkingSpot.findByIdAndUpdate(req.params.id, {activated: true, available: true});
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    return res.status(400);
+  }
+};
+
+exports.deactivate = async (req, res) => {
+  try {
+    await ParkingSpot.findByIdAndUpdate(req.params.id, {activated: false});
+
+    return res.sendStatus(200);
+
+  } catch (err) {
+    return res.status(400);
+  }
 };

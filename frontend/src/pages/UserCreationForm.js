@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { useHistory } from "react-router";
 
 function UserCreationForm() {
+  let history = useHistory();
   const [user, setUser] = useState({});
   // eslint-disable-next-line
   const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
@@ -22,7 +24,12 @@ function UserCreationForm() {
         email: user.email,
         password: user.password
       });
-      response.status === 200 ? alert('User Created succesfully') : alert(response);
+      if(response.status === 200){
+        alert('User Created succesfully') 
+        history.push("/public");
+      }
+      else
+        alert(response);
     } catch (err) {
       alert(err);
     }
@@ -48,7 +55,8 @@ function UserCreationForm() {
 
 
   return (
-    <div>
+    <div>  
+      <h3>Create user</h3>
       Username:
       <input type="text"  name="username" onChange={(e) => setUser({...user, username: e.target.value})}/>
       <br />

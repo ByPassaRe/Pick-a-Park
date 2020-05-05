@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
-import ParkingSpotListItem from './../components/ParkingSpotListItem';
+import ParkingSpotListItem from '../components/ParkingSpotListItem';
 
-function ParkingSpotListView() {
+function ParkingSpotMunicipalityView() {
     const [statusMessage, setStatusMessage] = useState(null);
     const [parkingSpots, setParkingSpots] = useState(null);
 
@@ -22,7 +22,11 @@ function ParkingSpotListView() {
 
     }, []);
 
-    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot}/>
+    const onDelete = (id) => {
+        setParkingSpots(parkingSpots.filter(parkingSpot => parkingSpot._id !== id));
+    };
+
+    const renderParkingSpot = (parkingSpot) => <ParkingSpotListItem key={parkingSpot._id} parkingSpot={parkingSpot} modifier activator deleter deleteHandler={onDelete}/>
 
     return (
         <>
@@ -34,4 +38,4 @@ function ParkingSpotListView() {
     );
 }
 
-export default ParkingSpotListView;
+export default ParkingSpotMunicipalityView;

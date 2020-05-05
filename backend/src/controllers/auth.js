@@ -1,16 +1,6 @@
 const User = require("../models/user");
-const configJSON = require('../config/jsonSecret');
-const jwt = require("jsonwebtoken");
+const tokenUtil = require("../util/token");
 
-
-
-const tokenGenerator = (user) => {
-    return jwt.sign(
-        { username: user.username, role: user.role },
-        configJSON.secret, 
-        { expiresIn: configJSON.expiresIn }
-    );
-}
 
 exports.login = async function(req, res) {
     if(!req.body.username || !req.body.password)
@@ -24,7 +14,7 @@ exports.login = async function(req, res) {
     
     try {
         if(await user.verifyPassword(password))
-            return res.json({ success: true, token: tokenGenerator(user), message: "Authentication successful" });
+            return res.json({ success: true, token: tokenUtil.tokenGenerator(user), message: "Authentication successful" });
         else
             return res.status(400).json({message: "Wrong Username/Password"});
     } catch (error) {

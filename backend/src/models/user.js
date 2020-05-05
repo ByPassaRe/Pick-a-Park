@@ -60,6 +60,12 @@ UserSchema.methods.verifyPassword = async function(userSubmittedPassword){
   return await argon2.verify(this.password, userSubmittedPassword);
 }
 
+UserSchema.methods.updatePassword = async function(newPassword){
+  return User.findOneAndUpdate({_id: this._id},{password: await argon2.hash(newPassword)}).exec();
+}
+
+
+
 UserSchema.pre('save', async function(next) {
 	if (!this.isModified('password')) {
 		next();

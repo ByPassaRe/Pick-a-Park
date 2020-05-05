@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {partialRight} from 'ramda';
-import axios from 'axios';
+import axios from "../services/axiosService";
 
 function ParkingSpotCreationForm() {
   const [location, setLocation] = useState({});

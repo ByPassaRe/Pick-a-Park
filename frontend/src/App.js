@@ -1,65 +1,72 @@
 import React, { Component } from 'react';
 import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
-import ParkingSpotListView from './pages/ParkingSpotListView';
 import LogoutButton from './pages/LogoutButton';
-import ParkingSpotsSetPriceView from './pages/ParkingSpotsSetPriceView';
-import ParkingSpotCreationForm from './pages/ParkingSpotCreationForm';
-import IssueCreationForm from './pages/IssueCreationForm';
-import IssueListView from './pages/IssueListView';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import MapPage from './pages/MapPage';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ProfilePage from './pages/ProfilePage';
+import { PrivateRoute } from './services/PrivateRoute';
+import localStorageService from "./services/LocalStorage";
 
+class App extends Component {
 
-class App extends Component {  
-  render() {
-    return (
-      <Router>
-        <LogoutButton />
-        <nav>
-          <ul>
-            <li>
-              <Link to="/map">Map</Link>
-            </li>
-            <li>
-              <Link to="/auth">Login</Link>
-            </li>
-            <li>
-              <Link to="/users">Create User</Link>
-            </li>
-            <li>
-              <Link to="/parkingSpotCreation">Parking Spot Creation</Link>
-            </li>
-            <li>
-              <Link to="/parkingSpotListView">Parking Spots List</Link>
-            </li>
-            <li>
-              <Link to="/parkingSpotsSetPriceView">Set parking spot prices</Link>
-            </li>
-            <li>
-              <Link to="/issueCreation">Issue Form</Link>
-            </li>
-            <li>
-              <Link to="/issueListView">Issue List View</Link>
-            </li>       
-          </ul>
-        </nav>
+  constructor(props) {
+    super(props);
+    this.state = { isLogged: false };
+    this.logout = this.logout.bind(this);
+    this.login = this.login.bind(this);
+  }
 
-        <Route path="/map" component={MapPage} />
-        <Route path="/auth" component={LoginForm} />
-        <Route path="/users" component={UserCreationForm} />
-        <Route path="/parkingSpotCreation" component={ParkingSpotCreationForm} />
-        <Route path="/parkingSpotListView" component={ParkingSpotListView} />
-        <Route path="/parkingSpotsSetPriceView" component={ParkingSpotsSetPriceView} />
-        <Route path="/issueCreation" component={IssueCreationForm} />
-        <Route path="/issueListView" component={IssueListView} />
+  componentDidMount() {
+    if(localStorageService.getAccessToken())
+      this.setState({ isLogged: true });
+    else
+      this.setState({ isLogged: false }); 
+  }
 
+ 
+  logout() {
+    this.setState({ isLogged: false }); 
+  }
 
+  login() {
+    this.setState({ isLogged: true }); 
+  }
 
+  render(){
 
-    </Router>
-      
-    )
+    const { isLogged } = this.state;
+
+    return(
+
+        <BrowserRouter>
+            <nav>
+                {(isLogged)? 
+                  (<LogoutButton logout={this.logout}/>) 
+                  :
+                  (<span>This is Pick-A-Park</span>)
+                }
+            </nav>
+
+            <Switch>
+              <Route exact path={"/login"}>
+                <div>
+                  <LoginForm login={this.login}/>
+                  <hr/>
+                  <UserCreationForm/>
+                </div>
+                
+              </Route>
+
+              <PrivateRoute path="/">
+                <ProfilePage/>
+              </PrivateRoute>
+              <Route>
+                <div>404 Not Found</div>
+              </Route>
+            </Switch>
+        </BrowserRouter>
+        
+    );
   }
 }
 export default App;
