@@ -5,6 +5,10 @@ const bodyParser = require("body-parser");
 const routes = require('./routes');
 
 const app = express();
+const expressSwagger = require('express-swagger-generator')(app);
+const optionsSwagger = require("./config/swaggerOptions");
+expressSwagger(optionsSwagger);
+console.log(optionsSwagger.basedir)
 
 app.use(cors());
 
