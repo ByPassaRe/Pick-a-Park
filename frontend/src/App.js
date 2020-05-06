@@ -7,6 +7,8 @@ import ProfilePage from './pages/ProfilePage';
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
 
+import './App.css';
+
 class App extends Component {
 
   constructor(props) {
@@ -17,55 +19,53 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if(localStorageService.getAccessToken())
+    if (localStorageService.getAccessToken())
       this.setState({ isLogged: true });
     else
-      this.setState({ isLogged: false }); 
+      this.setState({ isLogged: false });
   }
 
- 
+
   logout() {
-    this.setState({ isLogged: false }); 
+    this.setState({ isLogged: false });
   }
 
   login() {
-    this.setState({ isLogged: true }); 
+    this.setState({ isLogged: true });
   }
 
-  render(){
+  render() {
 
     const { isLogged } = this.state;
 
-    return(
+    return (
+      <BrowserRouter>
+        <nav>
+          {(isLogged) ?
+            (<LogoutButton logout={this.logout} />)
+            :
+            (<span>This is Pick-A-Park</span>)
+          }
+        </nav>
 
-        <BrowserRouter>
-            <nav>
-                {(isLogged)? 
-                  (<LogoutButton logout={this.logout}/>) 
-                  :
-                  (<span>This is Pick-A-Park</span>)
-                }
-            </nav>
+        <Switch>
+          <Route exact path={"/login"}>
+            <div>
+              <LoginForm login={this.login} />
+              <hr />
+              <UserCreationForm />
+            </div>
 
-            <Switch>
-              <Route exact path={"/login"}>
-                <div>
-                  <LoginForm login={this.login}/>
-                  <hr/>
-                  <UserCreationForm/>
-                </div>
-                
-              </Route>
+          </Route>
 
-              <PrivateRoute path="/">
-                <ProfilePage/>
-              </PrivateRoute>
-              <Route>
-                <div>404 Not Found</div>
-              </Route>
-            </Switch>
-        </BrowserRouter>
-        
+          <PrivateRoute path="/">
+            <ProfilePage />
+          </PrivateRoute>
+          <Route>
+            <div>404 Not Found</div>
+          </Route>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
