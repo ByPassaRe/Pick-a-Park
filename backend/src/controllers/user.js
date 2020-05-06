@@ -1,4 +1,6 @@
 const User = require("../models/user");
+
+const Transaction = require("../models/transaction");
 const tokenUtils = require("../util/token");
 
 // Create and Save a new User
@@ -57,4 +59,58 @@ exports.changePassword =  async (req, res) => {
   } else {
     return res.status(404).json({message: "User is invalid"});
   }
+};
+
+
+exports.getBalance = async (req, res) => {
+  let decodedToken;
+  
+  try {
+    decodedToken = tokenUtils.tokenVerification(req.headers.authorization);
+  } catch (error) {
+    return res.status(400).json({message: "Token is invalid"});
+  }
+  const user = await User.findOne({username: decodedToken.username}).exec();
+  
+  return res.status(200).json({balance: user.balance});
+};
+
+exports.chargeBalance = async (req, res) => {
+  
+  if(!req.body.amount)
+    return res.status(400).json({message: "Input values are missing"});
+
+  let decodedToken;
+  
+  try {
+    decodedToken = tokenUtils.tokenVerification(req.headers.authorization);
+  } catch (error) {
+    return res.status(400).json({message: "Token is invalid"});
+  }
+
+  
+  const user = await User.findOneAndUpdate(
+    {username: decodedToken.username},
+    {
+      $inc: {
+        balance: req.body.amount
+      }
+    }
+  ).exec();
+
+  const transaction = new Transaction({
+    userId: user._id,
+    amount: req.body.amount
+  });
+
+  transaction
+    .save()
+    .then(res => {
+      console.log("Transaction executed: "+res.amount)
+    })
+    .catch((error)=>{
+      console.log("Transaction failed: "+error)
+    });
+
+  return res.status(200).json({balance: user.balance});
 };
