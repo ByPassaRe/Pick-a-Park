@@ -6,7 +6,8 @@ import ParkingSpotCreationForm from './ParkingSpotCreationForm';
 import ChangePasswordForm from './ChangePasswordForm';
 import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
 import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
-
+import IssueCreationForm from './IssueCreationForm';
+import IssueListView from './IssueListView';
 
 function ProfilePage() {
     const App = ({ user }) => (
@@ -32,7 +33,10 @@ function ProfilePage() {
             )
             :(user.role === "MUNICIPALITY_POLICE")?
             (
-                <div>TODO</div>
+                <>
+                    <IssueCreationForm/>
+                    <IssueListView/>
+                </>
             ):
             (
                 <Redirect to={{ pathname: "/login"}} />
