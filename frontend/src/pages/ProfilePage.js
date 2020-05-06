@@ -8,8 +8,8 @@ import ParkingSpotsSetPriceView from './ParkingSpotsSetPriceView';
 import ParkingSpotMunicipalityView from './ParkingSpotMunicipalityView';
 import BugReportForm from './BugReportForm';
 import BugReportParkingCompanyView from './BugReportParkingCompanyView';
-
-
+import IssueCreationForm from './IssueCreationForm';
+import IssueListView from './IssueListView';
 
 function ProfilePage() {
     const App = ({ user }) => (
@@ -19,39 +19,43 @@ function ProfilePage() {
             <hr />
             {
                 (user.role === "DRIVER") ?
-                    (
-                        <>
-                            <BugReportForm />
-                            <hr/>
-                            <MapPage />
-                        </>
-                    )
-                    : (user.role === "PARKING_COMPANY") ?
-                        (
-                            <>
-                            <BugReportParkingCompanyView/>
-                            <hr/>
-                            <ParkingSpotsSetPriceView />
-                            </>
-                        )
-                        : (user.role === "MUNICIPALITY_EMPLOYEE") ?
-                            (
-                                <>
-                                    <BugReportForm />
-                                    <hr/>
-                                    <ParkingSpotCreationForm />
-                                    <hr/>
-                                    <ParkingSpotMunicipalityView />
+                (
+                    <>
+                        <BugReportForm />
+                        <hr/>
+                        <MapPage />
+                    </>
+                )
+                : (user.role === "PARKING_COMPANY") ?
+                (
+                    <>
+                    <BugReportParkingCompanyView/>
+                    <hr/>
+                    <ParkingSpotsSetPriceView />
+                    </>
+                )
+                : (user.role === "MUNICIPALITY_EMPLOYEE") ?
+                (
+                    <>
+                        <BugReportForm />
+                        <hr/>
+                        <ParkingSpotCreationForm />
+                        <hr/>
+                        <ParkingSpotMunicipalityView />
 
-                                </>
-                            )
-                            : (user.role === "MUNICIPALITY_POLICE") ?
-                                (
-                                    <div>TODO</div>
-                                ) :
-                                (
-                                    <Redirect to={{ pathname: "/login" }} />
-                                )
+                    </>
+                )
+                : (user.role === "MUNICIPALITY_POLICE") ?
+                (
+                    <>
+                        <IssueCreationForm/>
+                        <hr/>
+                        <IssueListView/>
+                    </>
+                ) :
+                (
+                    <Redirect to={{ pathname: "/login" }} />
+                )
             }
 
         </div>

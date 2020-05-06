@@ -32,9 +32,6 @@ class App extends Component {
     this.setState({ isLogged: true }); 
   }
 
-  
-
-
   render(){
 
     const { isLogged } = this.state;

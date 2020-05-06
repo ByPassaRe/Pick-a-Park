@@ -1,6 +1,6 @@
 const ParkingSpot = require("../models/parkingSpot");
 
-const { getDistance } = require('geolib');
+const { getDistance, isValidCoordinate } = require('geolib');
 
 exports.create = (req, res) => {
   
@@ -58,6 +58,24 @@ exports.patch = async (req, res) => {
 
     return res.sendStatus(200);
 
+  } catch (err) {
+    return res.sendStatus(400);
+  }
+}
+
+exports.put = async (req, res) => {
+  try {
+    // Need to check coordinates otherwise findByIdAndUpdate accepts all values
+    // An alternative could be to use findOneAndUpdate with runValidators 
+    // like here https://stackoverflow.com/questions/31794558/mongoose-findbyidandupdate-not-running-validations-on-subdocuments
+    if(!isValidCoordinate(req.body.location)) {
+      return res.sendStatus(400);
+    }
+    const parkingSpot = await ParkingSpot.findByIdAndUpdate(req.params.id, req.body);
+    if(!parkingSpot) {
+      return res.sendStatus(404);
+    }
+    return res.sendStatus(200);
   } catch (err) {
     return res.sendStatus(400);
   }
