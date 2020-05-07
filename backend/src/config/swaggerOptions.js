@@ -1,3 +1,5 @@
+
+
 module.exports =  {
   swaggerDefinition: {
     openapi: "3.0.0",
@@ -13,13 +15,10 @@ module.exports =  {
       contact: {
         name: "- Pick-A-Park email",
         email: "corrado.petrelli@studenti.unicam.it"
-      },
-      externalDocs: {
-        description: "Wiki",
-        url: "https://github.com/ByPassaRe/Pick-a-Park/wiki"
       }
     }
   },
-  apis: ["../routes/**/*.js"]
+  
+  apis: ["*/routes/*.js"]
 };
 
