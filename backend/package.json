@@ -27,10 +27,11 @@
     "express": "^4.17.1",
     "geolib": "^3.2.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.6"
+    "mongoose": "^5.9.6",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "express-swagger-generator": "^1.1.17",
     "jest": "^25.2.4",
     "mongodb-memory-server": "^6.5.0",
     "nodemon": "^2.0.2",
