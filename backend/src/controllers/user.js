@@ -95,7 +95,8 @@ exports.chargeBalance = async (req, res) => {
       $inc: {
         balance: req.body.amount
       }
-    }
+    },
+    {new: true}
   ).exec();
 
   const transaction = new Transaction({
@@ -112,5 +113,5 @@ exports.chargeBalance = async (req, res) => {
       console.log("Transaction failed: "+error)
     });
 
-  return res.status(200).json({balance: user.balance + req.body.amount});
+  return res.status(200).json({balance: user.balance});
 };
