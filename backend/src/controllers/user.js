@@ -112,5 +112,5 @@ exports.chargeBalance = async (req, res) => {
       console.log("Transaction failed: "+error)
     });
 
-  return res.status(200).json({balance: user.balance});
+  return res.status(200).json({balance: user.balance + req.body.amount});
 };
