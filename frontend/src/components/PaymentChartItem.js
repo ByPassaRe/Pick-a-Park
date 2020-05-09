@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+    BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush
   } from 'recharts';
 
 function PaymentChartItem() {
@@ -414,7 +414,7 @@ function PaymentChartItem() {
       
     function prepareData(_transactions){
         return _transactions
-            .sort((a,b) => {return new Date(b.createdAt) - new Date(a.createdAt)})
+            .sort((a,b) => {return new Date(a.createdAt) - new Date(b.createdAt)})
             .map( (obj) => {return { name: obj.createdAt.slice(0, 10) , earning: obj.amount}})
             .reduce(function(res, obj) {
                 if (!(obj.name in res))
@@ -429,15 +429,17 @@ function PaymentChartItem() {
 
     return (
         <ResponsiveContainer aspect={4.0/3.0} width='100%'>
-            <BarChart  data={prepareData(transactions)} margin={{
-                top: 5, right: 30, left: 20, bottom: 5,
-            }}>
+            <BarChart
+              data={prepareData(transactions)} 
+              margin={{ top: 5, right: 30, left: 20, bottom: 5}}
+            >
                 <CartesianGrid strokeDasharray="3 3" />
+                <Brush dataKey="name" stroke="#000000" />
                 <XAxis dataKey="name" />
-                <YAxis />
+                <YAxis label={{ value: 'Earning cash', angle: -90, position: 'insideLeft' }} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="earning" fill="#0000ff" />
+                <Bar dataKey="earning" fill="#000000" />
             </BarChart>
         </ResponsiveContainer>
     );
