@@ -11,6 +11,7 @@ import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
 import WalletPage from './WalletPage';
+import PaymentChartItem from '../components/PaymentChartItem';
 
 
 
@@ -36,6 +37,8 @@ function ProfilePage() {
                     <BugReportParkingCompanyView/>
                     <hr/>
                     <ParkingSpotsSetPriceView />
+                    <hr/>
+                    <PaymentChartItem />
                 </>
             break;
         case "MUNICIPALITY_EMPLOYEE":
