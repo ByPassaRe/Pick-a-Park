@@ -38,30 +38,38 @@ function PaymentChartItem() {
  
 
   const renderChart = () => 
-      <ResponsiveContainer aspect={4.0/3.0} width='100%'>
-      <BarChart
-        data={prepareData(transactions)} 
-        margin={{ top: 5, right: 30, left: 20, bottom: 5}}
-      >
-          <CartesianGrid strokeDasharray="3 3" />
-          {transactions.length > 0 && <Brush dataKey="name" stroke="#000000" />}
-          <XAxis dataKey="name" />
-          <YAxis 
-            label={{ value: 'Earning cash', angle: -90, position: 'insideLeft' }} 
-            tickFormatter={(tickItem) => {return tickItem+"$"}}
-          />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="earning" fill="#000000" />
-      </BarChart>
-    </ResponsiveContainer>
+      <>
+        <h3>Total: {transactions.reduce((tot, arr) => { return tot + arr.amount},0).toFixed(2)+" $"}</h3>
+        <ResponsiveContainer aspect={4.0/3.0} width='100%'>
+        <BarChart
+          data={prepareData(transactions)} 
+          margin={{ top: 5, right: 30, left: 20, bottom: 5}}
+        >
+            <CartesianGrid strokeDasharray="3 3" />
+            {transactions.length > 0 && <Brush dataKey="name" stroke="#000000" />}
+            <XAxis dataKey="name" />
+            <YAxis 
+              label={{ value: 'Earning cash', angle: -90, position: 'insideLeft' }} 
+              tickFormatter={(tickItem) => {return tickItem+"$"}}
+            />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="earning" fill="#000000" />
+        </BarChart>
+      </ResponsiveContainer>
+    </>
 
 
   return (
     <>
       <h2>Earning:</h2>
       {
-        transactions ? renderChart(): <p>{statusMessage}</p>
+        transactions ? 
+        renderChart()
+        : 
+        <p>
+          {statusMessage}
+        </p>
       }
     </>               
   );
