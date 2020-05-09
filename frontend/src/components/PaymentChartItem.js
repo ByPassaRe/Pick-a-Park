@@ -436,7 +436,10 @@ function PaymentChartItem() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <Brush dataKey="name" stroke="#000000" />
                 <XAxis dataKey="name" />
-                <YAxis label={{ value: 'Earning cash', angle: -90, position: 'insideLeft' }} />
+                <YAxis 
+                  label={{ value: 'Earning cash', angle: -90, position: 'insideLeft' }} 
+                  tickFormatter={(tickItem) => {return tickItem+"$"}}
+                />
                 <Tooltip />
                 <Legend />
                 <Bar dataKey="earning" fill="#000000" />
