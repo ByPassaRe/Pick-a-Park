@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import axios from "../services/axiosService";
+import { PayPalButton } from "react-paypal-button-v2";
 
 function WalletPage() {
     const [statusMessage, setStatusMessage] = useState(null);
     const [walletAmount, setWalletAmount] = useState(null);
+    const [amountToAdd, setAmountToAdd] = useState(0);
 
     useEffect(() => {
         (async function fetchWallet () {
@@ -20,10 +22,29 @@ function WalletPage() {
 
     }, []);
 
-    const AmountAdder = () => {
-        const [amountToAdd, setAmountToAdd] = useState(0);
+    const handleChange = (e) => {
+        if(e.target.value < 0) {
+            alert("You can't delete cash!")
+            setAmountToAdd(0); 
+            return;
+        }
+        setAmountToAdd(e.target.value);
+    }
 
-        const handleSend = async () => {
+    function order(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                description: "Charge Pick-a-Park account",
+                amount: {
+                    value: amountToAdd,
+                }
+            }]
+        });
+    }
+
+    function approve(data, actions) {
+        // Capture the funds from the transaction
+        return actions.order.capture().then(async function(details) {
             //If you click "Update" with 0€, It is to avoid an useless call to API
             if(amountToAdd === 0)
                 return 
@@ -32,7 +53,6 @@ function WalletPage() {
                 await axios.patch(`http://localhost:5000/users/chargeBalance`, {
                     amount: amountToAdd
                 });
-                alert("New amount set succesfully");
             } catch (err) {
                 alert(err);
             }
@@ -42,25 +62,12 @@ function WalletPage() {
                 Because num1,num2 are strings and I need to convert them to number
             */
             setWalletAmount(+walletAmount + +amountToAdd);
-
-        }
-
-        const handleChange = (e) => {
-            if(e.target.value < 0) {
-                alert("You can't delete cash!")
-                setAmountToAdd(0); 
-                return;
-            }
-            setAmountToAdd(e.target.value);
-        }
-
-        return (
-            <>
-                Set amount to add:
-                <input type="number" min="0" step="any" value={amountToAdd} onChange={handleChange}/> 
-                <button onClick={handleSend}>Update</button>
-            </>
-        )
+            setAmountToAdd(0);
+            alert("Transaction completed by " + details.payer.email_address);
+        })
+        .catch(()=>{
+            alert("Transaction error!");
+        });
     }
 
   return (
@@ -69,8 +76,13 @@ function WalletPage() {
         {
             walletAmount !== null ? 
                 <div>
-                    <p>You have {walletAmount} €</p> 
-                    <AmountAdder/>
+                    <p>You have {walletAmount} $</p> 
+                    Set amount to add:
+                    <input type="number" min="0" step="any" value={amountToAdd} onChange={handleChange}/> 
+                    <PayPalButton
+                        createOrder={order}
+                        onApprove={approve}
+                    />
                 </div>
                 :
                 <p>{statusMessage}</p>
