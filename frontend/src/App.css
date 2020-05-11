@@ -1,1 +1,11 @@
 @import '~antd/dist/antd.css';
+
+body {
+    background-color: white;
+    color: black;
+    padding: 40px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: left;
+  }
+
+  

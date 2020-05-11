@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from "../services/axiosService";
+import { Input, Button,PageHeader   } from 'antd';
+import '../App.css';
 
 function WalletPage() {
     const [statusMessage, setStatusMessage] = useState(null);
@@ -56,16 +58,21 @@ function WalletPage() {
 
         return (
             <>
+            
                 Set amount to add:
-                <input type="number" min="0" step="any" value={amountToAdd} onChange={handleChange}/> 
-                <button onClick={handleSend}>Update</button>
+               <Input type="number" min={0} value={amountToAdd} onChange={handleChange}/> 
+                <br/>
+                <Button onClick={handleSend}>Update</Button>
             </>
         )
     }
 
   return (
         <>
-        <h2>Wallet</h2>
+         <PageHeader
+              className="site-page-header"
+              title="Wallet"
+            />
         {
             walletAmount !== null ? 
                 <div>

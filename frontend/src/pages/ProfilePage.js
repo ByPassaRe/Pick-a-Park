@@ -11,62 +11,72 @@ import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
 import WalletPage from './WalletPage';
-
+import { Typography, Divider } from 'antd';
+import '../App.css';
 
 
 function ProfilePage() {
-    const {username, role} = jwtDecode(localStorage.jwt).payload;
+    const { username, role } = jwtDecode(localStorage.jwt).payload;
+    
 
     let componentProfile = null;
 
     switch (role) {
         case "DRIVER":
-            componentProfile = 
-                <>
+            componentProfile =
+                <>  
+
                     <BugReportForm />
-                    <hr/>
-                    <WalletPage/>
-                    <hr/>
-                    <MapPage/> 
+                    <Divider/>
+                    <WalletPage />
+                    <Divider/>
+                    <MapPage />
                 </>
             break;
         case "PARKING_COMPANY":
-            componentProfile = 
+            componentProfile =
                 <>
-                    <BugReportParkingCompanyView/>
-                    <hr/>
+                    <BugReportParkingCompanyView />
+                    <Divider/>
                     <ParkingSpotsSetPriceView />
                 </>
             break;
         case "MUNICIPALITY_EMPLOYEE":
-            componentProfile = 
+            componentProfile =
                 <>
                     <BugReportForm />
-                    <hr/>
+                    <Divider/>
                     <ParkingSpotCreationForm />
-                    <hr/>
+                    <Divider/>
                     <ParkingSpotMunicipalityView />
                 </>
             break;
         case "MUNICIPALITY_POLICE":
-            componentProfile = 
+            componentProfile =
                 <>
-                    <IssueCreationForm/>
-                    <hr/>
-                    <IssueListView/>
+                    <IssueCreationForm />
+                    <Divider/>
+                    <IssueListView />
                 </>
             break;
-                
+
         default:
-            componentProfile = <Redirect to={{ pathname: "/login"}} />
+            componentProfile = <Redirect to={{ pathname: "/login" }} />
             break;
     }
-        
-    return(
-        <div>
-            Hi {username} you are a {role}
-            <ChangePasswordForm/>
-            <hr/>
+
+    const { Title } = Typography;
+
+
+    return (
+        <div style={{
+            position: 'absolute'
+        }}
+        >
+           
+            <Title > Hi {username} you are a {role}</Title>
+            <ChangePasswordForm />
+            <Divider/>
             {componentProfile}
         </div>
     )

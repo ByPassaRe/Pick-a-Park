@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import axios from "../services/axiosService";
+import { PageHeader, Button, Input } from 'antd';
+import '../App.css';
 
 function ChangePasswordForm() {
   const [data, setData] = useState({});
@@ -36,21 +38,22 @@ function ChangePasswordForm() {
 
   return (
     <div>
-      <h2>Change Password</h2>
+       <PageHeader
+              className="site-page-header"
+              title="Change Password"
+            />
       Actual Password:
-      <input type="password" name="actualPassword" onChange={(e) => setData({...data, actualPassword: e.target.value})}/>
+      <Input type="password" name="actualPassword" onChange={(e) => setData({...data, actualPassword: e.target.value})}/>
       <br />
 
       New Password:
-      <input type="password" name="newPassword" onChange={(e) => setData({...data, newPassword: e.target.value})}/>
+      <Input type="password" name="newPassword" onChange={(e) => setData({...data, newPassword: e.target.value})}/>
       <br />
 
       Confirm new password:
-      <input type="password" name="confirmNewPassword" onChange={(e) => setData({...data, confirmNewPassword: e.target.value})}/>
+      <Input type="password" name="confirmNewPassword" onChange={(e) => setData({...data, confirmNewPassword: e.target.value})}/>
       <br />
-
-
-      <button onClick ={handleSubmit}>Change Password</button>
+      <Button onClick ={handleSubmit}>Change Password</Button>
     </div>
   );
 }

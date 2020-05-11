@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { Button } from 'antd';
+import '../App.css';
 
 const OutsetDiv = styled.div`
     border-style: outset;
@@ -23,7 +25,7 @@ const IssueResolution = (props) => {
     
     return (
         <>
-            <button onClick={handleSend}><font color="red">Solve</font></button>
+            <Button onClick={handleSend}><font color="red">Solve</font></Button>
         </>
     )
 }

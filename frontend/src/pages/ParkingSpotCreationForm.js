@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {partialRight} from 'ramda';
 import axios from "../services/axiosService";
+import { PageHeader, Button, Input } from 'antd';
+import '../App.css';
 
 function ParkingSpotCreationForm() {
   const [location, setLocation] = useState({});
@@ -28,15 +30,20 @@ function ParkingSpotCreationForm() {
 
   return (
     <>
+    <PageHeader
+              className="site-page-header"
+              title="Create a Parking Spot"
+            />
+        <br/>
       Latitude:
-      <input type="text"  name="latitude" onChange={(e) => setLocation({...location, latitude: e.target.value})} />
+      <Input type="text"  name="latitude" onChange={(e) => setLocation({...location, latitude: e.target.value})} />
       <br />
 
       Longitude:
-      <input type="text" name="longitude" onChange={(e) => setLocation({...location, longitude: e.target.value})} />
+      <Input type="text" name="longitude" onChange={(e) => setLocation({...location, longitude: e.target.value})} />
       <br />
 
-      <button onClick={handleSubmit}>Create Parking Spot</button>
+      <Button onClick={handleSubmit}>Create Parking Spot</Button>
     </>
   );
 }

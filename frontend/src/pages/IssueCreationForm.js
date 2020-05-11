@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { Input, Dropdown, Menu } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+
+import '../App.css';
+
 const OutsetDiv = styled.div`
     border-style: outset;
     margin: 50px;
@@ -33,49 +38,63 @@ function IssueCreationForm() {
       alert(err);
     }
   };
-/** 
-  const handleBadData = (err) => {
-    alert(err); 
+  /** 
+    const handleBadData = (err) => {
+      alert(err); 
+    }
+     const handleSubmit = () => {
+      if(!issue.text)
+        handleBadData('Insert a description of the issue');
+      else
+      handleCorrectData();
+    }
+    */
+  const handleBadData = () => {
+    alert('Insert a description of the issue');
   }
-   const handleSubmit = () => {
-    if(!issue.text)
-      handleBadData('Insert a description of the issue');
-    else
-    handleCorrectData();
-  }
-  */
- const handleBadData = () => {
-  alert('Insert a description of the issue');
-}
 
-const handleSubmit = () => 
- (issue.text) ?  handleCorrectData() : handleBadData();
+  const handleSubmit = () =>
+    (issue.text) ? handleCorrectData() : handleBadData();
+
+  const choice = (
+    <Menu>
+      <Menu.Item default>
+       None      
+      </Menu.Item>
+      {slot.map(item =>
+      <Menu.Item value={item} key={item} >
+              {item}
+      </Menu.Item>
+          )}
+    </Menu>
+  );
 
 
   return (
-    
+
     <div>
       <h2>Create an issue:</h2>
       <OutsetDiv>
-        <br/>
-      Description:
-      <input type="text" name="text" placeholder= "insert the issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
-      <br />
-      Parking Spot:
-      <select id="dropdown" name="parkingSlot" onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })} >
-      <option default>None</option>
-        {slot.map(item =>
-          <option value={item} key={item} >
-            {item}
-          </option>
-        )}
-      </select>
-      <br/>
-      <button onClick={handleSubmit}>Create Issue</button>
-      <br />
+        <br />
+        Description:
+      <Input type="text" name="text" placeholder="insert the issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
+        <br />
+        Parking Spot:
+        <Dropdown overlay={choice}>
+        <select onClick={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
+            select a parking spot <DownOutlined />
+        </select>
+        </Dropdown>
+        <br />
+        <button onClick={handleSubmit}>Create Issue</button>
+        <br />
+
+        
       </OutsetDiv>
+
+
     </div>
-    
+
   );
 
 }

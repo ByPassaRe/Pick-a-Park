@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useHistory } from "react-router";
 import { jwtDecode } from 'jwt-js-decode';
 import localStorageService from "../services/LocalStorage";
-
+import { PageHeader, Button, Input } from 'antd';
+import '../App.css';
 
 function LoginForm(prop) {
   let history = useHistory();
@@ -57,16 +58,18 @@ function LoginForm(prop) {
 
   return (
       <div>
-        <h3>Login</h3>
+        
+        <PageHeader
+              className="site-page-header"
+              title="Login"
+            />
         Username:
-        <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
+        <Input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
         <br />
-
         Password:
-        <input type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
-        <br />
-
-        <button onClick ={handleSubmit}>Sign In</button>
+        <Input  type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
+        <br />      
+        <Button onClick ={handleSubmit}>Sign In</Button>
       </div>
     
   );

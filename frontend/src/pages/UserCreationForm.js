@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router";
+import { PageHeader, Button, Input } from 'antd';
+import '../App.css';
 
 function UserCreationForm() {
   let history = useHistory();
@@ -56,24 +58,27 @@ function UserCreationForm() {
 
   return (
     <div>  
-      <h3>Create user</h3>
+      <PageHeader
+              className="site-page-header"
+              title="Create user"
+            />
       Username:
-      <input type="text"  name="username" onChange={(e) => setUser({...user, username: e.target.value})}/>
+      <Input type="text"  name="username" onChange={(e) => setUser({...user, username: e.target.value})}/>
       <br />
 
       Password:
-      <input type="password" name="password" onChange={(e) => setUser({...user, password: e.target.value})}/>
+      <Input type="password" name="password" onChange={(e) => setUser({...user, password: e.target.value})}/>
       <br />
 
       Confirm Password:
-      <input type="password" name="password" onChange={(e) => setUser({...user, confirmPassword: e.target.value})}/>
+      <Input type="password" name="password" onChange={(e) => setUser({...user, confirmPassword: e.target.value})}/>
       <br />
 
       Email:
-      <input type="text" name="email" onChange={(e) => setUser({...user, email: e.target.value})}/>
+      <Input type="text" name="email" onChange={(e) => setUser({...user, email: e.target.value})}/>
       <br />
 
-      <button onClick ={handleSubmit}>Sign Up</button>
+      <Button onClick ={handleSubmit}>Sign Up</Button>
     </div>
   );
 }

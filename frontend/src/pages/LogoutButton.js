@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from "react-router";
 import localStorageService from "../services/LocalStorage";
+import { Button } from 'antd';
+import '../App.css';
 
 function LogoutButton(prop) {
 
@@ -23,7 +25,7 @@ function LogoutButton(prop) {
   ( <span>You are not logged in.</span>)
   :
   (
-    <button onClick ={handleSubmit}>Logout</button>
+    <Button onClick ={handleSubmit}>Logout </Button>
   );
 }
 

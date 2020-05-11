@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from "../services/axiosService";
+import { PageHeader, Button, Input } from 'antd';
+import '../App.css';
 
 function BugReportForm() {
   const [bugReport, setbugReport] = useState({});
@@ -24,15 +26,19 @@ const handleSubmit = () =>
  (bugReport.text) ?  handleCorrectData() : handleBadData();
 
 
+
   return (
     
     <div>
-      <h2>Create a Bug Report</h2>
+      <PageHeader
+              className="site-page-header"
+              title="Create a Bug Report"
+            />
         <br/>
       Description of the Bug:
-      <input type="text" name="text" placeholder= "explain the problem" onChange={(e) => setbugReport({ ...bugReport, text: e.target.value })} />
+      <Input type="text" name="text" placeholder= "explain the problem" onChange={(e) => setbugReport({ ...bugReport, text: e.target.value })} />
       <br />
-      <button onClick={handleSubmit}>Create Bug</button>
+      <Button onClick={handleSubmit}>Create Bug</Button>
       <br />
     </div>
     

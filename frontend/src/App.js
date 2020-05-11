@@ -6,6 +6,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProfilePage from './pages/ProfilePage';
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
+import { Typography , Divider } from 'antd';
+
+
 
 import './App.css';
 
@@ -37,14 +40,16 @@ class App extends Component {
   render() {
 
     const { isLogged } = this.state;
+    const { Title } = Typography;
 
     return (
       <BrowserRouter>
+      <div>
         <nav>
           {(isLogged) ?
             (<LogoutButton logout={this.logout} />)
             :
-            (<span>This is Pick-A-Park</span>)
+            (<Title >This is Pick-A-Park</Title>)
           }
         </nav>
 
@@ -52,7 +57,9 @@ class App extends Component {
           <Route exact path={"/login"}>
             <div>
               <LoginForm login={this.login} />
-              <hr />
+              <Divider  plain>
+                Register now!
+              </Divider>
               <UserCreationForm />
             </div>
 
@@ -65,6 +72,7 @@ class App extends Component {
             <div>404 Not Found</div>
           </Route>
         </Switch>
+        </div>
       </BrowserRouter>
     );
   }
