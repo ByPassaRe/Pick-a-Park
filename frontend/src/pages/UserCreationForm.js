@@ -40,7 +40,9 @@ function UserCreationForm() {
   }
 
   const handleSubmit = () => {
-    if(!isValidUsername(user))
+    if(!user.username || !user.email || !user.password)
+      handleBadData("Missing data");
+    else if(!isValidUsername(user))
       handleBadData("Username not valid");
     else if(!isValidPassword(user))
       handleBadData("Password must have at least 8 characters");
