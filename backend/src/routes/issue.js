@@ -1,5 +1,9 @@
 const issues = require("../controllers/issue.js");
 const router = require("express").Router();
+
+const authorize = require("../util/authorize");
+const role = require("../util/role");
+
 /**
 * @swagger
 * tags:
@@ -45,7 +49,9 @@ const router = require("express").Router();
   *             "400":
   *                 description: Unexpected error
   */
-router.post("/", issues.create);
+router.post("/", 
+    authorize([role.MUNICIPALITY_POLICE]),
+    issues.create);
 
 
  /**
@@ -68,7 +74,9 @@ router.post("/", issues.create);
   *             "400":
   *                 description: Unexpected error
   */
-router.get("/", issues.read);
+router.get("/", 
+    authorize([role.MUNICIPALITY_POLICE]),
+    issues.read);
 
 /**
   * @swagger
@@ -97,7 +105,9 @@ router.get("/", issues.read);
   *             "404":
   *                 description: Issue not found
   */
-router.get("/:id", issues.read);
+router.get("/:id",
+    authorize([role.MUNICIPALITY_POLICE]),
+    issues.read);
 
 /**
   * @swagger
@@ -125,6 +135,8 @@ router.get("/:id", issues.read);
   *                 description: Updating issue problem
   * 
   */
-router.post("/:id", issues.update);
+router.post("/:id",
+    authorize([role.MUNICIPALITY_POLICE]),
+    issues.update);
 
 module.exports = router;
