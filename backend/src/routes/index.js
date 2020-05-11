@@ -3,6 +3,9 @@ const usersRoute = require('./user');
 const bugReportsRoute = require('./bugReport'); 
 const authRoute = require('./auth');
 const issueRoute = require('./issue');
+const transactionRoute = require('./transaction');
+
+
 
 module.exports.attachToApp = (app) => {
     app.use('/users', usersRoute);
@@ -10,4 +13,5 @@ module.exports.attachToApp = (app) => {
     app.use('/auth', authRoute);
     app.use('/issues', issueRoute);
     app.use('/bugReports', bugReportsRoute);
+    app.use('/transactions', transactionRoute);
 }
