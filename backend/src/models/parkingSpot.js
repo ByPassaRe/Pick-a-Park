@@ -7,7 +7,8 @@ const ParkingSpotSchema = new mongoose.Schema({
     },
     price: {type: Number, default: 0, min: 0},
     activated: {type: Boolean, default: false},
-    available: {type: Boolean, default: false}
+    available: {type: Boolean, default: false},
+    { timestamps: true }
 });
 
 ParkingSpotSchema.pre('save', async function() {
