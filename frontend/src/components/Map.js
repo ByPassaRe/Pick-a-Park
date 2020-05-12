@@ -10,7 +10,6 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZ2hlcml0YXJlbmllcmk5NiIsImEiOiJjazN4bzl0M
 
 let eventFired = false;
 const findParkingSpot = async (lonDest, latDest) => {
-
   try {
     const result = await axios.get('http://localhost:5000/parkingSpots/nearest', {
       params: {
@@ -27,6 +26,8 @@ const findParkingSpot = async (lonDest, latDest) => {
   }
 }
 
+let directions = null;
+
 class Map extends React.Component {
 
   componentDidMount() {
@@ -40,7 +41,7 @@ class Map extends React.Component {
       zoom: 13
     });
 
-    const directions = new MapboxDirections({
+    directions = new MapboxDirections({
       accessToken: mapboxgl.accessToken,
       unit: 'metric',
       profile: 'mapbox/driving',
@@ -57,9 +58,8 @@ class Map extends React.Component {
     map.on('load', function () {
       directions.setOrigin(intiialCoords);
     });
-
+    
     directions.on('route', async () => {
-      console.log(eventFired);
       if (eventFired === true) {
         eventFired = false;
         return;
@@ -69,7 +69,11 @@ class Map extends React.Component {
 
       directions.setDestination(await findParkingSpot(lonDest, latDest));
       eventFired = true;
-    });
+    });    
+  }
+  
+  componentDidUpdate(){
+    directions.setOrigin([this.props.longitude,this.props.latitude]);
   }
 
   render() {
