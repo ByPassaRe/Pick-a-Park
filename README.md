@@ -7,14 +7,8 @@
 REST API of Pick a Park project for Software Project Management exam's project of University of Camerino. 
 
 ## Requirements
-- Docker
-- NPM
-
-## Installation
-
-```bash
-$ npm install
-```
+- nodejs
+- npm
 
 ## Running the app
 
