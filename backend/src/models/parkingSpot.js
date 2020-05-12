@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 
 const ParkingSpotSchema = new mongoose.Schema({
-    location: {
-        latitude: {type:Number, min: -90, max: 90, required: true},
-        longitude: {type:Number, min: -180, max: 180, required: true},
+        location: {
+            latitude: {type:Number, min: -90, max: 90, required: true},
+            longitude: {type:Number, min: -180, max: 180, required: true},
+        },
+        price: {type: Number, default: 0, min: 0},
+        activated: {type: Boolean, default: false},
+        available: {type: Boolean, default: false}
     },
-    price: {type: Number, default: 0, min: 0},
-    activated: {type: Boolean, default: false},
-    available: {type: Boolean, default: false},
     { timestamps: true }
-});
+);
 
 ParkingSpotSchema.pre('save', async function() {
     this.available = false;
