@@ -49,19 +49,20 @@ class App extends Component {
           {(isLogged) ?
             (<LogoutButton logout={this.logout} />)
             :
-            (<Title >This is Pick-A-Park</Title>)
+            (<Title align="center">This is Pick-A-Park</Title>)
           }
         </nav>
 
         <Switch>
           <Route exact path={"/login"}>
-            <div>
+              <div>
               <LoginForm login={this.login} />
+              
               <Divider  plain>
                 Register now!
               </Divider>
               <UserCreationForm />
-            </div>
+              </div>
 
           </Route>
 

@@ -11,7 +11,7 @@ import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
 import WalletPage from './WalletPage';
-import { Typography, Divider } from 'antd';
+import { Typography, Divider, Spin } from 'antd';
 import '../App.css';
 
 
@@ -73,7 +73,6 @@ function ProfilePage() {
             position: 'absolute'
         }}
         >
-           
             <Title > Hi {username} you are a {role}</Title>
             <ChangePasswordForm />
             <Divider/>

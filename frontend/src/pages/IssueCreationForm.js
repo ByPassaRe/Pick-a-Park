@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Input, Dropdown, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Input, Select } from 'antd';
 
 import '../App.css';
 
@@ -56,18 +55,7 @@ function IssueCreationForm() {
   const handleSubmit = () =>
     (issue.text) ? handleCorrectData() : handleBadData();
 
-  const choice = (
-    <Menu>
-      <Menu.Item default>
-       None      
-      </Menu.Item>
-      {slot.map(item =>
-      <Menu.Item value={item} key={item} >
-              {item}
-      </Menu.Item>
-          )}
-    </Menu>
-  );
+    const { Option } = Select;
 
 
   return (
@@ -80,22 +68,19 @@ function IssueCreationForm() {
       <Input type="text" name="text" placeholder="insert the issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
         <br />
         Parking Spot:
-        <Dropdown overlay={choice}>
-        <select onClick={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
-            select a parking spot <DownOutlined />
-        </select>
-        </Dropdown>
+        <Select onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
+          <Option default>None</Option>
+          {slot.map(item =>
+            <Option value={item} key={item}>{item}</Option>
+          )}
+        </Select>
         <br />
-        <button onClick={handleSubmit}>Create Issue</button>
-        <br />
-
-        
+          <button onClick={handleSubmit}>Create Issue</button>
+          <br />
       </OutsetDiv>
-
-
     </div>
 
-  );
-
-}
+      );
+    
+    }
 export default IssueCreationForm;

@@ -11,6 +11,7 @@ function ParkingSpotMunicipalityView() {
         (async function fetchParkingSpots () {
             setStatusMessage('Loading...');
             
+            
             try {
                 const response = await axios.get('http://localhost:5000/parkingSpots');
                 setParkingSpots(response.data.parkingSpots);
