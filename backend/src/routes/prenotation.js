@@ -80,5 +80,6 @@ router.post("/",
 router.patch("/:id/proximity", authorize([role.DRIVER]), prenotations.inProximity);
 
 router.post("/parkingFired", prenotations.parkingSensorFired);
+router.post("/parkingLeave", prenotations.parkingSensorLeave);
 
 module.exports = router;

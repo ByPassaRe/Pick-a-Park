@@ -50,6 +50,9 @@ exports.inProximity = async (req, res) => {
 };
 
 exports.parkingSensorFired = async (req, res) => {
+    if (!req.body.parkingSpotId)
+        return res.sendStatus(400);
+
     const parkingSpotId = req.body.parkingSpotId;
 
     const prenotation = await Prenotation.findOne({ parkingSpotId, startTime: { $exists: false } }).exec();
@@ -62,12 +65,34 @@ exports.parkingSensorFired = async (req, res) => {
         prenotation.startTime = Date.now();
         await prenotation.save();
 
-
-
         return res.sendStatus(200);
     } else {
         // TODO Signal abuse / error;
         return res.sendStatus(400);
     }
 
+};
+
+exports.parkingSensorLeave = async (req, res) => {
+    if (!req.body.parkingSpotId)
+        return res.sendStatus(400);
+
+    const parkingSpotId = req.body.parkingSpotId;
+
+    const prenotation = await Prenotation.findOne({ parkingSpotId, endTime: { $exists: false } }).exec();
+    if (!prenotation) {
+        return res.sendStatus(404);
+        //TODO Signal abuse / error;
+    };
+
+    prenotation.endTime = Date.now();
+    await prenotation.save();
+
+    console.log(prenotation.startTime);
+    console.log(prenotation.endTime);
+    //TODO Charge
+
+    // Parcheggio available
+    await ParkingSpot.findByIdAndUpdate(parkingSpotId, { available: true }).exec();
+    return res.sendStatus(200);
 };
