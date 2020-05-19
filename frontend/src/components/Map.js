@@ -92,9 +92,29 @@ class Map extends React.Component {
         var nearestParkingSpot = await findParkingSpot(longitudeDest, latitudeDest);
         directions.setDestination([nearestParkingSpot.location.longitude,nearestParkingSpot.location.latitude]);
 
-        //TODO BECOME UNAVAILABLE
 
-        eventFired = true;     
+        eventFired = true;    
+
+        try {
+          //Set parking selected not available
+          const response = await axios.post('http://localhost:5000/prenotations', {
+            username: localStorage.getItem("username"),
+            parkingSpotId: nearestParkingSpot._id
+          }); 
+
+          switch (response.status) {
+            case 200:
+              break;
+            case 400:
+              alert("Database error")
+              break;
+            default:
+              alert("Unexpected error");
+          }
+        } catch (error) {
+          alert(error)
+        }
+        
       });  
       
     });
