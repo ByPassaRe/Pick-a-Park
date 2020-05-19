@@ -48,3 +48,26 @@ exports.inProximity = async (req, res) => {
 
     return res.sendStatus(200);
 };
+
+exports.parkingSensorFired = async (req, res) => {
+    const parkingSpotId = req.body.parkingSpotId;
+
+    const prenotation = await Prenotation.findOne({ parkingSpotId, startTime: { $exists: false } }).exec();
+    if (!prenotation) {
+        return res.sendStatus(404);
+        //TODO Signal abuse / error;
+    };
+
+    if (prenotation.proximity) {
+        prenotation.startTime = Date.now();
+        await prenotation.save();
+
+
+
+        return res.sendStatus(200);
+    } else {
+        // TODO Signal abuse / error;
+        return res.sendStatus(400);
+    }
+
+};
