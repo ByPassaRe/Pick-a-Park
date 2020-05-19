@@ -19,6 +19,7 @@ let longitudeDest = 0;
 const PROXIMITY_THRESHOLD = 20;
 let parkingDestination = null;
 let prenotationId = null;
+let proximitySet = false;
 
 
 const findParkingSpot = async (lonDest, latDest) => {
@@ -138,9 +139,10 @@ class Map extends React.Component {
     const distance = getDistance(start, finish);
     console.log(distance);
 
-    if (distance < PROXIMITY_THRESHOLD) {
+    if (distance < PROXIMITY_THRESHOLD && !proximitySet) {
+      proximitySet = true;
       console.log('PROXIMITY TRIGGERED');
-      //axios.patch('http://localhost:5000/prenotations/')
+      axios.patch(`http://localhost:5000/prenotations/${prenotationId}/proximity`).then(() => console.log('Proximity'));
     };
     if (directions) {
       directions.setOrigin(coordinates)
