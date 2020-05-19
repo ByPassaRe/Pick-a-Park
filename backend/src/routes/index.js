@@ -4,6 +4,7 @@ const bugReportsRoute = require('./bugReport');
 const authRoute = require('./auth');
 const issueRoute = require('./issue');
 const transactionRoute = require('./transaction');
+const prenotationRoute = require('./prenotation');
 
 
 
@@ -14,4 +15,5 @@ module.exports.attachToApp = (app) => {
     app.use('/issues', issueRoute);
     app.use('/bugReports', bugReportsRoute);
     app.use('/transactions', transactionRoute);
+    app.use('/prenotations', prenotationRoute);
 }
