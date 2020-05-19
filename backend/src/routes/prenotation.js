@@ -1,5 +1,7 @@
 const prenotations = require("../controllers/prenotation.js");
 const router = require("express").Router();
+const authorize = require("../util/authorize");
+const role = require("../util/role");
 
 /**
 * @swagger
@@ -72,6 +74,7 @@ const router = require("express").Router();
   *                 description: Unexpected error
   */
  router.post("/",
+    authorize([role.DRIVER]), 
     prenotations.create);
 
 module.exports = router;
