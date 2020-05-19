@@ -36,45 +36,47 @@ const role = require("../util/role");
 
 
 
- /**
-  * @swagger
-  * /prenotations/:
-  *     post:
-  *         security:
-  *             - bearerAuth: []
-  *         description: Create a prenotation - Only Drivers are Authorized
-  *         tags: [Prenotation]
-  *         requestBody:
-  *             required: true
-  *             content:
-  *                 application/json:
-  *                     schema:
-  *                         type: object
-  *                         properties:
-  *                             username:
-  *                                 type: string
-  *                             parkingSpotId:
-  *                                 type: string
-  *                         required:
-  *                             - username
-  *                             - parkingSpotId
-  *                         
-  *         responses:
-  *             "200":
-  *                 description: An prenotation information
-  *                 content:
-  *                     application/json:
-  *                         schema:
-  *                             $ref: '#/components/schemas/Prenotation'
-  *             "400":
-  *                 description: Missing parameters
-  *             "404":
-  *                 description: User or Parking not found
-  *             "500":
-  *                 description: Unexpected error
-  */
- router.post("/",
-    authorize([role.DRIVER]), 
-    prenotations.create);
+/**
+ * @swagger
+ * /prenotations/:
+ *     post:
+ *         security:
+ *             - bearerAuth: []
+ *         description: Create a prenotation - Only Drivers are Authorized
+ *         tags: [Prenotation]
+ *         requestBody:
+ *             required: true
+ *             content:
+ *                 application/json:
+ *                     schema:
+ *                         type: object
+ *                         properties:
+ *                             username:
+ *                                 type: string
+ *                             parkingSpotId:
+ *                                 type: string
+ *                         required:
+ *                             - username
+ *                             - parkingSpotId
+ *                         
+ *         responses:
+ *             "200":
+ *                 description: An prenotation information
+ *                 content:
+ *                     application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/Prenotation'
+ *             "400":
+ *                 description: Missing parameters
+ *             "404":
+ *                 description: User or Parking not found
+ *             "500":
+ *                 description: Unexpected error
+ */
+router.post("/",
+  authorize([role.DRIVER]),
+  prenotations.create);
+
+router.patch("/:id/proximity", authorize([role.DRIVER]), prenotations.inProximity);
 
 module.exports = router;

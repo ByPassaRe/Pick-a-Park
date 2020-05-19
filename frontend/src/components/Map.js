@@ -2,6 +2,7 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import axios from 'axios';
+import { getDistance } from 'geolib';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
@@ -14,6 +15,10 @@ let map = null;
 let coordinates = null;
 let latitudeDest = 0;
 let longitudeDest = 0;
+
+const PROXIMITY_THRESHOLD = 20;
+let parkingDestination = null;
+let prenotationId = null;
 
 
 const findParkingSpot = async (lonDest, latDest) => {
@@ -32,10 +37,10 @@ const findParkingSpot = async (lonDest, latDest) => {
   }
 }
 
-const checkUserFund = async() => {
+const checkUserFund = async () => {
   try {
     const result = await axios.get('http://localhost:5000/users/balance');
-    if(result.status === 200)
+    if (result.status === 200)
       return result.data.balance > 0
 
     return false
@@ -80,30 +85,32 @@ class Map extends React.Component {
 
 
       directions.on('route', async () => {
-      
+
         if (eventFired === true) {
           //eventFired = false;
           return;
         }
-  
+
         //Set new destination
         longitudeDest = directions.getDestination().geometry.coordinates[0];
         latitudeDest = directions.getDestination().geometry.coordinates[1];
         var nearestParkingSpot = await findParkingSpot(longitudeDest, latitudeDest);
-        directions.setDestination([nearestParkingSpot.location.longitude,nearestParkingSpot.location.latitude]);
+        parkingDestination = [nearestParkingSpot.location.longitude, nearestParkingSpot.location.latitude];
+        directions.setDestination(parkingDestination);
 
-
-        eventFired = true;    
+        eventFired = true;
 
         try {
           //Set parking selected not available
           const response = await axios.post('http://localhost:5000/prenotations', {
             username: localStorage.getItem("username"),
             parkingSpotId: nearestParkingSpot._id
-          }); 
+          });
 
           switch (response.status) {
             case 200:
+              prenotationId = response.data._id;
+              console.log(prenotationId);
               break;
             case 400:
               alert("Database error")
@@ -114,15 +121,28 @@ class Map extends React.Component {
         } catch (error) {
           alert(error)
         }
-        
-      });  
-      
+
+      });
+
     });
   }
 
-  componentDidUpdate(){
-    coordinates = [this.props.longitude,this.props.latitude];
-    if(directions){
+  componentDidUpdate() {
+    coordinates = [this.props.longitude, this.props.latitude];
+    const destination = [longitudeDest, latitudeDest];
+
+    const start = { longitude: coordinates[0], latitude: coordinates[1] };
+    const finish = { longitude: parkingDestination[0], latitude: parkingDestination[1] };
+    console.log(start);
+    console.log(finish);
+    const distance = getDistance(start, finish);
+    console.log(distance);
+
+    if (distance < PROXIMITY_THRESHOLD) {
+      console.log('PROXIMITY TRIGGERED');
+      //axios.patch('http://localhost:5000/prenotations/')
+    };
+    if (directions) {
       directions.setOrigin(coordinates)
       map.setCenter(coordinates)
       map.setZoom(15)
