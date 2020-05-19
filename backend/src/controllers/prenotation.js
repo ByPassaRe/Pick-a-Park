@@ -2,6 +2,8 @@ const Prenotation = require("../models/prenotation");
 const ParkingSpot = require("../models/parkingSpot");
 const User = require("../models/user")
 
+const moment = require('moment');
+
 exports.create = async (req, res) => {
     if (!req.body.username || !req.body.parkingSpotId)
         return res.status(400).send({ message: "Parameters are not available" });
@@ -90,9 +92,21 @@ exports.parkingSensorLeave = async (req, res) => {
 
     console.log(prenotation.startTime);
     console.log(prenotation.endTime);
-    //TODO Charge
 
-    // Parcheggio available
+    var start = moment(prenotation.startTime); //todays date
+    var end = moment(prenotation.endTime); // another date
+    var duration = moment.duration(end.diff(start));
+    var hours = duration.asHours();
+
+    const parkingSpot = await ParkingSpot.findById(parkingSpotId).exec();
+    const toPay = hours * parkingSpot.price;
+
+    await User.findByIdAndUpdate(prenotation.userId, {
+        $inc: {
+            balance: -toPay,
+        }
+    }).exec();
+
     await ParkingSpot.findByIdAndUpdate(parkingSpotId, { available: true }).exec();
     return res.sendStatus(200);
 };
