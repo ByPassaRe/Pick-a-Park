@@ -3,13 +3,13 @@ const ParkingSpot = require("../models/parkingSpot");
 const User = require("../models/user")
 
 exports.create = async (req, res) => {
-    if(!req.body.userId || !req.body.parkingSpotId)
+    if(!req.body.username || !req.body.parkingSpotId)
         return res.status(400).send({message: "Parameters are not available"});
     
     let user, parkingSpot, prenotation;
 
     try { 
-        user = await User.findById(req.body.userId).exec(); 
+        user = await User.findOne({username: req.body.username}).exec(); 
         parkingSpot = await ParkingSpot.findById(req.body.parkingSpotId).exec();
     } 
     catch (error) { return res.status(400).send({message: "Database error"}); }
@@ -25,8 +25,8 @@ exports.create = async (req, res) => {
         await ParkingSpot.findByIdAndUpdate(req.body.parkingSpotId, {available: false}).exec();
         //Create prenotation
         prenotation = await Prenotation.create({
-            userId: req.body.userId,
-            parkingSpotId: req.body.parkingSpotId
+            userId: user._id,
+            parkingSpotId: parkingSpot._id
         });
     } catch (error) {
         return res.status(400).send({message: err.message});
