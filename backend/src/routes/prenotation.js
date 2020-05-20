@@ -77,9 +77,100 @@ router.post("/",
   authorize([role.DRIVER]),
   prenotations.create);
 
-router.patch("/:id/proximity", authorize([role.DRIVER]), prenotations.inProximity);
 
+
+
+
+/**
+ * @swagger
+ * /{:id}/proximity/:
+ *     patch:
+ *         security:
+ *             - bearerAuth: []
+ *         description: Set proximity - Only Drivers are Authorized
+ *         tags: [Prenotation]
+ *         parameters:
+ *             - in: path
+ *               name: id
+ *               schema:
+ *                 type: string
+ *               required: true
+ *               description: ID of the prenotation to get 
+ *                         
+ *         responses:
+ *             "200":
+ *                 description: Proximity set
+ *             "400":
+ *                 description: Missing parameters
+ *             "500":
+ *                 description: Unexpected error
+ */
+router.patch("/:id/proximity",
+  authorize([role.DRIVER]), 
+  prenotations.inProximity);
+
+
+
+
+
+/**
+ * @swagger
+ * /parkingFired/:
+ *     post:
+ *         description: Parking sensor fired (the sensor will have to manage this API)
+ *         tags: [Prenotation]
+ *         requestBody:
+ *             required: true
+ *             content:
+ *                 application/json:
+ *                     schema:
+ *                         type: object
+ *                         properties:
+ *                             parkingSpotId:
+ *                                 type: string
+ *                         required:
+ *                             - parkingSpotId              
+ *         responses:
+ *             "200":
+ *                 description: Timer activated
+ *             "400":
+ *                 description: Abuse with prenotation (someone steal the parking spot to other)
+ *             "404":
+ *                 description: Abuse without prenotation (someone park on it)
+ *             "500":
+ *                 description: Unexpected error
+ */
 router.post("/parkingFired", prenotations.parkingSensorFired);
+
+
+
+/**
+ * @swagger
+ * /parkingLeave/:
+ *     post:
+ *         description: Parking sensor fired during leaving (the sensor will have to manage this API)
+ *         tags: [Prenotation]
+ *         requestBody:
+ *             required: true
+ *             content:
+ *                 application/json:
+ *                     schema:
+ *                         type: object
+ *                         properties:
+ *                             parkingSpotId:
+ *                                 type: string
+ *                         required:
+ *                             - parkingSpotId              
+ *         responses:
+ *             "200":
+ *                 description: Payed
+ *             "400":
+ *                 description: Missing Parameters
+ *             "404":
+ *                 description: Abuse (someone trigger the sensor without a prenotation)
+ *             "500":
+ *                 description: Unexpected error
+ */
 router.post("/parkingLeave", prenotations.parkingSensorLeave);
 
 module.exports = router;
