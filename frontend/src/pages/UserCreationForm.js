@@ -57,10 +57,11 @@ function UserCreationForm() {
 
 
   return (
-    <div>  
+    <div>
       <PageHeader
               className="site-page-header"
               title="Create user"
+              onBack={() => history.goBack()}
             />
       Username:
       <Input type="text"  name="username" onChange={(e) => setUser({...user, username: e.target.value})}/>
