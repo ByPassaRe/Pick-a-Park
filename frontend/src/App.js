@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import UserCreationForm from './pages/UserCreationForm';
 import LoginForm from './pages/LoginForm';
 import LogoutButton from './pages/LogoutButton';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link} from "react-router-dom";
 import ProfilePage from './pages/ProfilePage';
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
-import { Typography , Divider } from 'antd';
+import { Typography, Button, Divider } from 'antd';
 
 
 
@@ -57,14 +57,19 @@ class App extends Component {
           <Route exact path={"/login"}>
               <div>
               <LoginForm login={this.login} />
-              
-              <Divider  plain>
-                Register now!
-              </Divider>
-              <UserCreationForm />
+              <Divider>
+                <Link to ="/register">Register now!
+                </Link>
+                </Divider>
               </div>
 
           </Route>
+          <Route exact path={"/register"}>
+          <div>
+              <UserCreationForm register={this.register} />
+            </div>
+          </Route>
+
 
           <PrivateRoute path="/">
             <ProfilePage />

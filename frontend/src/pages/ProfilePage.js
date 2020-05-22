@@ -11,7 +11,7 @@ import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
 import WalletPage from './WalletPage';
-import { Typography, Divider, Spin } from 'antd';
+import { Typography, Divider } from 'antd';
 import '../App.css';
 
 
