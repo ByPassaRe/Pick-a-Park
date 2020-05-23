@@ -4,6 +4,11 @@ import LoginForm from './pages/LoginForm';
 import LogoutButton from './pages/LogoutButton';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import ProfilePage from './pages/ProfilePage';
+import BugReportForm from './pages/BugReportForm';
+import WalletPage from './pages/WalletPage';
+import MapPage from './pages/MapPage';
+
+
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
 import { Typography, Divider } from 'antd';
@@ -69,6 +74,24 @@ class App extends Component {
                 <UserCreationForm register={this.register} />
               </div>
             </Route>
+
+            //DRIVER 
+            <Route exact path={"/bug"}>
+              <div>
+                <BugReportForm bug={this.bug} />
+              </div>
+            </Route>
+            <Route exact path={"/wallet"}>
+              <div>
+                <WalletPage wallet={this.wallet} />
+              </div>
+            </Route>
+            <Route exact path={"/map"}>
+              <div>
+                <MapPage map={this.map} />
+              </div>
+            </Route>
+            
 
 
             <PrivateRoute path="/">
