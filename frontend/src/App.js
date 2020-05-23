@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import ProfilePage from './pages/ProfilePage';
 import BugReportForm from './pages/BugReportForm';
 import WalletPage from './pages/WalletPage';
-import MapPage from './pages/MapPage';
+import MapPage from './pages/WalletPage';
 
 
 import { PrivateRoute } from './services/PrivateRoute';
@@ -75,22 +75,7 @@ class App extends Component {
               </div>
             </Route>
 
-            //DRIVER 
-            <Route exact path={"/bug"}>
-              <div>
-                <BugReportForm bug={this.bug} />
-              </div>
-            </Route>
-            <Route exact path={"/wallet"}>
-              <div>
-                <WalletPage wallet={this.wallet} />
-              </div>
-            </Route>
-            <Route exact path={"/map"}>
-              <div>
-                <MapPage map={this.map} />
-              </div>
-            </Route>
+           
             
 
 
