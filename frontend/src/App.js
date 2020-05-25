@@ -62,7 +62,7 @@ class App extends Component {
             <Route exact path={"/login"}>
               <div>
                 <LoginForm login={this.login} />
-                <Divider>
+                <Divider orientation="right">
                   <Link to="/register">Register now!
                 </Link>
                 </Divider>

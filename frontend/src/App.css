@@ -8,3 +8,32 @@ body {
     text-align: left;
   }
 
+  #components-layout-demo-side  {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
+  
+.site-layout .site-layout-background {
+    background: white;
+  }
+.container {
+  height: auto; 
+  width: auto; 
+  position: relative;
+  }
+.container-login{
+  left: 10%;
+  height: 900px; 
+  width: 900px; 
+  position: relative;
+
+}
+.center {
+    margin: 0;
+    position: absolute;
+    top: auto;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
