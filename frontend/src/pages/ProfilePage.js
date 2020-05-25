@@ -11,7 +11,7 @@ import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
 import WalletPage from './WalletPage';
-import { Typography, Divider, Menu, Layout } from 'antd';
+import { Typography, Menu, Layout } from 'antd';
 import { FileOutlined, UserOutlined } from '@ant-design/icons';
 import '../App.css';
 
@@ -25,6 +25,7 @@ function ProfilePage() {
 
 
     let componentProfile = null;
+    let optionsProfile = null;
     const { SubMenu } = Menu;
     const { Header, Content, Footer, Sider } = Layout;
 
@@ -32,38 +33,60 @@ function ProfilePage() {
     switch (role) {
         case "DRIVER":
             componentProfile =
-                <SubMenu key="sub1" icon={<FileOutlined />} title={<span>Handle</span>} >
-                    <Menu.Item key="3"> <Link to="/" />Go to the map</Menu.Item>
+                <SubMenu key="sub2" icon={<FileOutlined />} title={<span>Handle</span>} >
+                    <Menu.Item key="3"> <Link to="/" />Map</Menu.Item>
                     <Menu.Item key="4"> <Link to="/bug" />BugReport</Menu.Item>
                     <Menu.Item key="5"> <Link to="/wallet" />Wallet</Menu.Item>
                 </SubMenu>
+            optionsProfile =
+                <div className="site-layout-background" style={{ padding: 20 }}>
+                    <Route exact path="/" component={MapPage} />
+                    <Route path="/bug" component={BugReportForm} />
+                    <Route path="/wallet" component={WalletPage} />
+
+                </div>
 
             break;
         case "PARKING_COMPANY":
             componentProfile =
-                <>
-                    <BugReportParkingCompanyView />
-                    <Divider />
-                    <ParkingSpotsSetPriceView />
-                </>
+                <SubMenu key="sub2" icon={<FileOutlined />} title={<span>View</span>} >
+                    <Menu.Item key="3"> <Link to="/bugReport" />BugReport</Menu.Item>
+                    <Menu.Item key="4"> <Link to="/setPrice" />Set Price</Menu.Item>
+                </SubMenu>
+            optionsProfile =
+                <div className="site-layout-background" style={{ padding: 20 }}>
+                    <Route path="/bugReport" component={BugReportParkingCompanyView} />
+                    <Route path="/setPrice" component={ParkingSpotsSetPriceView} />
+                </div>
+
             break;
         case "MUNICIPALITY_EMPLOYEE":
             componentProfile =
-                <>
-                    <BugReportForm />
-                    <Divider />
-                    <ParkingSpotCreationForm />
-                    <Divider />
-                    <ParkingSpotMunicipalityView />
-                </>
+                <SubMenu key="sub2" icon={<FileOutlined />} title={<span>Handle</span>} >
+                    <Menu.Item key="3"> <Link to="/bug" />BugReport</Menu.Item>
+                    <Menu.Item key="4"> <Link to="/spot" />Parking Spot</Menu.Item>
+                    <Menu.Item key="5"> <Link to="/spotsview" />Spots View</Menu.Item>
+                </SubMenu>
+            optionsProfile =
+                <div className="site-layout-background" style={{ padding: 20 }}>
+                    <Route path="/bug" component={BugReportForm} />
+                    <Route path="/spot" component={ParkingSpotCreationForm} />
+                    <Route path="/spotsview" component={ParkingSpotMunicipalityView} />
+                </div>
+                
             break;
         case "MUNICIPALITY_POLICE":
-            componentProfile =
-                <>
-                    <IssueCreationForm />
-                    <Divider />
-                    <IssueListView />
-                </>
+        componentProfile =
+                <SubMenu key="sub2" icon={<FileOutlined />} title={<span>Issue</span>} >
+                    <Menu.Item key="3"> <Link to="/create" />Creation</Menu.Item>
+                    <Menu.Item key="4"> <Link to="/view" />View</Menu.Item>
+                </SubMenu>
+            optionsProfile =
+                <div className="site-layout-background" style={{ padding: 20 }}>
+                    <Route path="/create" component={IssueCreationForm} />
+                    <Route path="/view" component={IssueListView} />
+                </div>
+        
             break;
 
         default:
@@ -94,12 +117,8 @@ function ProfilePage() {
                         <Title style={{ textAlign: 'center', color: '#1d2951' }} > Hi {username} you are a {role}</Title>
                     </Header>
                     <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                        <div className="site-layout-background" style={{ padding: 20 }}>
-                            <Route exact path="/" component={MapPage} />
-                            <Route path="/bug" component={BugReportForm} />
-                            <Route path="/wallet" component={WalletPage} />
+                        {optionsProfile}
 
-                        </div>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>Pick-A-Park Created by ByPassaRe </Footer>
                 </Layout>
