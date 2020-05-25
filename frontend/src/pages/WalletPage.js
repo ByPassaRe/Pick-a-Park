@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "../services/axiosService";
-import { Input, Button,PageHeader   } from 'antd';
+import { Input, Button, message } from 'antd';
 import '../App.css';
+import { string } from 'prop-types';
 
 function WalletPage() {
     const [statusMessage, setStatusMessage] = useState(null);
     const [walletAmount, setWalletAmount] = useState(null);
 
+
     useEffect(() => {
-        (async function fetchWallet () {
+        (async function fetchWallet() {
             setStatusMessage('Loading...');
 
             try {
@@ -17,7 +19,7 @@ function WalletPage() {
             } catch (err) {
                 setStatusMessage('Error retrieving data.');
             };
-            
+
         })();
 
     }, []);
@@ -27,14 +29,14 @@ function WalletPage() {
 
         const handleSend = async () => {
             //If you click "Update" with 0€, It is to avoid an useless call to API
-            if(amountToAdd === 0)
-                return 
-            
+            if (amountToAdd === 0)
+                return
+
             try {
                 await axios.patch(`http://localhost:5000/users/chargeBalance`, {
                     amount: amountToAdd
                 });
-                alert("New amount set succesfully");
+                message.success("New amount set succesfully");
             } catch (err) {
                 alert(err);
             }
@@ -48,9 +50,9 @@ function WalletPage() {
         }
 
         const handleChange = (e) => {
-            if(e.target.value < 0) {
+            if (e.target.value < 0) {
                 alert("You can't delete cash!")
-                setAmountToAdd(0); 
+                setAmountToAdd(0);
                 return;
             }
             setAmountToAdd(e.target.value);
@@ -58,33 +60,33 @@ function WalletPage() {
 
         return (
             <>
-            
+
                 Set amount to add:
-               <Input type="number" min={0} value={amountToAdd} onChange={handleChange}/> 
-                <br/>
-                <Button onClick={handleSend}>Update</Button>
-            </>
+               <Input type="number" style={{ verticalAlign: 'middle', width: 65 }} min={0} value={amountToAdd} onChange={handleChange} />
+                <br />
+                <br />
+                <div class="center">
+                    <Button onClick={handleSend}>Update</Button>
+                </div>
+            </ >
         )
     }
 
-  return (
-        <>
-         <PageHeader
-              className="site-page-header"
-              title="Wallet"
-            />
-        {
-            walletAmount !== null ? 
-                <div>
-                    <p>You have {walletAmount} €</p> 
-                    <AmountAdder/>
-                </div>
-                :
-                <p>{statusMessage}</p>
-        }
-        
-        </>
-  );
+    return (
+        <div className="container">
+            <h2 >Wallet</h2>
+            {
+                walletAmount !== null ?
+                    <div>
+                        <h3 style={{ textAlign: 'center' }}>You have {walletAmount} €</h3>
+                        <AmountAdder />
+                    </div>
+                    :
+                    <p>{statusMessage}</p>
+            }
+
+        </div>
+    );
 }
 
 export default WalletPage;
