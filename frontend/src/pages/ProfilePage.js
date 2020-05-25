@@ -10,8 +10,10 @@ import BugReportForm from './BugReportForm';
 import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
+import PaymentListView from './PaymentListView';
 import WalletPage from './WalletPage';
 import PaymentChartItem from '../components/PaymentChartItem';
+
 
 
 
@@ -37,6 +39,8 @@ function ProfilePage() {
                     <BugReportParkingCompanyView/>
                     <hr/>
                     <ParkingSpotsSetPriceView />
+                    <hr/>
+                    <PaymentListView />
                     <hr/>
                     <PaymentChartItem />
                 </>
