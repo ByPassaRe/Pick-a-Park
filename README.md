@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/assets/images/logo.png" alt="Pick-A-Park"/>
+  <img src="/assets/images/logo.png" alt="Pick-A-Park" width="256"/>
 </p>
 
 ## Description
