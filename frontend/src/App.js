@@ -8,10 +8,9 @@ import BugReportForm from './pages/BugReportForm';
 import WalletPage from './pages/WalletPage';
 import MapPage from './pages/WalletPage';
 
-
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
-import { Typography, Divider } from 'antd';
+import { Divider } from 'antd';
 
 
 
@@ -45,7 +44,6 @@ class App extends Component {
   render() {
 
     const { isLogged } = this.state;
-    const { Title } = Typography;
 
     return (
       <BrowserRouter>
@@ -54,16 +52,16 @@ class App extends Component {
             {(isLogged) ?
               (<LogoutButton logout={this.logout} />)
               :
-              (<Title align="center">This is Pick-A-Park</Title>)
+              (<h1 align="center">This is Pick-A-Park </h1> )
             }
           </nav>
 
           <Switch>
             <Route exact path={"/login"}>
-              <div>
+              <div className="container-app">
                 <LoginForm login={this.login} />
                 <Divider orientation="right">
-                  <Link to="/register">Register now!
+                  <Link to="/register"  style={{ color: '#247a85' }}>Register now!
                 </Link>
                 </Divider>
               </div>

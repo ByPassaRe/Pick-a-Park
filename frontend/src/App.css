@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 
 body {
-    background-color: white;
+    background-color:  white;
     color: black;
     padding: 40px;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -21,19 +21,50 @@ body {
   height: auto; 
   width: auto; 
   position: relative;
+
   }
 .container-login{
-  left: 10%;
-  height: 900px; 
-  width: 900px; 
+  height: 300px; 
+  position: relative;
+  padding: 50px;
+}
+.container-app{
+  background-color:  #f4f4f4;
+  border-radius: 10px 10px 10px 10px;
+  margin: auto;
+  width: 60%;
+  padding: 100px;
   position: relative;
 
 }
+.container-registration{
+  height: 80%; 
+  width: 80%; 
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color:  #f4f4f4;
+
+}
+.button{
+  background-color:  #247a85;
+  color: white;
+
+}
+.Logo {
+  background-image: url(../src/image/logo.ico);
+  width: 100%; 
+  height: auto;
+}
+.img-centrata{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .center {
-    margin: 0;
-    position: absolute;
-    top: auto;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: auto;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   }
