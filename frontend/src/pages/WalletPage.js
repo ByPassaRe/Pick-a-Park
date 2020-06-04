@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../services/axiosService";
-import { Input, Button, message } from 'antd';
+import { Input, Button, Form } from 'antd';
 import '../App.css';
-import { string } from 'prop-types';
 
 function WalletPage() {
     const [statusMessage, setStatusMessage] = useState(null);
@@ -36,7 +35,7 @@ function WalletPage() {
                 await axios.patch(`http://localhost:5000/users/chargeBalance`, {
                     amount: amountToAdd
                 });
-                message.success("New amount set succesfully");
+                alert("New amount set succesfully");
             } catch (err) {
                 alert(err);
             }
@@ -60,14 +59,21 @@ function WalletPage() {
 
         return (
             <>
-
-                Set amount to add:
-               <Input type="number" style={{ verticalAlign: 'middle', width: 65 }} min={0} value={amountToAdd} onChange={handleChange} />
-                <br />
-                <br />
-                <div class="center">
-                    <Button onClick={handleSend}>Update</Button>
-                </div>
+                <Form
+                    name="wallet"
+                    className="wallet-form"
+                >
+                    <Form.Item
+                        label=" Set amount to add:"
+                        name="amount"
+                    ></Form.Item>
+                    <Input type="number" style={{ verticalAlign: 'middle', width: 65 }} min={0} value={amountToAdd} onChange={handleChange} />
+                    <br/>
+                    <br/>
+                    <Form.Item>
+                        <Button className="button" type="default" onClick={handleSend}>Update</Button>
+                    </Form.Item>
+                </Form>
             </ >
         )
     }
