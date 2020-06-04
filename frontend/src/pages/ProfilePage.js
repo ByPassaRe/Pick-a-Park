@@ -111,7 +111,7 @@ function ProfilePage() {
         <>
             <Layout style={{ height: "150vh", overflow: "auto" }}
             >
-                <Sider theme="light"  >
+                <Sider theme="light" collapsible >
                     <Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
                         <Menu.Item icon={<img className="logo-img" src={logo} />}><span style={{ color: '#247a85' }}><strong> Pick A Park</strong></span></Menu.Item>
                         <Divider></Divider>
@@ -127,6 +127,7 @@ function ProfilePage() {
                         {optionsProfile}
                         {basicOptions}
                     </Content>
+                    
                 </Layout>
                 
 
