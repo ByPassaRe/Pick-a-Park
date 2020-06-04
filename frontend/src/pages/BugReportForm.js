@@ -30,9 +30,8 @@ function BugReportForm() {
   const { TextArea } = Input;
 
   return (
-
     <div className="container-registration">
-      <h2 >Bug Report</h2>
+      <h2>Bug Report</h2>
       <Form
         name="bug-form"
         className="bug-form"
@@ -42,10 +41,8 @@ function BugReportForm() {
           name="description"
           rules={[{ required: true, message: 'Please insert a Description of the Bug!' }]}
         >
-      <TextArea rows={4} type="text" name="text" placeholder="explain the problem" onChange={(e) => setbugReport({ ...bugReport, text: e.target.value })} />
+      <TextArea rows={4} type="text" name="text" maxLength={5000} autoSize={{ minRows: 4, maxRows: 6 }} placeholder="Explain the problem" onChange={(e) => setbugReport({ ...bugReport, text: e.target.value })} />
       </Form.Item>
-        <br />
-        <br />
         <Form.Item>
           <Button className="button" type="default" onClick={handleSubmit}>Create Bug</Button>
         </Form.Item>

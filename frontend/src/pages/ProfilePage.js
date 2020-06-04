@@ -62,15 +62,15 @@ function ProfilePage() {
         case "MUNICIPALITY_EMPLOYEE":
             componentProfile =
                 <SubMenu key="sub2" icon={<FileOutlined style={{ color: '#247a85' }} />} title={<span style={{ color: '#247a85' }}>Handle</span>} >
-                    <Menu.Item key="3"> <Link to="/bug" /><span style={{ color: '#247a85' }}>BugReport</span></Menu.Item>
+                    <Menu.Item key="3"> <Link to="/bug" /><span style={{ color: '#247a85' }}>Bug Report</span></Menu.Item>
                     <Menu.Item key="4"> <Link to="/spot" /><span style={{ color: '#247a85' }}>Parking Spot</span></Menu.Item>
-                    <Menu.Item key="5"> <Link to="/spotsview" /><span style={{ color: '#247a85' }}>Spots View</span></Menu.Item>
+                    <Menu.Item key="5"> <Link to="/" /><span style={{ color: '#247a85' }}>Spots View</span></Menu.Item>
                 </SubMenu>
             optionsProfile =
                 <div className="site-layout-background" style={{ padding: 20 }}>
                     <Route path="/bug" component={BugReportForm} />
                     <Route path="/spot" component={ParkingSpotCreationForm} />
-                    <Route path="/spotsview" component={ParkingSpotMunicipalityView} />
+                    <Route exact path="/" component={ParkingSpotMunicipalityView} />
                 </div>
 
             break;
@@ -78,12 +78,12 @@ function ProfilePage() {
             componentProfile =
                 <SubMenu key="sub2" icon={<FileOutlined style={{ color: '#247a85' }} />} title={<span style={{ color: '#247a85' }}>Issue</span>} >
                     <Menu.Item key="3"> <Link to="/create" /><span style={{ color: '#247a85' }}>Creation</span></Menu.Item>
-                    <Menu.Item key="4"> <Link to="/view" /><span style={{ color: '#247a85' }}>View</span></Menu.Item>
+                    <Menu.Item key="4"> <Link to="/" /><span style={{ color: '#247a85' }}>View</span></Menu.Item>
                 </SubMenu>
             optionsProfile =
                 <div className="site-layout-background" style={{ padding: 20 }}>
                     <Route path="/create" component={IssueCreationForm} />
-                    <Route path="/view" component={IssueListView} />
+                    <Route exact path="/" component={IssueListView} />
                 </div>
 
             break;
