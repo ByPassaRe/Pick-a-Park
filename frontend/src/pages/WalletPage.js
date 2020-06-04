@@ -66,8 +66,9 @@ function WalletPage() {
                     <Form.Item
                         label=" Set amount to add:"
                         name="amount"
-                    ></Form.Item>
+                    >
                     <Input type="number" style={{ verticalAlign: 'middle', width: 65 }} min={0} value={amountToAdd} onChange={handleChange} />
+                    </Form.Item>
                     <br/>
                     <br/>
                     <Form.Item>

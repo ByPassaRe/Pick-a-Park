@@ -43,9 +43,12 @@ body {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  background-color:  #f4f4f4;
+  background-color:  white;
 
 }
+.prices-container{
+  margin: 10px;
+  }
 .button{
   background-color:  #247a85;
   color: white;
@@ -63,3 +66,5 @@ body {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   }
+
+
