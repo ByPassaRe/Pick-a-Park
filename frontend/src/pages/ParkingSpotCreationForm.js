@@ -49,7 +49,7 @@ function ParkingSpotCreationForm() {
           <Input  style={{ verticalAlign: 'middle', width: 244 }} type="number" name="longitude" onChange={(e) => setLocation({ ...location, longitude: e.target.value })} />
         </Form.Item>
         <Form.Item>
-          <Button className="button" type="default" onClick={handleSubmit}>Create Parking Spot</Button>
+          <Button className="button" type="primary" onClick={handleSubmit}>Create Parking Spot</Button>
         </Form.Item>
       </Form>
     </div>

@@ -81,7 +81,6 @@ const Activator = (props) => {
         <>
             <strong><ActivatedStatus activated={activated}>Activated: {activated.toString()}</ActivatedStatus></strong>
             {activated ? null : <Button type="primary" onClick={handleActivate}>Make Available</Button>}
-            &nbsp;
 
         </>
     );
@@ -108,7 +107,7 @@ const Deleter = (props) => {
                 !confirmation ? <Button type="primary" danger onClick={() => setConfirmation(true)}>Delete</Button> : (
                     <>
                         <p><strong>Are you sure ?</strong></p>
-                        <Button type="primary" success onClick={submit}>Yes</Button>
+                        <Button type="default" success onClick={submit}>Yes</Button>
                         &nbsp;
                         <Button type="primary" danger onClick={() => setConfirmation(false)}>No</Button>
                     </>
@@ -168,9 +167,9 @@ const ParkingSpotListItem = (props) => {
                                 !confirmation ? <Button className="button" type="primary" onClick={() => setConfirmation(true)}>Apply changes</Button> : (
                                     <>
                                         <p><strong>Are you sure ?</strong></p>
-                                        <Button type="primary" success onClick={handleChangeSubmit}>Yes</Button>
+                                        <Button type="default" success onClick={handleChangeSubmit}>Yes</Button>
                                         &nbsp;
-    
+
                                     <Button type="primary" danger onClick={() => setConfirmation(false)}>No</Button>
                                     </>
                                 )

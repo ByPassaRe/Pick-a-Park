@@ -58,7 +58,8 @@ function WalletPage() {
         }
 
         return (
-            <div className="container-registration">
+            <div >
+            
                 <Form
                     name="wallet"
                     className="wallet-form"
@@ -72,7 +73,7 @@ function WalletPage() {
                     <br/>
                     <br/>
                     <Form.Item>
-                        <Button className="button" type="default" onClick={handleSend}>Update</Button>
+                        <Button className="button" type="primary" onClick={handleSend}>Update</Button>
                     </Form.Item>
                 </Form>
             </ div>
@@ -80,7 +81,7 @@ function WalletPage() {
     }
 
     return (
-        <div className="container">
+        <div className="container-registration">
             <h2 >Wallet</h2>
             {
                 walletAmount !== null ?

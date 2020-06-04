@@ -39,12 +39,11 @@ function BugReportForm() {
         <Form.Item
           label="Description of the Bug:"
           name="description"
-          rules={[{ required: true, message: 'Please insert a Description of the Bug!' }]}
         >
       <TextArea rows={4} type="text" name="text" maxLength={5000} autoSize={{ minRows: 4, maxRows: 6 }} placeholder="Explain the problem" onChange={(e) => setbugReport({ ...bugReport, text: e.target.value })} />
       </Form.Item>
         <Form.Item>
-          <Button className="button" type="default" onClick={handleSubmit}>Create Bug</Button>
+          <Button className="button" type="primary" onClick={handleSubmit}>Create Bug</Button>
         </Form.Item>
       </Form>
     </div>

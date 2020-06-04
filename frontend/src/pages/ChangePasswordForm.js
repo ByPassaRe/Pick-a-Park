@@ -58,13 +58,12 @@ function ChangePasswordForm() {
       <Form.Item
         label="Confirm New Password"
         name="ConfirmNewPassword"
-        dependencies={['newPassword']}
 
       >
       <Input type="password" name="confirmNewPassword" onChange={(e) => setData({...data, confirmNewPassword: e.target.value})}/>
       </Form.Item>     
       <Form.Item>  
-        <Button className="button" type="default" onClick ={handleSubmit}>Change Password</Button>
+        <Button className="button" type="primary" onClick ={handleSubmit}>Change Password</Button>
         </Form.Item> 
         </Form>
     </div>
