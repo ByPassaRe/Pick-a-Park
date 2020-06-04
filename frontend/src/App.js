@@ -4,9 +4,7 @@ import LoginForm from './pages/LoginForm';
 import LogoutButton from './pages/LogoutButton';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import ProfilePage from './pages/ProfilePage';
-import BugReportForm from './pages/BugReportForm';
-import WalletPage from './pages/WalletPage';
-import MapPage from './pages/WalletPage';
+
 
 import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
@@ -24,6 +22,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.login = this.login.bind(this);
   }
+
 
   componentDidMount() {
     if (localStorageService.getAccessToken())
@@ -55,6 +54,7 @@ class App extends Component {
               (<h1 align="center">This is Pick-A-Park </h1> )
             }
           </nav>
+          
 
           <Switch>
             <Route exact path={"/login"}>

@@ -66,7 +66,7 @@ function LoginForm(prop) {
     <div className="container-login">
     <h2 >Login</h2>
     <Form
-      name="normal_login"
+      name="login"
       className="login-form"
       initialValues={{ remember: true }}
     >
