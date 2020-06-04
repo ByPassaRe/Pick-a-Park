@@ -1,0 +1,44 @@
+{
+  "name": "pick-a-park",
+  "version": "0.0.1",
+  "description": "Smart parking app for University of Camerino",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src",
+    "dev": "nodemon src",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest --runInBand ./tests/unit",
+    "test:integration": "jest --runInBand ./tests/integration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ByPassaRe/Pick-a-Park.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ByPassaRe/Pick-a-Park/issues"
+  },
+  "homepage": "https://github.com/ByPassaRe/Pick-a-Park#readme",
+  "dependencies": {
+    "argon2": "^0.26.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "geolib": "^3.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.25.3",
+    "mongoose": "^5.9.6",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "jest": "^25.2.4",
+    "mongodb-memory-server": "^6.5.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
