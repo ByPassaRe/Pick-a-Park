@@ -31,7 +31,7 @@ function BugReportForm() {
 
   return (
 
-    <div className="container">
+    <div className="container-registration">
       <h2 >Bug Report</h2>
       <Form
         name="bug-form"

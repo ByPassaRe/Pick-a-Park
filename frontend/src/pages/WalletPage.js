@@ -58,7 +58,7 @@ function WalletPage() {
         }
 
         return (
-            <>
+            <div className="container-registration">
                 <Form
                     name="wallet"
                     className="wallet-form"
@@ -75,7 +75,7 @@ function WalletPage() {
                         <Button className="button" type="default" onClick={handleSend}>Update</Button>
                     </Form.Item>
                 </Form>
-            </ >
+            </ div>
         )
     }
 
