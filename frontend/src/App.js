@@ -10,6 +10,8 @@ import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
 import { Divider } from 'antd';
 
+import logo from './image/logo.png';
+
 
 
 import './App.css';
@@ -51,17 +53,18 @@ class App extends Component {
             {(isLogged) ?
               (<LogoutButton logout={this.logout} />)
               :
-              (<h1 align="center">This is Pick-A-Park </h1> )
-            }
-          </nav>
-          
+              (<h1 align="center " style={{ color: '#247a85' }}>This is Pick-A-Park </h1>
+              )
 
+            }
+            <img className="image" src={logo} alt="Logo" />
+          </nav>
           <Switch>
             <Route exact path={"/login"}>
               <div className="container-app">
                 <LoginForm login={this.login} />
                 <Divider orientation="right">
-                  <Link to="/register"  style={{ color: '#247a85' }}>Register now!
+                  <Link to="/register" style={{ color: '#247a85' }}>Register now!
                 </Link>
                 </Divider>
               </div>
@@ -72,11 +75,6 @@ class App extends Component {
                 <UserCreationForm register={this.register} />
               </div>
             </Route>
-
-           
-            
-
-
             <PrivateRoute path="/">
               <ProfilePage />
             </PrivateRoute>
