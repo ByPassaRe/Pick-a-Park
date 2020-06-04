@@ -50,12 +50,12 @@ function ProfilePage() {
         case "PARKING_COMPANY":
             componentProfile =
                 <SubMenu key="sub2" icon={<FileOutlined style={{ color: '#247a85' }} />} title={<span style={{ color: '#247a85' }}>View</span>} >
-                    <Menu.Item key="3"> <Link to="/bugReport" /><span style={{ color: '#247a85' }}>BugReport</span></Menu.Item>
+                    <Menu.Item key="3"> <Link to="/" /><span style={{ color: '#247a85' }}>BugReport</span></Menu.Item>
                     <Menu.Item key="4"> <Link to="/setPrice" /><span style={{ color: '#247a85' }}>Set Price</span></Menu.Item>
                 </SubMenu>
             optionsProfile =
                 <div className="site-layout-background" style={{ padding: 20 }}>
-                    <Route path="/bugReport" component={BugReportParkingCompanyView} />
+                    <Route exact path="/" component={BugReportParkingCompanyView} />
                     <Route path="/setPrice" component={ParkingSpotsSetPriceView} />
                 </div>
 
@@ -123,11 +123,13 @@ function ProfilePage() {
                     <Header className="site-layout-background" style={{ padding: 0 }}>
                         <h2 style={{ textAlign: 'center', color: '#247a85' }} > Hi {username} you are a {role}</h2>
                     </Header>
-                    <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+                    <Content style={{ margin: '24px 16px 0', overflow: 'initial'  }}>
                         {optionsProfile}
                         {basicOptions}
                     </Content>
                 </Layout>
+                
+
             </Layout>
         </>
     )

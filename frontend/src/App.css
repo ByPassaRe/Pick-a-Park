@@ -10,12 +10,12 @@ body {
 
   #components-layout-demo-side  {
     height: 32px;
-    background: rgba(255, 255, 255, 0.2);
     margin: 16px;
   }
   
 .site-layout .site-layout-background {
     background: white;
+    padding: 0;
   }
 .container {
   height: auto; 
@@ -29,7 +29,7 @@ body {
   padding: 50px;
 }
 .container-app{
-  background-color:  #f4f4f4;
+  background-color: white;
   border-radius: 10px 10px 10px 10px;
   margin: auto;
   width: 60%;
@@ -46,8 +46,8 @@ body {
   background-color:  white;
 
 }
-.prices-container{
-  margin: 10px;
+.form-container{
+  margin: 25px;
   }
 .button{
   background-color:  #247a85;
@@ -66,5 +66,6 @@ body {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   }
+ 
 
 

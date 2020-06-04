@@ -141,7 +141,7 @@ const ParkingSpotListItem = (props) => {
 
     return (
         <OutsetDiv>
-            <div className="prices-container">
+            <div className="form-container">
             <Form
                 name="parkingSpot"
                 className="parkingSpot-form">
