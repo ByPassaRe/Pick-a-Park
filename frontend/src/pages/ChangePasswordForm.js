@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from "../services/axiosService";
-import { PageHeader, Button, Input } from 'antd';
+import { Form, Button, Input } from 'antd';
 import '../App.css';
 
 function ChangePasswordForm() {
@@ -37,23 +37,36 @@ function ChangePasswordForm() {
 
 
   return (
-    <div>
-       <PageHeader
-              className="site-page-header"
-              title="Change Password"
-            />
-      Actual Password:
+    <div className="container-registration">
+      <h2 >Change Password</h2>
+      <Form
+      name="changePassword"
+      className="changePass-form"
+    >
+     <Form.Item
+        label="Actual Password"
+        name="password"
+      >
       <Input type="password" name="actualPassword" onChange={(e) => setData({...data, actualPassword: e.target.value})}/>
-      <br />
-
-      New Password:
+      </Form.Item>
+      <Form.Item
+        label="New Password"
+        name="newPassword"
+      >
       <Input type="password" name="newPassword" onChange={(e) => setData({...data, newPassword: e.target.value})}/>
-      <br />
+      </Form.Item>
+      <Form.Item
+        label="Confirm New Password"
+        name="ConfirmNewPassword"
+        dependencies={['newPassword']}
 
-      Confirm new password:
+      >
       <Input type="password" name="confirmNewPassword" onChange={(e) => setData({...data, confirmNewPassword: e.target.value})}/>
-      <br />
-      <Button onClick ={handleSubmit}>Change Password</Button>
+      </Form.Item>     
+      <Form.Item>  
+        <Button className="button" type="default" onClick ={handleSubmit}>Change Password</Button>
+        </Form.Item> 
+        </Form>
     </div>
   );
 }
