@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
-import { Input, Select } from 'antd';
+import { Input, Select, Form, Button } from 'antd';
 
 import '../App.css';
 
-const OutsetDiv = styled.div`
-    border-style: outset;
-    margin: 50px;
-`;
 function IssueCreationForm() {
   const [issue, setIssue] = useState({});
   const [slot, setSlot] = useState([]);
@@ -55,32 +50,39 @@ function IssueCreationForm() {
   const handleSubmit = () =>
     (issue.text) ? handleCorrectData() : handleBadData();
 
-    const { Option } = Select;
+  const { TextArea } = Input;
+
 
 
   return (
 
     <div>
-      <h2>Create an issue:</h2>
-      <OutsetDiv>
-        <br />
-        Description:
-      <Input type="text" name="text" placeholder="insert the issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
-        <br />
-        Parking Spot:
-        <Select onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
-          <Option default>None</Option>
+      <h2>Create an issue</h2>
+      <br />
+      <Form.Item
+        label="Description:"
+        name="description">
+      </Form.Item>
+      <Form.Item>
+        <TextArea rows={4} maxLength={5000} autoSize={{ minRows: 4, maxRows: 6 }} placeholder="Insert a Description of the Issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} ></TextArea>
+      </Form.Item>
+      <Form.Item
+        label="Parking Spot:"
+        name="parkingSpot">
+        <Select style={{ verticalAlign: 'middle', width: 300 }} placeholder="Select a Parking Spot" >
+          <Select.Option default>None</Select.Option>
           {slot.map(item =>
-            <Option value={item} key={item}>{item}</Option>
+            <Select.Option key={item}>{item}</Select.Option>
           )}
         </Select>
-        <br />
-          <button onClick={handleSubmit}>Create Issue</button>
-          <br />
-      </OutsetDiv>
+      </Form.Item>
+      <Form.Item>
+        <Button className="button" type="default" onClick={handleSubmit}>Create Issue</Button>
+      </Form.Item>
+      <br />
     </div>
 
-      );
-    
-    }
+  );
+
+}
 export default IssueCreationForm;

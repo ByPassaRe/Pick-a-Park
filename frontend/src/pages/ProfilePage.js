@@ -15,7 +15,6 @@ import { Menu, Layout, Divider } from 'antd';
 import { FileOutlined, UserOutlined } from '@ant-design/icons';
 import '../App.css';
 import logo from '../image/logo.png';
-import LogoutButton from './LogoutButton';
 
 
 function ProfilePage() {
