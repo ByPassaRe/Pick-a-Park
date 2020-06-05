@@ -10,7 +10,6 @@ import { PrivateRoute } from './services/PrivateRoute';
 import localStorageService from "./services/LocalStorage";
 import { Divider } from 'antd';
 
-import logo from './image/logo.png';
 
 
 
@@ -48,7 +47,7 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <div>
+        <div className="container">
           <nav>
             {(isLogged) ?
               (<LogoutButton logout={this.logout} />)
@@ -57,7 +56,6 @@ class App extends Component {
               )
 
             }
-            <img className="image" src={logo} alt="Logo" />
           </nav>
           <Switch>
             <Route exact path={"/login"}>

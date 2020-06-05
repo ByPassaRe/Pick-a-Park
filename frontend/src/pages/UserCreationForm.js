@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router";
-import { Form, PageHeader, Button, Input } from 'antd';
+import { Form, PageHeader, Button, Input} from 'antd';
 import { UserOutlined, LockOutlined, FileOutlined } from '@ant-design/icons';
 
 import '../App.css';
+import logo from '../image/logo.png';
 
 function UserCreationForm() {
   let history = useHistory();
@@ -87,24 +88,26 @@ function UserCreationForm() {
     },
   };
 
+
   return (
+    <>
+    <img className="image" src={logo} alt="Logo" />
     <div className="container-registration">
+      <PageHeader
+        className="site-page-header"
+        title
+        onBack={() => history.goBack()}
+      />
       <Form
         {...formItemLayout}
         name="register"
       >
-
-        <PageHeader
-          className="site-page-header"
-          title
-          onBack={() => history.goBack()}
-        />
         <Form.Item
           name="username"
           label="Username"
           rules={[{
-              required: true,
-              message: 'Please input a Username!',
+            required: true,
+            message: 'Please input a Username!',
           }
           ]}
 
@@ -150,16 +153,14 @@ function UserCreationForm() {
             },
           ]}
         >
-
-          <Input type="text" name="email"  prefix={<FileOutlined className="site-form-item-icon" />} placeholder="E-mail"onChange={(e) => setUser({ ...user, email: e.target.value })} />
+          <Input type="text" name="email" prefix={<FileOutlined className="site-form-item-icon" />} placeholder="E-mail" onChange={(e) => setUser({ ...user, email: e.target.value })} />
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-        <Button className="button" type="default" onClick={handleSubmit}>Sign Up</Button>
+          <Button className="button" type="default" onClick={handleSubmit}>Sign Up</Button>
         </Form.Item>
-
-
       </Form>
     </div>
+    </>
 
   );
 }

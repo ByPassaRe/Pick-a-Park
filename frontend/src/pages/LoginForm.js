@@ -9,6 +9,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import '../App.css';
 
+import logo from '../image/logo.png';
 
 
 
@@ -63,7 +64,8 @@ function LoginForm(prop) {
 
 
   return (
-    <div className="container-login">
+    <>
+     <img className="image" src={logo} alt="Logo" />
     <h2 >Login</h2>
     <Form
       name="login"
@@ -88,7 +90,7 @@ function LoginForm(prop) {
         <Button className="button" type="default" onClick ={handleSubmit}>Sign In</Button>
         </Form.Item>
     </Form>
-    </div>
+    </>
     
   );
 }
