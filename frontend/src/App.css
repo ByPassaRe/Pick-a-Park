@@ -27,12 +27,13 @@ body {
   height: 300px; 
   position: relative;
   padding: 50px;
+
 }
 .container-app{
   background-color: white;
   border-radius: 10px 10px 10px 10px;
   margin: auto;
-  width: 50%;
+  width: 60%;
   padding: 0px;
   position: relative;
 

@@ -5,7 +5,6 @@ import { Form, PageHeader, Button, Input} from 'antd';
 import { UserOutlined, LockOutlined, FileOutlined } from '@ant-design/icons';
 
 import '../App.css';
-import logo from '../image/logo.png';
 
 function UserCreationForm() {
   let history = useHistory();
@@ -90,8 +89,6 @@ function UserCreationForm() {
 
 
   return (
-    <>
-    <img className="image" src={logo} alt="Logo" />
     <div className="container-registration">
       <PageHeader
         className="site-page-header"
@@ -160,7 +157,6 @@ function UserCreationForm() {
         </Form.Item>
       </Form>
     </div>
-    </>
 
   );
 }
