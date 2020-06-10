@@ -73,14 +73,12 @@ function LoginForm(prop) {
     <Form.Item
         label="Username"
         name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
       >
         <Input type="text"  name="username"  prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
         </Form.Item>
         <Form.Item
         label="Password"
         name="password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
       >
         <Input type="password" name="password" prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
         </Form.Item>

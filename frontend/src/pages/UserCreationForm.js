@@ -104,53 +104,24 @@ function UserCreationForm() {
         <Form.Item
           name="username"
           label="Username"
-          rules={[{
-            required: true,
-            message: 'Please input a Username!',
-          }
-          ]}
-
         >
           <Input type="text" name="username" prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => setUser({ ...user, username: e.target.value })} />
         </Form.Item>
         <Form.Item
           name="password"
           label="Password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input a Password!',
-            },
-          ]}
         >
           <Input type="password" name="password" prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" onChange={(e) => setUser({ ...user, password: e.target.value })} />
         </Form.Item>
         <Form.Item
           name="conf-password"
           label="Confirm Password"
-          dependencies={['password']}
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm the Password!',
-            },
-          ]}
         >
           <Input type="password" name="password" prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Confirm Password" onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} />
         </Form.Item>
         <Form.Item
           name="email"
           label="E-mail"
-          rules={[
-            {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
-            },
-            {
-              required: true,
-              message: 'Please input an E-mail!',
-            },
-          ]}
         >
           <Input type="text" name="email" prefix={<FileOutlined className="site-form-item-icon" />} placeholder="E-mail" onChange={(e) => setUser({ ...user, email: e.target.value })} />
         </Form.Item>
