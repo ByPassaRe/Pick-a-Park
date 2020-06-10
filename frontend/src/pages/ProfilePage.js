@@ -55,11 +55,15 @@ function ProfilePage() {
                 <SubMenu key="sub2" icon={<FileOutlined style={{ color: '#247a85' }} />} title={<span style={{ color: '#247a85' }}>View</span>} >
                     <Menu.Item key="3"> <Link to="/" /><span style={{ color: '#247a85' }}>BugReport</span></Menu.Item>
                     <Menu.Item key="4"> <Link to="/setPrice" /><span style={{ color: '#247a85' }}>Set Price</span></Menu.Item>
+                    <Menu.Item key="5"> <Link to="/payList" /><span style={{ color: '#247a85' }}>Payment</span></Menu.Item>
+                    <Menu.Item key="6"> <Link to="/payChar" /><span style={{ color: '#247a85' }}>Chart</span></Menu.Item>
                 </SubMenu>
             optionsProfile =
                 <div className="site-layout-background" style={{ padding: 20 }}>
                     <Route exact path="/" component={BugReportParkingCompanyView} />
                     <Route path="/setPrice" component={ParkingSpotsSetPriceView} />
+                    <Route path="/payList" component={PaymentListView} />
+                    <Route path="/payChar" component={PaymentChartItem} />
                 </div>
             /*
                 TODO: Add to option profile
