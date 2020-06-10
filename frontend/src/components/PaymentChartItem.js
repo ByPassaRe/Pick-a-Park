@@ -46,7 +46,7 @@ function PaymentChartItem() {
           margin={{ top: 5, right: 30, left: 20, bottom: 5}}
         >
             <CartesianGrid strokeDasharray="3 3" />
-            {transactions.length > 0 && <Brush dataKey="name" stroke="#000000" />}
+            {transactions.length > 0 && <Brush dataKey="name" stroke="#247a85" />}
             <XAxis dataKey="name" />
             <YAxis 
               label={{ value: 'Earning cash', angle: -90, position: 'insideLeft' }} 
@@ -54,7 +54,7 @@ function PaymentChartItem() {
             />
             <Tooltip />
             <Legend />
-            <Bar dataKey="earning" fill="#000000" />
+            <Bar dataKey="earning" fill="#247a85" />
         </BarChart>
       </ResponsiveContainer>
     </>
