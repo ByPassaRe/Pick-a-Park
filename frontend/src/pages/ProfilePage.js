@@ -10,11 +10,15 @@ import BugReportForm from './BugReportForm';
 import BugReportParkingCompanyView from './BugReportParkingCompanyView';
 import IssueCreationForm from './IssueCreationForm';
 import IssueListView from './IssueListView';
+import PaymentListView from './PaymentListView';
 import WalletPage from './WalletPage';
 import { Menu, Layout, Divider } from 'antd';
 import { FileOutlined, UserOutlined } from '@ant-design/icons';
 import '../App.css';
 import logo from '../image/logo.png';
+import PaymentChartItem from '../components/PaymentChartItem';
+
+
 
 
 function ProfilePage() {
@@ -57,6 +61,12 @@ function ProfilePage() {
                     <Route exact path="/" component={BugReportParkingCompanyView} />
                     <Route path="/setPrice" component={ParkingSpotsSetPriceView} />
                 </div>
+            /*
+                TODO: Add to option profile
+                <PaymentListView />
+                <hr/>
+                <PaymentChartItem />
+            */
 
             break;
         case "MUNICIPALITY_EMPLOYEE":

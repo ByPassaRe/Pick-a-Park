@@ -16,7 +16,7 @@ class MapPage extends React.Component {
             <div>Getting the location data&hellip; </div>
         );
     }
-
+    
 }
 
-export default geolocated()(MapPage);
+export default geolocated({watchPosition: true})(MapPage);

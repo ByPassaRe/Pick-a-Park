@@ -26,7 +26,9 @@ function ChangePasswordForm() {
   }
 
   const handleSubmit = () => {
-       if(data.newPassword !== data.confirmNewPassword)
+    if(!data.newPassword || !data.confirmNewPassword || !data.actualPassword)
+      handleBadData("Missing data");
+    else if(data.newPassword !== data.confirmNewPassword)
       handleBadData("The two passwords are different");
     else if(data.newPassword.length < 8)
       handleBadData("The new password must have at least 8 characters");

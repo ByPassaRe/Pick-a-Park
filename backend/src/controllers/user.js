@@ -95,7 +95,8 @@ exports.chargeBalance = async (req, res) => {
       $inc: {
         balance: req.body.amount
       }
-    }
+    },
+    {new: true}
   ).exec();
 
   const transaction = new Transaction({
