@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import axios from "../services/axiosService";
+import { Form, Button, Input } from 'antd';
+import '../App.css';
 
 function ChangePasswordForm() {
   const [data, setData] = useState({});
@@ -37,22 +39,35 @@ function ChangePasswordForm() {
 
 
   return (
-    <div>
-      <h2>Change Password</h2>
-      Actual Password:
-      <input type="password" name="actualPassword" onChange={(e) => setData({...data, actualPassword: e.target.value})}/>
-      <br />
+    <div className="container-registration">
+      <h2 >Change Password</h2>
+      <Form
+      name="changePassword"
+      className="changePass-form"
+    >
+     <Form.Item
+        label="Actual Password"
+        name="password"
+      >
+      <Input type="password" name="actualPassword" onChange={(e) => setData({...data, actualPassword: e.target.value})}/>
+      </Form.Item>
+      <Form.Item
+        label="New Password"
+        name="newPassword"
+      >
+      <Input type="password" name="newPassword" onChange={(e) => setData({...data, newPassword: e.target.value})}/>
+      </Form.Item>
+      <Form.Item
+        label="Confirm New Password"
+        name="ConfirmNewPassword"
 
-      New Password:
-      <input type="password" name="newPassword" onChange={(e) => setData({...data, newPassword: e.target.value})}/>
-      <br />
-
-      Confirm new password:
-      <input type="password" name="confirmNewPassword" onChange={(e) => setData({...data, confirmNewPassword: e.target.value})}/>
-      <br />
-
-
-      <button onClick ={handleSubmit}>Change Password</button>
+      >
+      <Input type="password" name="confirmNewPassword" onChange={(e) => setData({...data, confirmNewPassword: e.target.value})}/>
+      </Form.Item>     
+      <Form.Item>  
+        <Button className="button" type="primary" onClick ={handleSubmit}>Change Password</Button>
+        </Form.Item> 
+        </Form>
     </div>
   );
 }

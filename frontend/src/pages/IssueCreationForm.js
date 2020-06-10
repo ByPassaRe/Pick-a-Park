@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
-const OutsetDiv = styled.div`
-    border-style: outset;
-    margin: 50px;
-`;
+import { Input, Select, Form, Button } from 'antd';
+
+import '../App.css';
+
 function IssueCreationForm() {
   const [issue, setIssue] = useState({});
   const [slot, setSlot] = useState([]);
@@ -33,49 +32,60 @@ function IssueCreationForm() {
       alert(err);
     }
   };
-/** 
-  const handleBadData = (err) => {
-    alert(err); 
+  /** 
+    const handleBadData = (err) => {
+      alert(err); 
+    }
+     const handleSubmit = () => {
+      if(!issue.text)
+        handleBadData('Insert a description of the issue');
+      else
+      handleCorrectData();
+    }
+    */
+  const handleBadData = () => {
+    alert('Insert a description of the issue');
   }
-   const handleSubmit = () => {
-    if(!issue.text)
-      handleBadData('Insert a description of the issue');
-    else
-    handleCorrectData();
-  }
-  */
- const handleBadData = () => {
-  alert('Insert a description of the issue');
-}
 
-const handleSubmit = () => 
- (issue.text) ?  handleCorrectData() : handleBadData();
+  const handleSubmit = () =>
+    (issue.text) ? handleCorrectData() : handleBadData();
+
+  const { TextArea } = Input;
+
 
 
   return (
-    
-    <div>
-      <h2>Create an issue:</h2>
-      <OutsetDiv>
-        <br/>
-      Description:
-      <input type="text" name="text" placeholder= "insert the issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} />
+
+    <div className="container-registration">
+      <h2>Create an issue</h2>
+      <Form
+        name="issue-form"
+        className="issue-form"
+      >
+      <Form.Item
+        label="Description of the Issue:"
+        name="description"
+        rules={[{ required: true, message: 'Please insert a Description of the Issue!' }]}
+        >
+        <TextArea rows={4} maxLength={5000} autoSize={{ minRows: 4, maxRows: 6 }} placeholder="Insert a Description of the Issue" onChange={(e) => setIssue({ ...issue, text: e.target.value })} ></TextArea>
+      </Form.Item>
+      <Form.Item
+        label="Parking Spot:"
+        name="parkingSpot">
+        <Select style={{ verticalAlign: 'middle', width: 300 }} placeholder="Select a Parking Spot"  onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
+          <Select.Option default>None</Select.Option>
+          {slot.map(item =>
+            <Select.Option value={item}key={item}>{item}</Select.Option>
+          )}
+        </Select>
+      </Form.Item>
+      <Form.Item>
+        <Button className="button" type="default" onClick={handleSubmit}>Create Issue</Button>
+      </Form.Item>
       <br />
-      Parking Spot:
-      <select id="dropdown" name="parkingSlot" onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })} >
-      <option default>None</option>
-        {slot.map(item =>
-          <option value={item} key={item} >
-            {item}
-          </option>
-        )}
-      </select>
-      <br/>
-      <button onClick={handleSubmit}>Create Issue</button>
-      <br />
-      </OutsetDiv>
+      </Form>
     </div>
-    
+
   );
 
 }

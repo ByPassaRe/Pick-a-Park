@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import {partialRight} from 'ramda';
+import { partialRight } from 'ramda';
 import axios from "../services/axiosService";
+import { Form, Button, Input } from 'antd';
+import '../App.css';
 
 function ParkingSpotCreationForm() {
   const [location, setLocation] = useState({});
@@ -23,21 +25,34 @@ function ParkingSpotCreationForm() {
     alert('Invalid coordinates');
   }
 
-  const handleSubmit = () => 
-    isLocationValidPosition(location) ?  handleCorrectData() : handleBadData();
+  const handleSubmit = () =>
+    isLocationValidPosition(location) ? handleCorrectData() : handleBadData();
 
   return (
-    <>
-      Latitude:
-      <input type="text"  name="latitude" onChange={(e) => setLocation({...location, latitude: e.target.value})} />
-      <br />
-
-      Longitude:
-      <input type="text" name="longitude" onChange={(e) => setLocation({...location, longitude: e.target.value})} />
-      <br />
-
-      <button onClick={handleSubmit}>Create Parking Spot</button>
-    </>
+    <div className="container-registration">
+      <h2 >Create a Parking Spot</h2>
+      <br/>
+      <Form
+        name="ParkingSpot"
+        className="spot-form"
+      >
+        <Form.Item
+          name="latitude"
+          label="Latitude:"
+        >
+          <Input style={{ verticalAlign: 'middle', width: 255 }} type="number" name="latitude" onChange={(e) => setLocation({ ...location, latitude: e.target.value })} />
+        </Form.Item>
+        <Form.Item
+          name="longitude"
+          label="Longitude:"
+        >
+          <Input  style={{ verticalAlign: 'middle', width: 244 }} type="number" name="longitude" onChange={(e) => setLocation({ ...location, longitude: e.target.value })} />
+        </Form.Item>
+        <Form.Item>
+          <Button className="button" type="primary" onClick={handleSubmit}>Create Parking Spot</Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 }
 

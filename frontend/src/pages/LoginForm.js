@@ -1,8 +1,15 @@
 import React, {useState} from 'react';
+
 import axios from 'axios';
 import { useHistory } from "react-router";
 import { jwtDecode } from 'jwt-js-decode';
 import localStorageService from "../services/LocalStorage";
+import { Form, Button, Input } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
+import '../App.css';
+
+
 
 
 function LoginForm(prop) {
@@ -56,18 +63,32 @@ function LoginForm(prop) {
 
 
   return (
-      <div>
-        <h3>Login</h3>
-        Username:
-        <input type="text"  name="username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
-        <br />
-
-        Password:
-        <input type="password" name="password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
-        <br />
-
-        <button onClick ={handleSubmit}>Sign In</button>
-      </div>
+    <div className="container-login">
+    <h2 >Login</h2>
+    <Form
+      name="login"
+      className="login-form"
+      initialValues={{ remember: true }}
+    >
+    <Form.Item
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your Username!' }]}
+      >
+        <Input type="text"  name="username"  prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => setCredential({...credential, username: e.target.value})}/>
+        </Form.Item>
+        <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your Password!' }]}
+      >
+        <Input type="password" name="password" prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password" onChange={(e) => setCredential({...credential, password: e.target.value})}/>
+        </Form.Item>
+        <Form.Item>  
+        <Button className="button" type="default" onClick ={handleSubmit}>Sign In</Button>
+        </Form.Item>
+    </Form>
+    </div>
     
   );
 }

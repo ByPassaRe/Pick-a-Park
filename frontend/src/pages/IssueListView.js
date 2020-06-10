@@ -31,7 +31,7 @@ function IssueListView(){
     const renderIssue = (issue) => <IssueListItem key={issue._id} verify ={verify} issue = {issue}/>
     return(
         <>
-        <h2>Issues:</h2>
+        <h2>Issues</h2>
         {issues ?
         issues.map(renderIssue):
         <p>{statusMessage}</p>}

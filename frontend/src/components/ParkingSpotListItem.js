@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from './../services/axiosService';
 //import axios from 'axios';
+import { Input, Button, Form } from 'antd';
+import '../App.css';
 
 const OutsetDiv = styled.div`
     border-style: outset;
-    margin: 20px;
+    margin: 45px;
+    box-shadow: 10px 10px 5px #dce8ea;
+
 `;
 
 const ActivatedStatus = styled.p`
@@ -32,7 +36,7 @@ const PriceSetter = (props) => {
 
     const handleChange = (e) => {
         console.log(e.target.value);
-        if(e.target.value < 0) {
+        if (e.target.value < 0) {
             alert("Price can't be negative!")
             setNewPrice(price);
             return;
@@ -41,10 +45,22 @@ const PriceSetter = (props) => {
     }
 
     return (
-    <>
-        <p>Price: {price}</p>
-        Set new price: <input type="number" min="0" step="any" value={newPrice} onChange={handleChange}/> <button onClick={handleSend}>Update</button>
-    </>
+        <>
+            <Form.Item
+                label="Price:"
+                name="price">
+                <strong> {price}</strong>
+            </Form.Item>
+            <Form.Item
+                label="Set new price:"
+                name="newPrice">
+                <Input type="number" style={{ verticalAlign: 'middle', width: 65 }} min={0} value={newPrice} onChange={handleChange} />
+            </Form.Item>
+
+            <Form.Item>
+                <Button className="button" type="primary" onClick={handleSend}>Update</Button>
+            </Form.Item>
+        </>
     )
 }
 
@@ -63,14 +79,15 @@ const Activator = (props) => {
 
     return (
         <>
-            <ActivatedStatus activated={activated}>Activated: {activated.toString()}</ActivatedStatus>
-            {activated ? null: <button onClick={handleActivate}>Make Available</button>}
+            <strong><ActivatedStatus activated={activated}>Activated: {activated.toString()}</ActivatedStatus></strong>
+            {activated ? null : <Button type="primary" onClick={handleActivate}>Make Available</Button>}
+
         </>
     );
 }
 
 const Deleter = (props) => {
-    
+
     const [confirmation, setConfirmation] = useState(false);
 
     const submit = async () => {
@@ -86,15 +103,16 @@ const Deleter = (props) => {
 
     return (
         <>
-        {
-            !confirmation ? <button onClick={() => setConfirmation(true)}>Delete</button> : (
-                <>
-                <p>Are you sure ?</p>
-                <button onClick={submit}>Yes</button>
-                <button onClick={() => setConfirmation(false)}>No</button>
-                </>
-            )
-        }
+            {
+                !confirmation ? <Button type="primary" danger onClick={() => setConfirmation(true)}>Delete</Button> : (
+                    <>
+                        <p><strong>Are you sure ?</strong></p>
+                        <Button type="default" success onClick={submit}>Yes</Button>
+                        &nbsp;
+                        <Button type="primary" danger onClick={() => setConfirmation(false)}>No</Button>
+                    </>
+                )
+            }
         </>
     );
 };
@@ -106,10 +124,10 @@ const ParkingSpotListItem = (props) => {
     const [confirmation, setConfirmation] = useState(false);
 
     const handleChange = (e) => {
-        if(e.target.name === "latitude" || e.target.name === "longitude") {
-            const newLocation = {...newParkingSpotData.location}
+        if (e.target.name === "latitude" || e.target.name === "longitude") {
+            const newLocation = { ...newParkingSpotData.location }
             newLocation[e.target.name] = e.target.value;
-            setNewParkingSpotData({...newParkingSpotData, location: newLocation});
+            setNewParkingSpotData({ ...newParkingSpotData, location: newLocation });
         }
     }
 
@@ -122,35 +140,60 @@ const ParkingSpotListItem = (props) => {
             alert("Invalid input data");
         }
     };
- 
+
     return (
         <OutsetDiv>
-            <p>Id: {props.parkingSpot._id}</p>
-            {editView ? (
-                <>
-                    <p>Latitude: <input name="latitude" type="number" min="0" step="any" value={newParkingSpotData.location.latitude} onChange={handleChange}/></p>
-                    <p>Longitude: <input name="longitude" type="number" min="0" step="any" value={newParkingSpotData.location.longitude} onChange={handleChange}/></p>
-                    {
-                        !confirmation ? <button onClick={() => setConfirmation(true)}>Apply changes</button> : (
+            <div className="form-container">
+                <Form
+                    name="parkingSpot"
+                    className="parkingSpot-form">
+                    <Form.Item
+                        label="Id:"
+                        name="id"
+                    ><strong>{props.parkingSpot._id}</strong>
+                    </Form.Item>
+                    {editView ? (
+                        <> <Form.Item
+                            label="Latitude:"
+                            name="latitude">
+                            <Input style={{ verticalAlign: 'middle', width: 255 }} name="latitude" type="number" min="0" step="any" value={newParkingSpotData.location.latitude} onChange={handleChange} />
+                        </Form.Item>
+                            <Form.Item
+                                label="Longitude:"
+                                name="longitude">
+                                <Input style={{ verticalAlign: 'middle', width: 244 }} name="longitude" type="number" min="0" step="any" value={newParkingSpotData.location.longitude} onChange={handleChange} />
+                            </Form.Item>
+                            {
+                                !confirmation ? <Button className="button" type="primary" onClick={() => setConfirmation(true)}>Apply changes</Button> : (
+                                    <>
+                                        <p><strong>Are you sure ?</strong></p>
+                                        <Button type="default" success onClick={handleChangeSubmit}>Yes</Button>
+                                        &nbsp;
+
+                                    <Button type="primary" danger onClick={() => setConfirmation(false)}>No</Button>
+                                    </>
+                                )
+                            }
+                        </>
+                    ) : (
                             <>
-                            <p>Are you sure ?</p>
-                            <button onClick={handleChangeSubmit}>Yes</button>
-                            <button onClick={() => setConfirmation(false)}>No</button>
-                            </>
-                        )
+                                <Form.Item
+                                    label="Latitude:"
+                                    name="latitude">{parkingSpotData.location.latitude}</Form.Item>
+                                <Form.Item
+                                    label="Longitude:"
+                                    name="longitude">{parkingSpotData.location.longitude}</Form.Item>
+                            </>)
                     }
-                </>
-            ) : (
-                <>
-                    <p>Latitude: {parkingSpotData.location.latitude}</p>
-                    <p>Longitude: {parkingSpotData.location.longitude}</p>
-                </>)
-            }
-            {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
-            {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot}/>:null}
-            {props.deleter ? <Deleter deleteHandler={props.deleteHandler} id={props.parkingSpot._id}>Can be Deleted</Deleter> : null}
-            {props.modifier ? <button onClick={() => setEditView(!editView)}>Toggle edit mode</button>: null}
-        </OutsetDiv>
+                    {props.activator ? <Activator parkingSpot={props.parkingSpot} /> : null}
+                    {props.priceSetter ? <PriceSetter parkingSpot={props.parkingSpot} /> : null}
+                    {props.deleter ? <Deleter deleteHandler={props.deleteHandler} id={props.parkingSpot._id}>Can be Deleted</Deleter> : null}
+                    <br />
+                    <br />
+                    {props.modifier ? <Button className="button" type="primary" onClick={() => setEditView(!editView)}>Toggle edit mode</Button> : null}
+                </Form>
+            </div>
+        </OutsetDiv >
     );
 }
 

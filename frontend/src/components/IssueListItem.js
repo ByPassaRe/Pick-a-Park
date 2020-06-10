@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import { Button , Form} from 'antd';
+import '../App.css';
 const OutsetDiv = styled.div`
     border-style: outset;
-    margin: 20px;
+    margin: 45px;
+    box-shadow: 10px 10px 5px #dce8ea;
+
 `;
 
 const IssueResolution = (props) => {
@@ -23,14 +26,14 @@ const IssueResolution = (props) => {
     
     return (
         <>
-            <button onClick={handleSend}><font color="red">Solve</font></button>
+            <Button type="primary" danger onClick={handleSend}><font color="white"><strong>Solve</strong></font></Button>
         </>
     )
 }
 const SolvedIssue = () => {
     return (
         <>
-            <p><font color="green">Solved!</font></p>
+            <p><strong><font color="green">Solved!</font></strong></p>
         </>
     )
 };
@@ -41,11 +44,29 @@ const IssueListItem = (props) => {
 
     return (
         <OutsetDiv>
-            <p>Id: {props.issue._id}</p>
-            <p>Description: {props.issue.text}</p>
-            <p>Parking Spot: {props.issue.parkingSpot}</p>
-            {(props.issue.solved === false) ? <IssueResolution id={props.issue._id} verify={props.verify} solved={props.issue.solved}  issue={props.issue}  /> : <SolvedIssue />}
+             <div className="form-container">
+             <Form
+                name="Issue"
+                className="issue-form">
+                <Form.Item
+                    label="Id:"
+                    name="id">
+                   <strong>{props.issue._id}</strong> 
+                </Form.Item>
+                <Form.Item
+                    label="Description of the Issue:"
+                    name="description"> 
+                    <strong>{props.issue.text}</strong>
+                </Form.Item>
+                <Form.Item
+                    label="Parking Spot:"
+                    name="parking spot"> 
+                    <strong>{props.issue.parkingSpot}</strong>
+                </Form.Item>
+                {(props.issue.solved === false) ? <IssueResolution id={props.issue._id} verify={props.verify} solved={props.issue.solved}  issue={props.issue}  /> : <SolvedIssue />}
 
+            </Form>
+            </div>
         </OutsetDiv>
     );
 }

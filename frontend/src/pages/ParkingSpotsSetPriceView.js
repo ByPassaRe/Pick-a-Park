@@ -28,7 +28,7 @@ function ParkingSpotsSetPriceView() {
 
     return (
         <>
-        <h2>Parking Spots prices:</h2>
+        <h2>Parking Spots prices</h2>
         { parkingSpots ? 
             parkingSpots.map( renderParkingSpotWithSetPrice ) : 
             <p>{statusMessage}</p> }

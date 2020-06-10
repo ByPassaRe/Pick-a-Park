@@ -1,1 +1,80 @@
 @import '~antd/dist/antd.css';
+
+body {
+    background-color:  white;
+    color: black;
+    padding: 40px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: left;
+  }
+
+  #components-layout-demo-side  {
+    height: 32px;
+    margin: 16px;
+  }
+  
+.site-layout .site-layout-background {
+    background: white;
+    padding: 0;
+  }
+.container {
+  height: auto; 
+  width: auto; 
+  position: relative;
+
+  }
+.container-login{
+  height: 300px; 
+  position: relative;
+  padding: 50px;
+
+}
+.container-app{
+  background-color: white;
+  border-radius: 10px 10px 10px 10px;
+  margin: auto;
+  width: 60%;
+  padding: 0px;
+  position: relative;
+
+}
+.container-registration{
+  height: 80%; 
+  width: 80%; 
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color:  white;
+
+}
+
+.form-container{
+  margin: 25px;
+  }
+.button{
+  background-color:  #247a85;
+  color: white;
+
+}
+.logo-img{
+  max-width:45px;
+  max-height:45px;
+}
+.image{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;  
+  max-width:150px;
+  max-height:150px;
+}
+
+.center {
+  position: absolute;
+  top: auto;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  }
+ 
+
+

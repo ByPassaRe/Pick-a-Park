@@ -23,7 +23,7 @@ function BugReportCompanyView(){
     const renderBug = (bugReport) => <BugReportListItem key={bugReport._id}  bugReport = {bugReport}/>
     return(
         <>
-        <h2>Bug:</h2>
+        <h2>Bug Report</h2>
         {bugReports ?
         bugReports.map(renderBug):
         <p>{statusMessage}</p>}
