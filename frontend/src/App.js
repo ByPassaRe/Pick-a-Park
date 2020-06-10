@@ -53,11 +53,10 @@ class App extends Component {
             {(isLogged) ?
               (<LogoutButton logout={this.logout} />)
               :
-              (<h1  align="center" style={{  color: '#247a85' }}><strong></strong>This is Pick-A-Park<img className="image" src={logo} alt="Logo" /> </h1>
-          
-              )
+              (<h1  align="center" style={{  color: '#247a85' }}><strong>This is Pick-A-Park</strong>  <img className="image" src={logo} alt="Logo" /></h1>)
 
             }
+           
           </nav>
           <Switch>
             <Route exact path={"/login"}>
