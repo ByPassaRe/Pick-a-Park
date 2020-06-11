@@ -9,6 +9,7 @@ REST API of Pick a Park project for Software Project Management exam's project o
 ## Requirements
 - nodejs
 - npm
+- mongodb
 
 ## Running the app
 
