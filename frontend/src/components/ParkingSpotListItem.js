@@ -158,12 +158,12 @@ const ParkingSpotListItem = (props) => {
                         <> <Form.Item
                             label="Latitude:"
                             name="latitude">
-                            <Input style={{ verticalAlign: 'middle', width: 255 }} name="latitude" type="number" min="0" step="any" value={newParkingSpotData.location.latitude} onChange={handleChange} />
+                            <Input style={{ verticalAlign: 'middle', width: 255 }} name="latitude" type="number" min="0" step="any" defaultValue={newParkingSpotData.location.latitude} onChange={handleChange} />
                         </Form.Item>
                             <Form.Item
                                 label="Longitude:"
                                 name="longitude">
-                                <Input style={{ verticalAlign: 'middle', width: 244 }} name="longitude" type="number" min="0" step="any" value={newParkingSpotData.location.longitude} onChange={handleChange} />
+                                <Input style={{ verticalAlign: 'middle', width: 244 }} name="longitude" type="number" min="0" step="any" defaultValue={newParkingSpotData.location.longitude} onChange={handleChange} />
                             </Form.Item>
                             {
                                 !confirmation ? <Button className="button" type="primary" onClick={() => setConfirmation(true)}>Apply changes</Button> : (
