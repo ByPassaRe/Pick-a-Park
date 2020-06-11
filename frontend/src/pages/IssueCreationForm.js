@@ -73,10 +73,10 @@ function IssueCreationForm() {
       <Form.Item
         label="Parking Spot:"
         name="parkingSpot">
-        <Select style={{ verticalAlign: 'middle', width: 300 }} placeholder="Select a Parking Spot"  onChange={(e) => setIssue({ ...issue, parkingSpot: e.target.value })}>
+        <Select style={{ verticalAlign: 'middle', width: 300 }} placeholder="Select a Parking Spot"  onChange={(e) => setIssue({ ...issue, parkingSpot: e })}>
           <Select.Option default>None</Select.Option>
           {slot.map(item =>
-            <Select.Option value={item}key={item}>{item}</Select.Option>
+            <Select.Option value={item} key={item}>{item}</Select.Option>
           )}
         </Select>
       </Form.Item>
