@@ -30,7 +30,7 @@ function ProfilePage() {
     let basicComponents = null;
     let basicOptions = null;
     const { SubMenu } = Menu;
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content, Sider } = Layout;
 
 
     switch (role) {
@@ -126,7 +126,7 @@ function ProfilePage() {
             >
                 <Sider theme="light" collapsible >
                     <Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
-                        <Menu.Item icon={<img className="logo-img" src={logo} />}><span style={{ color: '#247a85' }}><strong> Pick A Park</strong></span></Menu.Item>
+                        <Menu.Item icon={<img alt="" className="logo-img" src={logo} />}><span style={{ color: '#247a85' }}><strong> Pick A Park</strong></span></Menu.Item>
                         <Divider></Divider>
                         {basicComponents}
                         {componentProfile}

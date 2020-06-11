@@ -3,6 +3,7 @@ import { partialRight } from 'ramda';
 import axios from "../services/axiosService";
 import { Form, Button, Input } from 'antd';
 import '../App.css';
+import Swal from 'sweetalert2'
 
 function ParkingSpotCreationForm() {
   const [location, setLocation] = useState({});
@@ -15,14 +16,14 @@ function ParkingSpotCreationForm() {
   const handleCorrectData = async () => {
     try {
       const response = await axios.post('http://localhost:5000/parkingSpots', { location });
-      response.status === 200 ? alert('Parking Spot Created succesfully') : alert(response);
+      response.status === 200 ? Swal.fire('Parking Spot Created succesfully') : Swal.fire(response);
     } catch (err) {
-      alert(err);
+      Swal.fire(err);
     }
   };
 
   const handleBadData = () => {
-    alert('Invalid coordinates');
+    Swal.fire('Invalid coordinates');
   }
 
   const handleSubmit = () =>

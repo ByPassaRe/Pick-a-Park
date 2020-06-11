@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../services/axiosService";
-import { Input, Button, Form } from 'antd';
+import { Input, Form } from 'antd';
 import '../App.css';
 import { PayPalButton } from "react-paypal-button-v2";
+import Swal from 'sweetalert2'
 
 function WalletPage() {
     const [statusMessage, setStatusMessage] = useState(null);
@@ -27,7 +28,7 @@ function WalletPage() {
 
     const handleChange = (e) => {
         if(e.target.value < 0) {
-            alert("You can't delete cash!")
+            Swal.fire("You can't delete cash!")
             setAmountToAdd(0); 
             return;
         }
@@ -57,7 +58,7 @@ function WalletPage() {
                     amount: amountToAdd
                 });
             } catch (err) {
-                alert(err);
+                Swal.fire(err);
             }
 
             /*
@@ -66,10 +67,10 @@ function WalletPage() {
             */
             setWalletAmount(+walletAmount + +amountToAdd);
             setAmountToAdd(0);
-            alert("Transaction completed by " + details.payer.email_address);
+            Swal.fire("Transaction completed by " + details.payer.email_address);
         })
         .catch(()=>{
-            alert("Transaction error!");
+            Swal.fire("Transaction error!");
         });
     }
 
@@ -78,16 +79,32 @@ function WalletPage() {
             <h2>Wallet</h2>
             {
                 walletAmount !== null ? 
-                    <div>
-                        <h3 style={{ textAlign: 'center' }}>You have {walletAmount} €</h3>
-                        Set amount to add:
-                        <input type="number" min="0" step="any" value={amountToAdd} onChange={handleChange}/> 
-                        <PayPalButton
-                            createOrder={order}
-                            onApprove={approve}
-                        />
-                    </div>
-                    :
+                <>
+                    <Form
+                        name="issue-form"
+                        className="issue-form"
+                    >
+                        <Form.Item
+                            label="You have:"
+                            name="you-have"
+                        >
+                            <b>{walletAmount} €</b>
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Set amount to add:"
+                            name="amount-to-add"
+                        >
+                            <Input style={{ width: 200 }} type="number" min="0" step="any" value={amountToAdd} onChange={handleChange}/> 
+                        </Form.Item>
+                        
+                    </Form>
+                    <PayPalButton
+                        createOrder={order}
+                        onApprove={approve}
+                    />
+                </>
+                :
                     <p>{statusMessage}</p>
             }
         

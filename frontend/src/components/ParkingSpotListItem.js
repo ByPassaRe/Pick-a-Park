@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import axios from './../services/axiosService';
 //import axios from 'axios';
 import { Input, Button, Form } from 'antd';
+import Swal from 'sweetalert2'
+
 import '../App.css';
 
 const OutsetDiv = styled.div`
@@ -26,10 +28,10 @@ const PriceSetter = (props) => {
                 price: newPrice
             });
         } catch (err) {
-            alert(err);
+            Swal.fire(err);
         }
 
-        alert("New price set succesfully");
+        Swal.fire("New price set succesfully");
         setPrice(newPrice);
 
     }
@@ -37,7 +39,7 @@ const PriceSetter = (props) => {
     const handleChange = (e) => {
         console.log(e.target.value);
         if (e.target.value < 0) {
-            alert("Price can't be negative!")
+            Swal.fire("Price can't be negative!")
             setNewPrice(price);
             return;
         }
@@ -73,7 +75,7 @@ const Activator = (props) => {
             setActivated(true);
         } catch (err) {
             console.log(err.response)
-            alert(err)
+            Swal.fire(err)
         }
     };
 
@@ -94,7 +96,7 @@ const Deleter = (props) => {
         try {
             await axios.delete(`http://localhost:5000/parkingSpots/${props.id}`)
         } catch (err) {
-            alert('Error while processing delete request');
+            Swal.fire('Error while processing delete request');
             return;
         }
 
@@ -137,7 +139,7 @@ const ParkingSpotListItem = (props) => {
             setParkingSpotData(newParkingSpotData);
             setEditView(false);
         } catch (err) {
-            alert("Invalid input data");
+            Swal.fire("Invalid input data");
         }
     };
 

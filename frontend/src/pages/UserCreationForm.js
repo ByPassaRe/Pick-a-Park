@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory } from "react-router";
 import { Form, PageHeader, Button, Input} from 'antd';
 import { UserOutlined, LockOutlined, FileOutlined } from '@ant-design/icons';
-
+import Swal from 'sweetalert2';
 import '../App.css';
 
 function UserCreationForm() {
@@ -29,18 +29,18 @@ function UserCreationForm() {
         password: user.password
       });
       if (response.status === 200) {
-        alert('User Created succesfully')
+        Swal.fire('User Created succesfully')
         history.push("/public");
       }
       else
-        alert(response);
+        Swal.fire(response);
     } catch (err) {
-      alert(err);
+      Swal.fire(err);
     }
   };
 
   const handleBadData = (err) => {
-    alert(err);
+    Swal.fire(err);
   }
 
   const handleSubmit = () => {

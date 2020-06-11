@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import localStorageService from "../services/LocalStorage";
 import { Button } from 'antd';
 import '../App.css';
+import Swal from 'sweetalert2'
 
 function LogoutButton(prop) {
 
@@ -11,12 +12,12 @@ function LogoutButton(prop) {
   const handleSubmit = () => {
     if(localStorageService.getAccessToken()){
       localStorageService.clearToken();
-      alert("You are logged off!");
+      Swal.fire("You are logged off!");
       prop.logout();
       history.push("/login");
     }
     else
-      alert("You are not logged!");
+      Swal.fire("You are not logged!");
   }
 
 

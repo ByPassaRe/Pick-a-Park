@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-js-decode';
 import localStorageService from "../services/LocalStorage";
 import { Form, Button, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import Swal from 'sweetalert2'
 
 import '../App.css';
 
@@ -34,7 +35,7 @@ function LoginForm(prop) {
 
       if(response.status === 200){
         //All right!
-        alert(response.data.message)
+        Swal.fire(response.data.message)
         localStorageService.setToken(response.data.token);
         let jwtDecoded = jwtDecode(response.data.token);
         localStorage.setItem('role',jwtDecoded.payload.role);
@@ -44,12 +45,12 @@ function LoginForm(prop) {
         
       }
     } catch (error) {
-      alert(error.response.data.message)
+      Swal.fire(error.response.data.message)
     }
   };
 
   const handleBadData = (err) => {
-    alert(err); 
+    Swal.fire(err); 
   }
 
   const handleSubmit = () => {

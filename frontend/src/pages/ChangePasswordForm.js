@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from "../services/axiosService";
 import { Form, Button, Input } from 'antd';
 import '../App.css';
+import Swal from 'sweetalert2'
 
 function ChangePasswordForm() {
   const [data, setData] = useState({});
@@ -15,14 +16,14 @@ function ChangePasswordForm() {
         newPassword: data.newPassword
       });
       if(response.status === 200)
-        alert('Password changed!')
+        Swal.fire('Password changed!')
     } catch (err) {
-      alert(err.response.data.message);
+      Swal.fire(err.response.data.message);
     }
   };
 
   const handleBadData = (err) => {
-    alert(err);
+    Swal.fire(err);
   }
 
   const handleSubmit = () => {

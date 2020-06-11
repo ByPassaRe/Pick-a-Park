@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "../services/axiosService";
 import { Button, Input, Form } from 'antd';
+import Swal from 'sweetalert2'
 
 import '../App.css';
 
@@ -13,14 +14,14 @@ function BugReportForm() {
       const response = await axios.post('http://localhost:5000/bugReports', {
         text: bugReport.text
       })
-      response.status === 200 ? alert('BugReport succesfully Sent') : alert(response);
+      response.status === 200 ? Swal.fire('BugReport succesfully Sent') : Swal.fire(response);
     } catch (err) {
-      alert(err.response.data.message);
+      Swal.fire(err.response.data.message);
     }
   };
 
   const handleBadData = () => {
-    alert('Fill it!');
+    Swal.fire('Fill it!');
   }
 
   const handleSubmit = () =>

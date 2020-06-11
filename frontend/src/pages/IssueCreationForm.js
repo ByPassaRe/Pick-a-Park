@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Input, Select, Form, Button } from 'antd';
+import Swal from 'sweetalert2'
 
 import '../App.css';
 
@@ -27,14 +28,14 @@ function IssueCreationForm() {
         text: issue.text,
         parkingSpot: issue.parkingSpot
       })
-      response.status === 200 ? alert('Issue Created succesfully') : alert(response);
+      response.status === 200 ? Swal.fire('Issue Created succesfully') : Swal.fire(response);
     } catch (err) {
-      alert(err);
+      Swal.fire(err);
     }
   };
   /** 
     const handleBadData = (err) => {
-      alert(err); 
+      Swal.fire(err); 
     }
      const handleSubmit = () => {
       if(!issue.text)
@@ -44,7 +45,7 @@ function IssueCreationForm() {
     }
     */
   const handleBadData = () => {
-    alert('Insert a description of the issue');
+    Swal.fire('Insert a description of the issue');
   }
 
   const handleSubmit = () =>

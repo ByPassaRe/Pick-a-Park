@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { Button , Form} from 'antd';
+import Swal from 'sweetalert2'
 import '../App.css';
 const OutsetDiv = styled.div`
     border-style: outset;
@@ -16,10 +17,10 @@ const IssueResolution = (props) => {
             const response = await axios.post(`http://localhost:5000/issues/${props.id}`);
             console.log(response.data);
         } catch (err) {
-            alert(err);
+            Swal.fire(err);
         }
 
-        alert("Issue" + props.id + "updated");
+        Swal.fire("Issue" + props.id + "updated");
         props.verify();
     }
     

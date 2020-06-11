@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import axios from 'axios';
 import { getDistance } from 'geolib';
+import Swal from 'sweetalert2'
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
@@ -20,7 +21,7 @@ const PROXIMITY_THRESHOLD = 20;
 let parkingDestination = null;
 let prenotationId = null;
 let proximitySet = false;
-
+let isEnteredOnRoute = false;
 
 const findParkingSpot = async (lonDest, latDest) => {
   try {
@@ -34,7 +35,7 @@ const findParkingSpot = async (lonDest, latDest) => {
     return result.data.parkingSpot;
 
   } catch (err) {
-    alert("error retrieving parking spot");
+    Swal.fire("error retrieving parking spot");
   }
 }
 
@@ -47,7 +48,7 @@ const checkUserFund = async () => {
     return false
 
   } catch (error) {
-    alert("error retrieving user found");
+    Swal.fire("error retrieving user found");
   }
 };
 
@@ -114,21 +115,25 @@ class Map extends React.Component {
               console.log(prenotationId);
               break;
             case 400:
-              alert("Database error")
+              Swal.fire("Database error")
               break;
             default:
-              alert("Unexpected error");
+              Swal.fire("Unexpected error");
           }
         } catch (error) {
-          alert(error)
+          Swal.fire(error)
         }
 
+        isEnteredOnRoute = true;
       });
 
     });
   }
 
   componentDidUpdate() {
+    
+    if(!isEnteredOnRoute)
+      return
     coordinates = [this.props.longitude, this.props.latitude];
     const destination = [longitudeDest, latitudeDest];
 
