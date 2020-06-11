@@ -40,7 +40,7 @@ function PaymentChartItem() {
   const renderChart = () => 
       <>
         <h3>Total: {transactions.reduce((tot, arr) => { return tot + arr.amount},0).toFixed(2)+" $"}</h3>
-        <ResponsiveContainer aspect={4.0/3.0} width='100%'>
+        <ResponsiveContainer aspect={4.0/2.0} width='100%'>
         <BarChart
           data={prepareData(transactions)} 
           margin={{ top: 5, right: 30, left: 20, bottom: 5}}

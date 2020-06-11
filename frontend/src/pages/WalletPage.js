@@ -49,7 +49,7 @@ function WalletPage() {
     function approve(data, actions) {
         // Capture the funds from the transaction
         return actions.order.capture().then(async function(details) {
-            //If you click "Update" with 0€, It is to avoid an useless call to API
+            //If you click "Update" with 0$, It is to avoid an useless call to API
             if (amountToAdd === 0)
                 return
 
@@ -88,7 +88,7 @@ function WalletPage() {
                             label="You have:"
                             name="you-have"
                         >
-                            <b>{walletAmount} €</b>
+                            <b>{walletAmount} $</b>
                         </Form.Item>
 
                         <Form.Item
